@@ -10,20 +10,20 @@ The timeline is generated from a simple JSON file.
 For example, the timeline above was generated from the following input:
 ```
 {
-	"title": "Sample timeline",
-	"zoom": "200",
-	"layoutSteps": [180, 365],
+  "title": "Sample timeline",
+  "zoom": "200",
+  "layoutSteps": [180, 365],
   "theme": {
     "name": "gradient"
     ...boring list of colors...
   },
-	"tasks": [
-	    {
-	      "start": "2016-01-01",
-	      "end": "2016-01-10",
-	      "label": "Do I",
-	      "endTo": [2]
-	    },
+  "tasks": [
+    {
+      "start": "2016-01-01",
+      "end": "2016-01-10",
+      "label": "Do I",
+      "endTo": [2]
+    },
 		{
 			"start": "2016-02-12",
 			"end": "2016-02-13",
@@ -74,7 +74,7 @@ That done, install `draw2d`:
 $ go get -u github.com/llgcode/draw2d
 ```
 
-Now it's time to clone `github.com/gerald1248/timeline`. The folder structure below $GOPATH could look as follows:
+Now it's time to clone `github.com/gerald1248/timeline`. The folder structure below `$GOPATH` could look as follows:
 ```
 src
 └── github.com
