@@ -1,0 +1,28 @@
+{
+  "name": "timeline",
+  "version": "0.1.0",
+  "description": "timeline generator",
+  "main": "timeline.go",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/gerald1248/timeline.git"
+  },
+  "author": "gerald1248",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/gerald1248/timeline",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.7.4",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-util": "^3.0.7",
+    "gulp-zip": "^3.2.0",
+    "run-sequence": "^1.2.2",
+    "through2": "^2.0.1",
+    "yargs": "^4.4.0"
+  }
+}
