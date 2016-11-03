@@ -1,0 +1,46 @@
+{
+	"title": "Sample timeline",
+	"zoom": "200",
+	"layoutSteps": [180, 365],
+	"theme": {
+		"name": "gradient",
+		"borderColor1": [20, 20, 255],
+		"fillColor1": [100, 100, 255],
+		"borderColor2": [160, 160, 255],
+		"fillColor2": [240, 240, 255],
+		"contrastColor": [0, 0, 150],
+		"frameBorderColor": [255, 255, 255],
+		"frameFillColor": [150, 150, 150],
+		"canvasColor1": [200, 200, 200],
+		"canvasColor2": [240, 240, 240],
+		"canvasGridColor": [100, 100, 100]
+	},
+	"tasks": [
+	    {
+	      "start": "2016-01-01",
+	      "end": "2016-01-10",
+	      "label": "Do I",
+	      "endTo": [2]
+	    },
+		{
+			"start": "2016-02-12",
+			"end": "2016-02-13",
+			"label": "Dare",
+			"recur": "14"
+		},
+		{
+			"start": "2016-02-25",
+			"end": "2016-04-10",
+			"label": "Disturb",
+			"milestones": ["2016-02-25"],
+			"startTo": [1]
+		},
+		{
+			"start": "2016-04-01",
+			"end": "2016-05-03",
+			"label": "The universe?",
+	  		"milestones": ["2016-05-01"],
+	  		"dateStamps": ["2016-04-01", "2016-05-01"]
+		}
+	]
+}
