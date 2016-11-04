@@ -1,0 +1,42 @@
+{
+  "title": "Sample timeline",
+  "zoom": "200",
+  "layoutSteps": [180, 365],
+  "tasks": [
+    {
+      "start": "2012-01-01",
+      "end": "2012-12-31",
+      "milestones": ["2012-12-31"],
+      "label": "So much depends",
+      "endTo": [1]
+    },
+    {
+      "start": "2013-01-01",
+      "end": "2013-12-31",
+      "milestones": ["2013-12-31"],
+      "label": "Upon",
+      "endTo": [1]
+    },
+    {
+      "start": "2014-01-01",
+      "end": "2014-12-31",
+      "milestones": ["2014-12-31"],
+      "label": "A red wheel",
+      "endTo": [1]
+    },
+    {
+      "start": "2015-01-01",
+      "end": "2015-12-31",
+      "milestones": ["2015-12-31"],
+      "label": "Barrow",
+      "endTo": [1]
+    },
+    {
+      "start": "2016-01-01",
+      "end": "2016-12-31",
+      "milestones": ["2016-12-31"],
+      "dateStamps": ["2016-12-31"],
+      "label": "Glazed with rain"
+    }
+  ]
+}
