@@ -6,7 +6,7 @@ import (
 )
 
 func applyTheme(d *Data) {
-	if (d.ActiveTheme == nil) {
+	if d.ActiveTheme == nil {
 		return
 	}
 
@@ -58,16 +58,15 @@ func applyDuration(d *Data, borderColor1, fillColor1, borderColor2, fillColor2 c
 		}
 	}
 
-	points := 255
-	borderColors = calcGradient(d, borderColor1, borderColor2, points + 1)
-	fillColors = calcGradient(d, fillColor1, fillColor2, points + 1)
+	borderColors = calcGradient(d, borderColor1, borderColor2, 256)
+	fillColors = calcGradient(d, fillColor1, fillColor2, 256)
 
 	for index, task := range d.Tasks {
 		duration := durations[index]
-		colorIndex := int64(points) * duration/maxDuration
-    if (colorIndex < 0) {
-      continue
-    }
+		colorIndex := int64(255) * duration / maxDuration
+		if colorIndex < 0 {
+			continue
+		}
 		task.BorderColor = borderColors[colorIndex]
 		task.FillColor = fillColors[colorIndex]
 	}
@@ -76,19 +75,26 @@ func applyDuration(d *Data, borderColor1, fillColor1, borderColor2, fillColor2 c
 func applyGradient(d *Data, borderColor1, fillColor1, borderColor2, fillColor2 color.Color) {
 	var borderColors, fillColors []color.Color
 
-	borderColors = calcGradient(d, borderColor1, borderColor2, len(d.Tasks))
-	fillColors = calcGradient(d, fillColor1, fillColor2, len(d.Tasks))
+	borderColors = calcGradient(d, borderColor1, borderColor2, 256)
+	fillColors = calcGradient(d, fillColor1, fillColor2, 256)
 
+	length := len(d.Tasks)
 	for index, task := range d.Tasks {
-		task.BorderColor = borderColors[index]
-		task.FillColor = fillColors[index]
+		f := float64(index)/float64(length)
+		colorIndex := 255 * int(math.Floor(f + .5)) 
+		task.BorderColor = borderColors[colorIndex]
+		task.FillColor = fillColors[colorIndex]
 	}
 }
 
 func calcGradient(d *Data, color1, color2 color.Color, length int) []color.Color {
-
+	green := color.RGBA{0, 255, 0, 255}
+	red := color.RGBA{255, 0, 0, 255}
+	if color1 == green && color2 == red {
+		return calcGradientRAG(d, length)
+	}
 	colors := make([]color.Color, length, length)
-	
+
 	colors[0] = color1
 	colors[length-1] = color2
 
@@ -115,6 +121,13 @@ func calcGradient(d *Data, color1, color2 color.Color, length int) []color.Color
 	return colors
 }
 
+func calcGradientRAG(d *Data, length int) []color.Color {
+	gradient := calcGradient(d, color.RGBA{0, 255, 0, 255}, color.RGBA{255, 255, 0, 255}, length/2)
+	gradient2 := calcGradient(d, color.RGBA{255, 255, 0, 255}, color.RGBA{255, 0, 0, 255}, length/2)
+	gradient = append(gradient, gradient2...)
+	return gradient
+}
+
 func calcStep(v1, v2, length int) int {
 	v := v2 - v1
 	if v == 0 {
@@ -125,5 +138,5 @@ func calcStep(v1, v2, length int) int {
 		return v
 	}
 
-	return v/length
+	return v / length
 }
