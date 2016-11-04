@@ -4,9 +4,6 @@ timeline: generator for timelines and Gantt charts
 ![Sample timeline](data/sample.png?raw=true "Sample timeline")
 *Fig. 1* Sample timeline
 
-![Another sample timeline](data/sample_duration.png?raw=true "Another sample timeline")
-*Fig. 2* Another sample timeline (colors correspond to task duration)
-
 This is a tool for everyone fed up with dragging boxes, arrows and dotted lines across the screen.
 
 The timeline is generated from a simple JSON file.
@@ -52,6 +49,10 @@ For example, the timeline above was generated from the following input:
 }
 ```
 
+![Another sample timeline](data/sample_duration.png?raw=true "Another sample timeline")
+*Fig. 2* Another sample timeline (colors correspond to task duration)
+
+
 Where do I start?
 -----------------
 The best place to start is to create a timeline of your own.
@@ -70,7 +71,7 @@ The `startTo` and `endTo` properties convey arrow dependencies. For example...
 
 Build
 -----
-Install Go using one of the installers available from `https://golang.org/dl/` and set up your $GOPATH as you see fit.
+Install Go using one of the installers available from `https://golang.org/dl/` and set up your `$GOPATH` as you see fit.
 
 That done, install `draw2d`:
 
@@ -78,7 +79,7 @@ That done, install `draw2d`:
 $ go get -u github.com/llgcode/draw2d
 ```
 
-Now it's time to clone `github.com/gerald1248/timeline`. The folder structure below $GOPATH could look as follows:
+Now it's time to clone `github.com/gerald1248/timeline`. The folder structure below `$GOPATH` could look as follows:
 ```
 src
 └── github.com
