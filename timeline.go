@@ -6,7 +6,6 @@ import (
 	"github.com/llgcode/draw2d"
 	"image/color"
 	"io/ioutil"
-	"log"
 	"os"
 	"strings"
 	"time"
@@ -59,32 +58,34 @@ type Theme struct {
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Printf("Usage: ./timeline [JSON file]\n")
+		fmt.Printf("Usage: ./timeline <JSON file> [<JSON file>]\n")
 		os.Exit(0)
 	}
 
 	draw2d.SetFontFolder("./resource/font")
 
-	input := os.Args[1]
+	for _, input := range os.Args[1:] {
+		buffer, err := ioutil.ReadFile(input)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "can't read input file: %v\n", err)
+			os.Exit(1)
+		}
 
-	buffer, err := ioutil.ReadFile(input)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "can't read input file: %v\n", err)
-		return
+		var data Data
+		if err := json.Unmarshal(buffer, &data); err != nil {
+			fmt.Fprintf(os.Stderr, "JSON unmarshaling failed: %s", err)
+			os.Exit(1)
+		}
+
+		enrichData(&data)
+
+		errNo, errString := validateData(&data)
+		if errNo > 0 {
+			fmt.Fprintf(os.Stderr, errString)
+			os.Exit(1)
+		}
+
+		output := strings.Replace(input, ".json", ".png", -1)
+		drawScene(&data, output)
 	}
-
-	var data Data
-	if err := json.Unmarshal(buffer, &data); err != nil {
-		log.Fatalf("JSON unmarshaling failed: %s", err)
-	}
-
-	enrichData(&data)
-
-	errNo, errString := validateData(&data)
-	if errNo > 0 {
-		log.Fatal(errString)
-	}
-
-	output := strings.Replace(input, ".json", ".png", -1)
-	drawScene(&data, output)
 }

@@ -2,6 +2,10 @@ timeline: generator for timelines and Gantt charts
 ==================================================
 
 ![Sample timeline](data/sample.png?raw=true "Sample timeline")
+Fig. 1 Sample timeline
+
+![Another sample timeline](data/sample_duration.png?raw=true "Another sample timeline")
+Fig. 2 Another sample timeline (colors correspond to task duration)
 
 This is a tool for everyone fed up with dragging boxes, arrows and dotted lines across the screen.
 
@@ -14,8 +18,8 @@ For example, the timeline above was generated from the following input:
   "zoom": "200",
   "layoutSteps": [180, 365],
   "theme": {
-    "name": "gradient"
-    ...boring list of colors...
+    "name": "gradient",
+    ... 
   },
   "tasks": [
     {
@@ -24,27 +28,27 @@ For example, the timeline above was generated from the following input:
       "label": "Do I",
       "endTo": [2]
     },
-		{
-			"start": "2016-02-12",
-			"end": "2016-02-13",
-			"label": "Dare",
-			"recur": "14"
-		},
-		{
-			"start": "2016-02-25",
-			"end": "2016-04-10",
-			"label": "Disturb",
-			"milestones": ["2016-02-25"],
-			"startTo": [1]
-		},
-		{
-			"start": "2016-04-01",
-			"end": "2016-05-03",
-			"label": "The universe?",
-	  	"milestones": ["2016-05-01"],
-	  	"dateStamps": ["2016-04-01", "2016-05-01"]
-		}
-	]
+    {
+      "start": "2016-02-12",
+      "end": "2016-02-13",
+      "label": "Dare",
+      "recur": "14"
+    },
+    {
+      "start": "2016-02-25",
+      "end": "2016-04-10",
+      "label": "Disturb",
+      "milestones": ["2016-02-25"],
+      "startTo": [1]
+    },
+    {
+      "start": "2016-04-01",
+      "end": "2016-05-03",
+      "label": "The universe?",
+      "milestones": ["2016-05-01"],
+      "dateStamps": ["2016-04-01", "2016-05-01"]
+    }
+  ]
 }
 ```
 
@@ -74,7 +78,7 @@ That done, install `draw2d`:
 $ go get -u github.com/llgcode/draw2d
 ```
 
-Now it's time to clone `github.com/gerald1248/timeline`. The folder structure below `$GOPATH` could look as follows:
+Now it's time to clone `github.com/gerald1248/timeline`. The folder structure below $GOPATH could look as follows:
 ```
 src
 └── github.com
@@ -96,11 +100,12 @@ src
             └── gulpfile.js
 ```
 
-Next, it's worth installing `npm` and `gulp` as the default task...
+Next, it's worth installing Node.js and entering:
 ```
-$ gulp
+$ npm install gulp
+$ npm install
 ```
-...will compile `timeline` from source, run the tests (very sketchy for now, sorry!), check the source format and write out a distributable zip for your operating system. (Only tested on MacOS for now as it's very early days.)
+With that, the workspace is ready. The default task (triggered by `gulp`) compiles `timeline` from source, runs the tests (very sketchy for now, sorry!), checks the source format, generates a sample timeline and writes out a distributable zip for your operating system. (Only tested on MacOS as it's early days.)
 
 You can also run `gulp build`, `gulp test`, etc. individually if you wish.
 
