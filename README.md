@@ -2,10 +2,10 @@ timeline: generator for timelines and Gantt charts
 ==================================================
 
 ![Sample timeline](data/sample.png?raw=true "Sample timeline")
-Fig. 1 Sample timeline
+*Fig. 1* Sample timeline
 
 ![Another sample timeline](data/sample_duration.png?raw=true "Another sample timeline")
-Fig. 2 Another sample timeline (colors correspond to task duration)
+*Fig. 2* Another sample timeline (colors correspond to task duration)
 
 This is a tool for everyone fed up with dragging boxes, arrows and dotted lines across the screen.
 
@@ -94,10 +94,10 @@ src
             ├── data.go
             ├── data_test.go
             ├── dist
-            │   └── timeline-0.1.0.zip
+            │   └── timeline-0.1.0-darwin.zip
             ├── draw.go
-            ├── exclude -> /Users/tc/git/tc/documents/developers/src/timelines
-            └── gulpfile.js
+            ├── gulpfile.js
+            └── package.json
 ```
 
 Next, it's worth installing Node.js and entering:
