@@ -2,13 +2,13 @@ timeline: generator for timelines and Gantt charts
 ==================================================
 
 ![Sample timeline](data/sample.png?raw=true "Sample timeline")
-*Fig. 1* Sample timeline
+**Fig. 1** Sample timeline
 
 This is a tool for everyone fed up with dragging boxes, arrows and dotted lines across the screen.
 
 The timeline is generated from a simple JSON file.
 
-For example, the timeline above was generated from the following input:
+For example, the timeline in **Fig. 1** above was generated from the following input:
 ```
 {
   "title": "Sample timeline",
@@ -49,25 +49,37 @@ For example, the timeline above was generated from the following input:
 }
 ```
 
-![Another sample timeline](data/sample_duration.png?raw=true "Another sample timeline")
-*Fig. 2* Another sample timeline (colors correspond to task duration)
-
-
 Where do I start?
 -----------------
+![Another sample timeline](data/sample_duration.png?raw=true "Another sample timeline")
+**Fig. 2** Another sample timeline (colors indicate task duration)
 The best place to start is to create a timeline of your own.
 
-The input JSON begins with some preliminary housekeeping info. `zoom` could be set to 100% or 200%, for example, and the `theme` property currently take one of two forms: 'gradient' (the option used here) paints tasks starting with one color and gradually reaching a second; 'duration' uses the first color for the shortest duration and the second for the longest.
+The input JSON begins with some preliminary housekeeping info. `zoom` could be set to 100% or 200%, for example, and the `theme` currently takes one of two forms: 'gradient' (the option used here) paints tasks starting with one color and gradually reaching a second; 'duration' uses the first color for the shortest duration and the second for the longest.
 
 The JSON then defines each task to be visualized. Each task has to have a `start` and `end`. The `label` is shown to the left of the task and can be left blank. Each date string is formatted `yyyy-mm-dd`.
 
 Milestones and date stamps can be specified as an array formatted the same way. Milestones are shown as diamond shapes; date stamps are vertical lines with day and month printed below. For milestones with date stamps the two can be combined.
 
-The `startTo` and `endTo` properties convey arrow dependencies. For example...
+The `startTo` and `endTo` properties convey arrow dependencies. Take the following example:
 ```
 "endTo": [1, 2]
 ```
-...draws two arrows starting at the end of the task, one pointing to the next task and another to the task after that.
+This configuration draws two arrows starting at the end of the current task, one pointing to the next task and another to the task after that.
+
+Running `timeline`
+------------------
+![Unthemed sample timeline](data/sample_unthemed.png?raw=true "Unthemed sample timeline")
+**Fig. 3** Unthemed timeline
+
+If there is a *.zip for your operating system under `timeline/dist`, you can download the zip and enter:
+```
+$ ./timeline path/to/some/datafile.json
+```
+In this case, `timeline` will parse `path/to/some/datafile.json` and generate a PNG image `path/to/some/datafile.png` from it. Calling `timeline` without parameters will print the usage info:
+```
+Usage: ./timeline <JSON file> [<JSON file>]
+```
 
 Build
 -----
@@ -91,14 +103,19 @@ src
             ├── contributors.txt
             ├── data
             │   ├── sample.json
-            │   └── sample.png
+            │   ├── sample.png
+            │   ├── sample_duration.json
+            │   └── sample_duration.png
             ├── data.go
             ├── data_test.go
             ├── dist
             │   └── timeline-0.1.0-darwin.zip
             ├── draw.go
             ├── gulpfile.js
-            └── package.json
+            ├── package.json
+            ├── theme.go
+            ├── theme_test.go
+            └── timeline.go
 ```
 
 Next, it's worth installing Node.js and entering:
