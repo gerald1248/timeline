@@ -242,12 +242,12 @@ func drawCalendarRow(d *Data, gc *draw2dimg.GraphicContext, y float64, strokeCol
 
 func drawStripe(d *Data, gc *draw2dimg.GraphicContext, index int, y1, y2 float64) {
 	color := d.CanvasColor1
-	if (index % 2 != 0) {
+	if index%2 != 0 {
 		color = d.CanvasColor2
 	}
 
-	y1 -= d.RowH/2
-	y2 += d.RowH/2
+	y1 -= d.RowH / 2
+	y2 += d.RowH / 2
 
 	gc.Save()
 	gc.SetStrokeColor(color)
@@ -260,7 +260,7 @@ func drawStripe(d *Data, gc *draw2dimg.GraphicContext, index int, y1, y2 float64
 	gc.Close()
 	gc.FillStroke()
 	gc.Restore()
-} 
+}
 
 func drawScene(d *Data, path string) {
 	w, h, rowH := d.W, d.H, d.RowH
@@ -308,7 +308,7 @@ func drawScene(d *Data, path string) {
 		fnGuide = fnMonth
 	} else {
 		fnGuide = fnYear
-	}	
+	}
 
 	// increment y as needed
 	y = 0
@@ -347,10 +347,10 @@ func drawScene(d *Data, path string) {
 	}
 
 	// stripes
-	stripeY := y + 1.5 * rowH + 1.0
+	stripeY := y + 1.5*rowH + 1.0
 	for index, _ := range d.Tasks {
-		drawStripe(d, gc, index, stripeY, stripeY + d.RowH)
-		stripeY += rowH*2
+		drawStripe(d, gc, index, stripeY, stripeY+d.RowH)
+		stripeY += rowH * 2
 	}
 
 	// draw guides from calendar block onwards
@@ -359,7 +359,7 @@ func drawScene(d *Data, path string) {
 
 	gc.Restore()
 
-	y += d.RowH/2
+	y += d.RowH / 2
 
 	//iterate over tasks
 	for index, task := range d.Tasks {
@@ -526,7 +526,7 @@ func drawScene(d *Data, path string) {
 			}
 		}
 		gc.Restore()
-		y += d.RowH*2
+		y += d.RowH * 2
 	}
 
 	//crop dest

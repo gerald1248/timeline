@@ -5,10 +5,11 @@ var gulp  = require('gulp'),
     runSequence = require('run-sequence'),
     del = require('del'),
     argv = require('yargs').argv,
-    exec = require('child_process').exec;
+    exec = require('child_process').exec,
+    os = require('os');
 
 var pkg = require('./package.json');
-var gopath = '~/golang'
+var platform = os.platform()
 
 gulp.task('default', ['build', 'watch']);
 
@@ -52,12 +53,12 @@ gulp.task('package-fonts', function() {
 
 gulp.task('dist', function() {
   return gulp.src('./package/**/*', { base: './package' })
-    .pipe(zip(pkg.name + '-' + pkg.version + '.zip'))
+    .pipe(zip(pkg.name + '-' + pkg.version + '-' + platform + '.zip'))
     .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('build-sample', function(callback) {
-  exec('timeline data/sample.json', function(err, stdout, stderr) {
+  exec('timeline data/sample.json data/sample_duration.json', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     callback(err);
@@ -85,7 +86,7 @@ gulp.task('clean-home', function() {
 });
 
 gulp.task('clean-bin', function() {
-  return del.sync(['../../../../bin/timeline', './dist/**/*', './package/**/*'], { force: true });
+  return del.sync(['../../../../bin/timeline', './dist/' + pkg.name + '-' + pkg.version + '-' + platform + '.zip', './package/**/*'], { force: true });
 });
 
 gulp.task('watch', function() {
