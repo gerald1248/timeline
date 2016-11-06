@@ -4,15 +4,15 @@
   "layoutSteps": [180, 365],
   "theme": {
     "name": "gradient",
-    "borderColor1": [20, 20, 255],
+    "borderColor1": [60, 60, 255],
     "fillColor1": [100, 100, 255],
     "borderColor2": [160, 160, 255],
-    "fillColor2": [240, 240, 255],
+    "fillColor2": [200, 200, 255],
     "contrastColor": [0, 0, 150],
     "frameBorderColor": [255, 255, 255],
     "frameFillColor": [150, 150, 150],
-    "canvasColor1": [200, 200, 200],
-    "canvasColor2": [240, 240, 240],
+    "canvasColor1": [220, 220, 255],
+    "canvasColor2": [240, 240, 255],
     "canvasGridColor": [100, 100, 100]
   },
   "tasks": [
