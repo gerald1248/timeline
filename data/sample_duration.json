@@ -30,12 +30,12 @@
     },
     {
       "start": "2016-03-06",
-      "end": "2016-03-10",
+      "end": "2016-03-12",
       "label": "Of the"
     },
     {
       "start": "2016-03-06",
-      "end": "2016-03-12",
+      "end": "2016-03-19",
       "label": "Standing",
       "endTo": [1]
     },
@@ -44,7 +44,19 @@
       "end": "2016-05-05",
       "label": "Pool",
       "milestones": ["2016-05-05"],
-      "dateStamps": ["2016-05-05"]
+      "dateStamps": ["2016-05-05"],
+      "endTo": [1]
+    },
+    {
+      "start": "2016-05-20",
+      "end": "2016-05-28",
+      "label": "The prince of darkness",
+      "endTo": [1]
+    },
+    {
+      "start": "2016-06-13",
+      "end": "2016-06-28",
+      "label": "Is a gentleman"
     }
   ]
 }

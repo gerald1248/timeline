@@ -44,7 +44,8 @@ func validateData(d *Data) (int, string) {
 		return 1, s
 	}
 
-	if len(d.Tasks) == 0 {
+	length := len(d.Tasks)
+	if length == 0 {
 		s := fmt.Sprint("No tasks specified\n")
 		return 1, s
 	}
@@ -60,6 +61,19 @@ func validateData(d *Data) (int, string) {
 			s := fmt.Sprintf("Task #%d is incomplete: %s", index+1, task)
 			return 1, s
 		}
+
+		//start exp
+		if len(task.StartTo) > 0 || len(task.EndTo) > 0 {
+			a := task.StartTo
+			a = append(a, task.EndTo...)
+			for _, value := range a {
+				if index + value >= length {
+					s := fmt.Sprintf("Task #%d refers to a non-existent task: %s", index+1, task)
+					return 1, s
+				}
+			}
+		}
+		//end exp
 	}
 	return 0, ""
 }
