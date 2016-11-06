@@ -37,12 +37,12 @@ gulp.task('compile', function(callback) {
 });
 
 gulp.task('copy-binary', function() {
-  return gulp.src('./timeline')
+  return gulp.src(['./timeline', './timeline.exe'])
     .pipe(gulp.dest('../../../../bin'))
 });
 
 gulp.task('package-binary', function() {
-  return gulp.src('./timeline', { base: '.' })
+  return gulp.src(['./timeline', './timeline.exe'], { base: '.' })
     .pipe(gulp.dest('package'))
 });
 
@@ -82,7 +82,7 @@ gulp.task('check-fmt', function(callback) {
 });
 
 gulp.task('clean-home', function() {
-  return del.sync(['./timeline'], { force: true });
+  return del.sync(['./timeline', './timeline.exe'], { force: true });
 });
 
 gulp.task('clean-bin', function() {
