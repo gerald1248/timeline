@@ -56,13 +56,15 @@ Where do I start?
 
 The best place to start is to create a timeline of your own.
 
-The input JSON begins with some preliminary housekeeping info. `zoom` could be set to 100% or 200%, for example, and the `theme` currently takes one of two forms: 'gradient' (the option used here) paints tasks starting with one color and gradually reaching a second; 'duration' uses the first color for the shortest duration and the second for the longest. The field `layoutSteps` specifies two durations measured in days: first, the timeline duration from which weekdays should be hidden and then the duration from which weeks should be hidden as well.
+The input JSON begins with some preliminary housekeeping info. `zoom` could be set to 100% or 200%, for example.
 
-The JSON then defines each task to be visualized. Each task has to have a `start` and `end`. The `label` is shown to the left of the task and can be left blank. Each date string is formatted `yyyy-mm-dd`.
+The `theme` currently takes one of two forms: 'gradient' (the option used in Fig. 1) paints tasks starting with one color and gradually reaching a second; 'duration' (see Fig. 2) uses the first color for the shortest duration and the second for the longest. The field `layoutSteps` specifies two durations measured in days: first, the timeline duration from which weekdays should be hidden and then the duration from which weeks should be hidden as well.
+
+The JSON then defines each task to be visualized. Each task has to have a `start` and `end`. The `label` is optional and shown to the left if present. Each date string is formatted `yyyy-mm-dd`.
 
 Milestones and date stamps can be specified as an array formatted the same way. Milestones are shown as diamond shapes; date stamps are vertical lines with day and month printed below. For milestones with date stamps the two can be combined.
 
-The `startTo` and `endTo` properties convey arrow dependencies. Take the following example:
+The `startTo` and `endTo` properties describe arrow dependencies. Take the following example:
 ```
 "endTo": [1, 2]
 ```
@@ -75,7 +77,7 @@ Running `timeline`
 ![Unthemed sample timeline](data/sample_unthemed.png?raw=true "Unthemed sample timeline")
 **Fig. 3** Unthemed timeline
 
-If there is a *.zip for your operating system under `timeline/dist`, you can download the zip and enter:
+If there is a \*.zip for your operating system under `timeline/dist`, you can download the zip and enter:
 ```
 $ ./timeline path/to/some/datafile.json
 ```
@@ -94,7 +96,7 @@ That done, install `draw2d`:
 $ go get -u github.com/llgcode/draw2d
 ```
 
-Now it's time to clone `github.com/gerald1248/timeline`. The folder structure below `$GOPATH` could look as follows:
+Now it's time to clone `github.com/gerald1248/timeline`. The folder structure below `$GOPATH` should look as follows:
 ```
 src
 └── github.com
@@ -126,7 +128,7 @@ Next, it's worth installing Node.js and entering:
 $ npm install gulp
 $ npm install
 ```
-With that, the workspace is ready. The default task (triggered by `gulp`) compiles `timeline` from source, runs the tests (very sketchy for now, sorry!), checks the source format, generates a sample timeline and writes out a distributable zip for your operating system. (Only tested on MacOS as it's early days.)
+With that, the workspace is ready. The default task (triggered by `gulp`) compiles `timeline` from source, runs the tests (very sketchy for now, sorry!), checks the source format, generates a sample timeline and writes out a distributable zip for your operating system. (Only tested on MacOS and Windows as it's early days.)
 
 You can also run `gulp build`, `gulp test`, etc. individually if you wish.
 
