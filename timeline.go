@@ -14,6 +14,7 @@ import (
 type Data struct {
 	Title                            string  `json:"title"`
 	Zoom                             string  `json:"zoom"`
+	End                              string  `json:"end"`
 	LayoutSteps                      [2]int  `json:"layoutSteps"`
 	Tasks                            []*Task `json:"tasks"`
 	ActiveTheme                      *Theme  `json:"theme"`
