@@ -72,19 +72,8 @@ This configuration draws two arrows starting at the end of the current task, one
 
 The `recur` property sets up a recurring task: a fortnightly visit to a haunted house, for example, can be shown by setting `recur` to the string "14".
 
-Running `timeline`
-------------------
 ![Unthemed sample timeline](data/sample_unthemed.png?raw=true "Unthemed sample timeline")
 **Fig. 3** Unthemed timeline
-
-If there is a \*.zip for your operating system under `timeline/dist`, you can download the zip and enter:
-```
-$ ./timeline path/to/some/datafile.json
-```
-In this case, `timeline` will parse `path/to/some/datafile.json` and generate a PNG image `path/to/some/datafile.png` from it. Calling `timeline` without parameters will print the usage info:
-```
-Usage: ./timeline <JSON file> [<JSON file>]
-```
 
 Placeholders
 ------------
@@ -112,10 +101,24 @@ Here is a minimal example:
 }
 ```
 
-In this sample, the initial placeholder "-" signifies 'timeline ends today', whereas the "-" given in the second task signifies "ongoing":
+In this sample, the initial placeholder "-" signifies 'timeline ends today', whereas the "-" given in the second task signifies 'ongoing':
 
 ![Minimal timeline](data/sample_minimal.png?raw=true "Minimal timeline")
 **Fig. 4** Minimal timeline with placeholders
+
+Running `timeline`
+------------------
+
+If there is a \*.zip for your operating system under `timeline/dist`, you can download the zip and enter:
+```
+$ ./timeline path/to/some/datafile.json
+```
+In this case, `timeline` will parse `path/to/some/datafile.json` and generate a PNG image `path/to/some/datafile.png` from it. Calling `timeline` without parameters will print the usage info:
+```
+Usage: ./timeline <JSON file> [<JSON file>]
+```
+
+You can also drag and drop one or more JSON timeline definitions on the application binary if you prefer.
 
 Build
 -----
