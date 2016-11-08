@@ -72,6 +72,36 @@ This configuration draws two arrows starting at the end of the current task, one
 
 The `recur` property sets up a recurring task: a fortnightly visit to a haunted house, for example, can be shown by setting `recur` to the string "14".
 
+Placeholders
+------------
+Many timelines end with the present day. The shorthand for such a timeline is to set the top-level property `end` to the placeholder "-". You can also use the `end` property to add padding at the end of a timeline, by specifying a date in the usual `yyyy-mm-dd` format.
+
+You may also encounter tasks that are still ongoing: perhaps you are maintaining a list of ghostly apparitions that have been recorded but not yet explained. It would be annoying to have to move the end date of each such task along with each day that passes (there is after all the possibility that the apparition is inexplicable). To signify 'to the end of the timeline', set the task's `end` property to the placeholder '-'.
+
+Here is a minimal example:
+```
+{
+  "end": "-",
+  "tasks": [
+    {
+      "start": "2016-01-01",
+      "end": "2016-01-25",
+      "label": "The houses are haunted",
+      "endTo": [1]
+    },
+    {
+      "start": "2016-02-01",
+      "end": "-",
+      "label": "By white night-gowns"
+    }
+  ]
+}
+```
+
+In this sample, the initial placeholder "-" signifies 'timeline ends today', whereas the "-" given in the second task signifies "ongoing":
+![Minimal timeline](data/sample_minimal.png?raw=true "Minimal timeline")
+**Fig. 3** Minimal timeline with placeholders
+
 Running `timeline`
 ------------------
 ![Unthemed sample timeline](data/sample_unthemed.png?raw=true "Unthemed sample timeline")

@@ -7,6 +7,11 @@ import (
 )
 
 func enrichData(d *Data) {
+	//custom end date
+	if d.End != "" {
+		d.Last = calcLast(d.End)
+	}
+
 	//convert datestamps first
 	for _, task := range d.Tasks {
 		processTask(d, task)
@@ -88,7 +93,13 @@ func setDefaults(d *Data) {
 
 func processTask(d *Data, t *Task) {
 	t.StartTime = parseDateStamp(t.Start)
-	t.EndTime = parseDateStamp(t.End)
+	
+	//end time may be placeholder; if so, use currently known last date
+	if t.End == "-" {
+		t.EndTime = d.Last
+	} else {
+		t.EndTime = parseDateStamp(t.End)
+	}
 
 	if d.First.IsZero() || t.StartTime.Unix() < d.First.Unix() {
 		d.First = t.StartTime

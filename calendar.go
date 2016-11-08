@@ -30,3 +30,12 @@ func dayIndex(given time.Time, first time.Time, last time.Time) int {
 	}
 	return -1
 }
+
+//calendar end: placeholder value means today
+func calcLast(s string) time.Time {
+	if s == "-" {
+		now := time.Now()
+		return time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.UTC)
+	}
+	return parseDateStamp(s)
+}
