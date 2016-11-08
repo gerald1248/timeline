@@ -1,13 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/llgcode/draw2d"
 	"image/color"
-	"io/ioutil"
 	"os"
-	"strings"
 	"time"
 )
 
@@ -65,28 +62,13 @@ func main() {
 
 	draw2d.SetFontFolder("./resource/font")
 
+	ch := make(chan string)
+
 	for _, input := range os.Args[1:] {
-		buffer, err := ioutil.ReadFile(input)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "can't read input file: %v\n", err)
-			os.Exit(1)
-		}
+		go processFile(input, ch)
+	}
 
-		var data Data
-		if err := json.Unmarshal(buffer, &data); err != nil {
-			fmt.Fprintf(os.Stderr, "JSON unmarshaling failed: %s", err)
-			os.Exit(1)
-		}
-
-		enrichData(&data)
-
-		errNo, errString := validateData(&data)
-		if errNo > 0 {
-			fmt.Fprintf(os.Stderr, errString)
-			os.Exit(1)
-		}
-
-		output := strings.Replace(input, ".json", ".png", -1)
-		drawScene(&data, output)
+	for range os.Args[1:] {
+		fmt.Println(<-ch)
 	}
 }
