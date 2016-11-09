@@ -122,7 +122,7 @@ You can also drag and drop one or more JSON timeline definitions on the applicat
 
 Build
 -----
-Install Go using one of the installers available from `https://golang.org/dl/` and set up your `$GOPATH` as you see fit.
+Install Go using one of the installers available from `https://golang.org/dl/` and set up your `$GOPATH` as you see fit (`~/golang` will do).
 
 That done, install `draw2d`:
 
@@ -157,12 +157,17 @@ src
             └── timeline.go
 ```
 
-Next, it's worth installing Node.js and entering:
+Next, install Node.js with npm using your package manager, cd into the working directory `timeline` and enter:
 ```
 $ npm install gulp
 $ npm install
 ```
-With that, the workspace is ready. The default task (triggered by `gulp`) compiles `timeline` from source, runs the tests (very sketchy for now, sorry!), checks the source format, generates a sample timeline and writes out a distributable zip for your operating system. (Only tested on MacOS and Windows as it's early days.)
+The build process checks that the binary can be run from `$GOPATH/bin`, so add the directory to your path (for example in `~/.bashrc`):
+```
+export PATH:$GOPATH/bin:$PATH
+```
+ 
+With that, the workspace is ready. The default task (triggered by `gulp`) compiles `timeline` from source, runs the tests (very sketchy for now, sorry!), checks the source format, generates a sample timeline and writes out a distributable zip for your operating system. (Only tested on MacOS, Windows and Ubuntu Linux 16.04 as it's early days.)
 
 You can also run `gulp build`, `gulp test`, etc. individually if you wish.
 
