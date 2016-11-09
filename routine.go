@@ -8,18 +8,18 @@ import (
 	"time"
 )
 
-func processFile(input string, ch chan<- string) {
+func processFile(input string, ch chan<- Result) {
 	start := time.Now()
 
 	buffer, err := ioutil.ReadFile(input)
 	if err != nil {
-		ch <- fmt.Sprintf("can't read input file: %v\n", err)
+		ch <- Result{fmt.Sprintf("can't read input file: %v\n", err), 1}
 		return
 	}
 
 	var data Data
 	if err := json.Unmarshal(buffer, &data); err != nil {
-		ch <- fmt.Sprintf("JSON unmarshaling failed: %s", err)
+		ch <- Result{fmt.Sprintf("JSON unmarshaling failed: %s", err), 1}
 		return
 	}
 
@@ -27,7 +27,7 @@ func processFile(input string, ch chan<- string) {
 
 	errNo, errString := validateData(&data)
 	if errNo > 0 {
-		ch <- fmt.Sprintf(errString)
+		ch <- Result{fmt.Sprintf(errString), 1}
 		return
 	}
 
@@ -36,5 +36,5 @@ func processFile(input string, ch chan<- string) {
 
 	secs := time.Since(start).Seconds()
 
-	ch <- fmt.Sprintf("%s: %.2fs", input, secs)
+	ch <- Result{fmt.Sprintf("%s: %.2fs", input, secs), 0}
 }
