@@ -87,7 +87,7 @@ gulp.task('clean-home', function() {
 });
 
 gulp.task('clean-bin', function() {
-  return del.sync(['../../../../bin/timeline', './dist/' + pkg.name + '-' + pkg.version + '-' + platform + '.zip', './package/**/*'], { force: true });
+  return del.sync(['../../../../bin/timeline', './dist/' + pkg.name + '-*-' + platform + '.zip', './package/**/*'], { force: true });
 });
 
 gulp.task('watch', function() {
