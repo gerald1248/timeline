@@ -1,15 +1,24 @@
 var gulp  = require('gulp'),
-    util = require('gulp-util'),
-    concat = require('gulp-concat'),
-    zip = require('gulp-zip'),
-    runSequence = require('run-sequence'),
-    del = require('del'),
-    argv = require('yargs').argv,
-    exec = require('child_process').exec,
-    os = require('os');
+  util = require('gulp-util'),
+  concat = require('gulp-concat'),
+  zip = require('gulp-zip'),
+  runSequence = require('run-sequence'),
+  del = require('del'),
+  argv = require('yargs').argv,
+  exec = require('child_process').exec,
+  os = require('os'),
+  getos = require('getos');
 
 var pkg = require('./package.json');
 var platform = os.platform()
+if (platform === "linux") {
+  var obj = getos(function(e, os) {
+    if (!e) {
+      platform = os.dist + '-' + os.release;
+      platform = platform.replace(/ /g, '_').toLowerCase();
+    }
+  });
+}
 
 gulp.task('default', ['build', 'watch']);
 
