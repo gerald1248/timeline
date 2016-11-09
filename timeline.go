@@ -5,6 +5,7 @@ import (
 	"github.com/llgcode/draw2d"
 	"image/color"
 	"os"
+	"sync"
 	"time"
 )
 
@@ -54,6 +55,11 @@ type Theme struct {
 	CanvasGridColor  [3]uint8 `json:"canvasGridColor"`
 }
 
+type Result struct {
+	Message string
+	Code    int
+}
+
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Printf("Usage: ./timeline <JSON file> [<JSON file>]\n")
@@ -62,13 +68,20 @@ func main() {
 
 	draw2d.SetFontFolder("./resource/font")
 
-	ch := make(chan string)
+	ch := make(chan Result)
 
 	for _, input := range os.Args[1:] {
 		go processFile(input, ch)
 	}
 
+	var mu sync.Mutex
+	var code int
 	for range os.Args[1:] {
-		fmt.Println(<-ch)
+		mu.Lock()
+		result := <-ch
+		code += result.Code
+		mu.Unlock()
+		fmt.Println(result.Message)
 	}
+	os.Exit(code)
 }
