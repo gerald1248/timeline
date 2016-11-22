@@ -18,6 +18,7 @@ gulp.task('build', function(callback) {
     'clean-bin',
     'check-fmt',
     'compile',
+    'compile-bindata',
     'copy-binary',
     'package-binary',
     'package-fonts',
@@ -88,6 +89,14 @@ gulp.task('clean-home', function() {
 
 gulp.task('clean-bin', function() {
   return del.sync(['../../../../bin/timeline', './dist/' + pkg.name + '-*-' + platform + '.zip', './package/**/*'], { force: true });
+});
+
+gulp.task('compile-bindata', function(callback) {
+  exec('go-bindata static/...', function(err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    callback(err);
+  });
 });
 
 gulp.task('watch', function() {
