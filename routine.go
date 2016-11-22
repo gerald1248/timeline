@@ -31,10 +31,13 @@ func processFile(input string, ch chan<- Result) {
 		return
 	}
 
-	output := strings.Replace(strings.ToLower(input), ".json", ".png", -1)
-	drawScene(&data, output)
+	bare := strings.Replace(strings.ToLower(input), ".json", "", -1)
+	ext := ".png"
+	concat := strings.Join([]string{bare, ext}, "")
+
+	drawScene(&data, concat)
 
 	secs := time.Since(start).Seconds()
 
-	ch <- Result{fmt.Sprintf("%s: %.2fs", input, secs), 0}
+	ch <- Result{fmt.Sprintf("%s: %.2fs", concat, secs), 0}
 }

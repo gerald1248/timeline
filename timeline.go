@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/llgcode/draw2d"
 	"image/color"
@@ -61,27 +62,38 @@ type Result struct {
 }
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Printf("Usage: ./timeline <JSON file> [<JSON file>]\n")
-		os.Exit(0)
+	port := flag.Int("p", 8000, "listen on port")
+	flag.Parse()
+
+	//TODO: --help switch for usage
+	args := flag.Args()
+
+	if len(args) == 0 {
+		serve(*port)
+		return
 	}
 
 	draw2d.SetFontFolder("./resource/font")
 
 	ch := make(chan Result)
 
-	for _, input := range os.Args[1:] {
+	for _, input := range args {
 		go processFile(input, ch)
 	}
 
 	var mu sync.Mutex
 	var code int
-	for range os.Args[1:] {
+	for range args {
 		mu.Lock()
 		result := <-ch
 		code += result.Code
-		mu.Unlock()
 		fmt.Println(result.Message)
+		mu.Unlock()
 	}
 	os.Exit(code)
+}
+
+func usage() {
+	fmt.Printf("Usage: ./timeline [<JSON file> [<JSON file>]]\n")
+	os.Exit(0)
 }
