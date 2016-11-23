@@ -17,8 +17,8 @@ gulp.task('build', function(callback) {
   runSequence(
     'clean-bin',
     'check-fmt',
-    'compile',
     'compile-bindata',
+    'compile',
     'copy-binary',
     'package-binary',
     'package-fonts',

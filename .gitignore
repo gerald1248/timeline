@@ -8,3 +8,4 @@ target
 .*~
 exclude
 package
+bower_components

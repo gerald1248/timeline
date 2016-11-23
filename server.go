@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/elazarl/go-bindata-assetfs"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -14,9 +15,22 @@ type PostStruct struct {
 }
 
 func serve(port int) {
+	virtual_fs := &assetfs.AssetFS{
+		Asset: Asset,
+		AssetDir: AssetDir,
+		AssetInfo: AssetInfo}
+	http.Handle("/static/", http.FileServer(virtual_fs))
+	http.HandleFunc("/timeline/compose", guiHandler)
 	http.HandleFunc("/timeline", handler)
-	fmt.Printf("Listening on port %d\n", port)
+	fmt.Printf("Listening on port %d\n" +
+		"POST JSON sources to http://localhost:%d/timeline\n" +
+		"Compose timelines at http://localhost:%d/timeline/compose\n", port, port, port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
+}
+
+func guiHandler(w http.ResponseWriter, r *http.Request) {
+	bytes, _ := Asset("static/index.html")
+	fmt.Fprintf(w, "%s\n", string(bytes))
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -26,7 +40,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		handleGet(&w, r)
 	}
-	//ignore other methods
 }
 
 func handleGet(w *http.ResponseWriter, r *http.Request) {
