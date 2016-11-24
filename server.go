@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"sync"
 )
 
 type PostStruct struct {
@@ -16,14 +15,14 @@ type PostStruct struct {
 
 func serve(port int) {
 	virtual_fs := &assetfs.AssetFS{
-		Asset: Asset,
-		AssetDir: AssetDir,
+		Asset:     Asset,
+		AssetDir:  AssetDir,
 		AssetInfo: AssetInfo}
 	http.Handle("/static/", http.FileServer(virtual_fs))
 	http.HandleFunc("/timeline/compose", guiHandler)
 	http.HandleFunc("/timeline", handler)
-	fmt.Printf("Listening on port %d\n" +
-		"POST JSON sources to http://localhost:%d/timeline\n" +
+	fmt.Printf("Listening on port %d\n"+
+		"POST JSON sources to http://localhost:%d/timeline\n"+
 		"Compose timelines at http://localhost:%d/timeline/compose\n", port, port, port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
 }
@@ -43,7 +42,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleGet(w *http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(*w, "GET request\nRequest struct = %s\n", r)	
+	fmt.Fprintf(*w, "GET request\nRequest struct = %s\n", r)
 }
 
 func handlePost(w *http.ResponseWriter, r *http.Request) {
@@ -55,7 +54,7 @@ func handlePost(w *http.ResponseWriter, r *http.Request) {
 
 	//write to tmpfile
 	tmpfile, err := ioutil.TempFile("", "timeline") //use const filePrefix?
-	if (err != nil) {
+	if err != nil {
 		log.Fatal(err)
 	}
 
@@ -69,12 +68,6 @@ func handlePost(w *http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	//process the file
-	var mu sync.Mutex
-	ch := make(chan Result)
-	go processFile(tmpfile.Name(), ch)
-	mu.Lock()
-	result := <-ch
-	mu.Unlock()
+	result := processFile(tmpfile.Name())
 	fmt.Println(result.Message)
 }
