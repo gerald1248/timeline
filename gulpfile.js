@@ -1,15 +1,24 @@
 var gulp  = require('gulp'),
-    util = require('gulp-util'),
-    concat = require('gulp-concat'),
-    zip = require('gulp-zip'),
-    runSequence = require('run-sequence'),
-    del = require('del'),
-    argv = require('yargs').argv,
-    exec = require('child_process').exec,
-    os = require('os');
+  util = require('gulp-util'),
+  concat = require('gulp-concat'),
+  zip = require('gulp-zip'),
+  runSequence = require('run-sequence'),
+  del = require('del'),
+  argv = require('yargs').argv,
+  exec = require('child_process').exec,
+  os = require('os'),
+  getos = require('getos');
 
 var pkg = require('./package.json');
 var platform = os.platform()
+if (platform === "linux") {
+  var obj = getos(function(e, os) {
+    if (!e) {
+      platform = os.dist + '-' + os.release;
+      platform = platform.replace(/ /g, '_').toLowerCase();
+    }
+  });
+}
 
 gulp.task('default', ['build', 'watch']);
 
@@ -17,6 +26,7 @@ gulp.task('build', function(callback) {
   runSequence(
     'clean-bin',
     'check-fmt',
+    'compile-bindata',
     'compile',
     'copy-binary',
     'package-binary',
@@ -88,6 +98,14 @@ gulp.task('clean-home', function() {
 
 gulp.task('clean-bin', function() {
   return del.sync(['../../../../bin/timeline', './dist/' + pkg.name + '-*-' + platform + '.zip', './package/**/*'], { force: true });
+});
+
+gulp.task('compile-bindata', function(callback) {
+  exec('go-bindata static/...', function(err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    callback(err);
+  });
 });
 
 gulp.task('watch', function() {
