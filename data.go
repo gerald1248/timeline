@@ -72,7 +72,7 @@ func validateData(d *Data) (int, string) {
 			a := task.StartTo
 			a = append(a, task.EndTo...)
 			for _, value := range a {
-				if index + value >= length {
+				if index+value >= length {
 					s := fmt.Sprintf("Task #%d refers to a non-existent task: %s", index+1, task)
 					return 1, s
 				}
@@ -93,7 +93,7 @@ func setDefaults(d *Data) {
 
 func processTask(d *Data, t *Task) {
 	t.StartTime = parseDateStamp(t.Start)
-	
+
 	//end time may be placeholder; if so, use currently known last date
 	if t.End == "-" {
 		t.EndTime = d.Last

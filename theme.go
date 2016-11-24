@@ -80,7 +80,7 @@ func applyGradient(d *Data, borderColor1, fillColor1, borderColor2, fillColor2 c
 
 	length := len(d.Tasks)
 	for index, task := range d.Tasks {
-		colorIndex := 255 * index/length
+		colorIndex := 255 * index / length
 		task.BorderColor = borderColors[colorIndex]
 		task.FillColor = fillColors[colorIndex]
 	}

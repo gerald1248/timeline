@@ -39,7 +39,6 @@ gulp.task('build', function(callback) {
 });
 
 gulp.task('compile', function(callback) {
-  //exec('go build timeline.go draw.go calendar.go data.go theme.go', function(err, stdout, stderr) {
   exec('go build', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -69,7 +68,7 @@ gulp.task('dist', function() {
 });
 
 gulp.task('build-sample', function(callback) {
-  exec('timeline data/sample.json data/sample_duration.json data/sample_unthemed.json data/sample_minimal.json', function(err, stdout, stderr) {
+  exec('timeline data/*.json', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     callback(err);
