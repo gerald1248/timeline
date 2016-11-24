@@ -3,12 +3,19 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/llgcode/draw2d"
 	"io/ioutil"
 	"strings"
+	"sync"
 	"time"
 )
 
 func processFile(input string, ch chan<- Result) {
+	var mu sync.Mutex
+	mu.Lock()
+
+	draw2d.SetFontFolder("./resource/font")
+
 	start := time.Now()
 
 	buffer, err := ioutil.ReadFile(input)
@@ -40,4 +47,5 @@ func processFile(input string, ch chan<- Result) {
 	secs := time.Since(start).Seconds()
 
 	ch <- Result{fmt.Sprintf("%s: %.2fs", concat, secs), 0}
+	mu.Unlock()
 }

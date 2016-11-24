@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/llgcode/draw2d"
 	"image/color"
 	"os"
 	"sync"
@@ -73,8 +72,6 @@ func main() {
 		return
 	}
 
-	draw2d.SetFontFolder("./resource/font")
-
 	ch := make(chan Result)
 
 	for _, input := range args {
@@ -84,11 +81,11 @@ func main() {
 	var mu sync.Mutex
 	var code int
 	for range args {
-		mu.Lock()
 		result := <-ch
+		mu.Lock()
 		code += result.Code
-		fmt.Println(result.Message)
 		mu.Unlock()
+		fmt.Println(result.Message)
 	}
 	os.Exit(code)
 }
