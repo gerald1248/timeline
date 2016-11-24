@@ -46,7 +46,9 @@ func drawBlock(d *Data, gc *draw2dimg.GraphicContext, x1, y1, x2, y2 float64, st
 	//label
 	gc.Save()
 	gc.SetFillColor(d.FrameBorderColor)
-	tx1, ty1, tx2, ty2 := gc.GetStringBounds(label)
+
+	tx1, ty1, tx2, ty2 := bounds(gc, label)
+
 	w := x2 - x1
 	tw := tx2 - tx1
 	th := ty2 - ty1
@@ -71,6 +73,10 @@ func drawBlock(d *Data, gc *draw2dimg.GraphicContext, x1, y1, x2, y2 float64, st
 
 	gc.FillStringAt(label, adjustedTextX, adjustedTextY)
 	gc.Restore()
+}
+func bounds(gc *draw2dimg.GraphicContext, s string) (float64, float64, float64, float64) {
+	a, b, c, d := gc.GetStringBounds(s)
+	return a, b, c, d
 }
 func drawArrowHeadN(d *Data, gc *draw2dimg.GraphicContext, x, y float64) {
 	gc.Save()
@@ -155,7 +161,9 @@ func drawDateStamp(d *Data, gc *draw2dimg.GraphicContext, x, y float64, label st
 	gc.Save()
 	gc.SetFillColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
 	label = label[5:]
-	x1, y1, x2, y2 := gc.GetStringBounds(label)
+
+	x1, y1, x2, y2 := bounds(gc, label)
+
 	w := x2 - x1
 	h := y2 - y1
 
@@ -286,7 +294,9 @@ func drawScene(d *Data, path string) {
 	var maxLabelWidth float64
 	for _, task := range d.Tasks {
 		label := task.Label
-		x1, _, x2, _ := gc.GetStringBounds(label)
+
+		x1, _, x2, _ := bounds(gc, label)
+
 		labelWidth := x2 - x1
 		if labelWidth > maxLabelWidth {
 			maxLabelWidth = labelWidth
@@ -402,7 +412,9 @@ func drawScene(d *Data, path string) {
 		label := task.Label
 		gc.Save()
 		gc.SetFillColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
-		_, ty1, _, ty2 := gc.GetStringBounds(label)
+
+		_, ty1, _, ty2 := bounds(gc, label)
+
 		th := ty2 - ty1
 		adjustedTextY := y2 - th*0.5
 
