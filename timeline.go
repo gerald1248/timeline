@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"image/color"
 	"os"
-	"sync"
 	"time"
 )
 
@@ -72,21 +71,13 @@ func main() {
 		return
 	}
 
-	ch := make(chan Result)
-
-	for _, input := range args {
-		go processFile(input, ch)
-	}
-
-	var mu sync.Mutex
 	var code int
-	for range args {
-		result := <-ch
-		mu.Lock()
+	for _, input := range args {
+		result := processFile(input)
 		code += result.Code
-		mu.Unlock()
 		fmt.Println(result.Message)
 	}
+
 	os.Exit(code)
 }
 
