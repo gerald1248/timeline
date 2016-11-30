@@ -76,11 +76,10 @@ func handlePost(w *http.ResponseWriter, r *http.Request) {
 	//now display using base64 data
 
 	arr, err := ioutil.ReadFile(tmpfile.Name() + ".png")
-	s := b64.StdEncoding.EncodeToString([]byte(arr))
-
 	if err != nil {
 		return
 	}
 
+	s := b64.StdEncoding.EncodeToString([]byte(arr))
 	fmt.Fprintf(*w, "<img class=\"img-responsive\" alt=\"Timeline\" src=\"data:image/png;base64,%s\"/>", s)
 }
