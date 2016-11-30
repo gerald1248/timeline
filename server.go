@@ -1,6 +1,7 @@
 package main
 
 import (
+	b64 "encoding/base64"
 	"fmt"
 	"github.com/elazarl/go-bindata-assetfs"
 	"io/ioutil"
@@ -69,5 +70,17 @@ func handlePost(w *http.ResponseWriter, r *http.Request) {
 	}
 
 	result := processFile(tmpfile.Name())
+
 	fmt.Println(result.Message)
+
+	//now display using base64 data
+
+	arr, err := ioutil.ReadFile(tmpfile.Name() + ".png")
+	s := b64.StdEncoding.EncodeToString([]byte(arr))
+
+	if err != nil {
+		return
+	}
+
+	fmt.Fprintf(*w, "<img class=\"img-responsive\" alt=\"Timeline\" src=\"data:image/png;base64,%s\"/>", s)
 }

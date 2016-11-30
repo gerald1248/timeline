@@ -6,6 +6,10 @@ var gulp  = require('gulp'),
   del = require('del'),
   argv = require('yargs').argv,
   exec = require('child_process').exec,
+  sourcemaps = require('gulp-sourcemaps'),
+  cleancss = require('gulp-clean-css'),
+  htmlmin = require('gulp-htmlmin'),
+  minify = require('gulp-minify'),
   os = require('os'),
   getos = require('getos');
 
@@ -26,8 +30,11 @@ gulp.task('build', function(callback) {
   runSequence(
     'clean-bin',
     'check-fmt',
-    'compile-bindata',
-    'compile',
+    'build-js',
+    'build-css',
+    'build-html',
+    'build-bindata',
+    'build-go',
     'copy-binary',
     'package-binary',
     'package-fonts',
@@ -38,7 +45,29 @@ gulp.task('build', function(callback) {
     callback);
 });
 
-gulp.task('compile', function(callback) {
+gulp.task('build-js', function() {
+  return gulp.src(['./src/js/main.js'])
+    .pipe(sourcemaps.init())
+    .pipe(concat('bundle.js'))
+    .pipe(minify().on('error', util.log))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./static/js'));
+});
+
+gulp.task('build-css', function() {
+  return gulp.src(['./src/css/main.css'])
+    .pipe(sourcemaps.init())
+    .pipe(cleancss())
+    .pipe(gulp.dest('./static/css'))
+});
+
+gulp.task('build-html', function() {
+  return gulp.src(['./src/index.html'])
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('./static'));
+});
+
+gulp.task('build-go', function(callback) {
   exec('go build', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -99,7 +128,7 @@ gulp.task('clean-bin', function() {
   return del.sync(['../../../../bin/timeline', './dist/' + pkg.name + '-*-' + platform + '.zip', './package/**/*'], { force: true });
 });
 
-gulp.task('compile-bindata', function(callback) {
+gulp.task('build-bindata', function(callback) {
   exec('go-bindata static/...', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -108,7 +137,7 @@ gulp.task('compile-bindata', function(callback) {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(['./*.go', './data/*.json'], [
+  gulp.watch(['./*.go', './data/*.json', './src/**/*'], [
     'build'
   ]);
 });
