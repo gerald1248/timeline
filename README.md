@@ -4,11 +4,11 @@ timeline: generator for timelines and Gantt charts
 ![Sample timeline](data/sample.png?raw=true "Sample timeline")
 **Fig. 1** Sample timeline
 
-This is a tool for everyone fed up with dragging boxes, arrows and dotted lines across the screen.
+This is a tool for all makers of timelines fed up with dragging boxes, arrows and dotted lines around.
 
 It supports three main use cases:
 
-* GUI application
+* GUI application (experimental)
 * Server
 * Command line tool
 
@@ -24,10 +24,6 @@ For example, the timeline in **Fig. 1** above was generated from the following i
   "title": "Sample timeline",
   "zoom": "200",
   "layoutSteps": [180, 365],
-  "theme": {
-    "name": "gradient",
-    ... 
-  },
   "tasks": [
     {
       "start": "2016-01-01",
