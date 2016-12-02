@@ -1,0 +1,7 @@
+.hidden {
+	display: none;
+}
+
+#source {
+	font-family: monospace;
+}

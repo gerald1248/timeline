@@ -19,7 +19,7 @@ func processFile(input string) Result {
 
 	var data Data
 	if err := json.Unmarshal(buffer, &data); err != nil {
-		return Result{fmt.Sprintf("JSON unmarshaling failed: %s", err), 1}
+		return Result{fmt.Sprintf("JSON unmarshaling failed: %s\n%s", err, buffer), 1}
 	}
 
 	enrichData(&data)

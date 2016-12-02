@@ -6,7 +6,16 @@ timeline: generator for timelines and Gantt charts
 
 This is a tool for everyone fed up with dragging boxes, arrows and dotted lines across the screen.
 
-The timeline is generated from a simple JSON file.
+It supports three main use cases:
+
+* GUI application
+* Server
+* Command line tool
+
+<img src="screenshots/compose.png" width="512" alt="Screenshot of the Timeline GUI"/>
+**Fig. 2** Experimental GUI
+
+The timeline is generated from a simple JSON file, which can be composed in the GUI, sent via POST request or specified on the command line..
 
 For example, the timeline in **Fig. 1** above was generated from the following input:
 ```
@@ -52,13 +61,13 @@ For example, the timeline in **Fig. 1** above was generated from the following i
 Where do I start?
 -----------------
 ![Another sample timeline](data/sample_duration.png?raw=true "Another sample timeline")
-**Fig. 2** Another sample timeline (colors indicate task duration)
+**Fig. 3** Another sample timeline (colors indicate task duration)
 
 The best place to start is to create a timeline of your own.
 
 The input JSON begins with some preliminary housekeeping info. `zoom` could be set to 100% or 200%, for example.
 
-The `theme` currently takes one of two forms: 'gradient' (the option used in Fig. 1) paints tasks starting with one color and gradually reaching a second; 'duration' (see Fig. 2) uses the first color for the shortest duration and the second for the longest. The field `layoutSteps` specifies two durations measured in days: first, the timeline duration from which weekdays should be hidden and then the duration from which weeks should be hidden as well.
+The `theme` currently takes one of two forms: 'gradient' (the option used in Fig. 1) paints tasks starting with one color and gradually reaching a second; 'duration' (see Fig. 3) uses the first color for the shortest duration and the second for the longest. The field `layoutSteps` specifies two durations measured in days: first, the timeline duration from which weekdays should be hidden and then the duration from which weeks should be hidden as well.
 
 The JSON then defines each task to be visualized. Each task has to have a `start` and `end`. The `label` is optional and shown to the left if present. Each date string is formatted `yyyy-mm-dd`.
 
@@ -73,7 +82,7 @@ This configuration draws two arrows starting at the end of the current task, one
 The `recur` property sets up a recurring task: a fortnightly visit to a haunted house, for example, can be shown by setting `recur` to the string "14".
 
 ![Unthemed sample timeline](data/sample_unthemed.png?raw=true "Unthemed sample timeline")
-**Fig. 3** Unthemed timeline
+**Fig. 4** Unthemed timeline
 
 Placeholders
 ------------
@@ -104,7 +113,7 @@ Here is a minimal example:
 In this sample, the initial placeholder "-" signifies 'timeline ends today', whereas the "-" given in the second task signifies 'ongoing':
 
 ![Minimal timeline](data/sample_minimal.png?raw=true "Minimal timeline")
-**Fig. 4** Minimal timeline with placeholders
+**Fig. 5** Minimal timeline with placeholders
 
 Running `timeline`
 ------------------
