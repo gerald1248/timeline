@@ -16,7 +16,7 @@ It supports three main use cases:
 
 **Fig. 2** Experimental GUI
 
-The timeline is generated from a simple JSON file, which can be composed in the GUI, sent via POST request or specified on the command line..
+The timeline is generated from a simple JSON file, which can be composed in the GUI, sent via POST request or specified on the command line.
 
 For example, the timeline in **Fig. 1** above was generated from the following input:
 ```json
