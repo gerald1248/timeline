@@ -1,0 +1,23 @@
+{
+  "name": "timeline",
+  "description": "timeline generator",
+  "main": "timeline.go",
+  "authors": [
+    "gerald1248"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/gerald1248/timeline",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-datepicker": "^1.6.4",
+    "bootstrap-colorpicker": "^2.3.6",
+    "bootstrap": "^3.3.7"
+  }
+}
