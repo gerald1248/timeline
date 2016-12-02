@@ -16,47 +16,75 @@
       <div>
         <p class="h3 text-center">Compose timeline</p>
       </div>
-      <div>
-        <p class="h4">Tasks</p>
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">Tasks</h4>
+          </div>
+          <div>
+            <table id="task-table" class="table table-striped">
+              <thead class="thead-default">
+                <tr>
+                  <th>Start date</th><th colspan="2">End date</th><th>Label</th><th colspan="3">&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody id="task-table-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <table id="task-table" class="table table-striped table-bordered">
-        <thead class="thead-default">
-          <tr>
-            <th>Start date</th><th>End date</th><th>Label</th>
-          </tr>
-        </thead>
-        <tbody id="task-table-body">
-        </tbody>
-      </table>
       <div id="buttons-1">
         <button id="add-task-button" class="btn btn-default">Add task</button>
       </div>
-
-      <div>
-        <p class="h4">Settings</p>
+      <br/>
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"><a data-toggle="collapse" class="collapsed" href="#collapse-settings">Settings</a></h4>
+          </div>
+          <div id="collapse-settings" class="panel-collapse collapse">
+            <table id="config-table" class="table table-striped">
+              <tr><th><label>End date</label></th><td><input id="datepicker-end" class="form-control" size="16" type="text" readonly><span class="add-on"><i class="icon-th"></i></span></td><td><div class="checkbox"><label><input id="datepicker-end-ongoing" type="checkbox">&nbsp;Ongoing</label></div></td></tr>
+              <tr><th><label>Zoom (%)</label></th><td colspan="2"><input id="zoomInput" class="form-control" type="number"></td></tr>
+              <tr><th>Hide days from N days</th><td colspan="2"><input class="form-control" id="dayLimitInput" type="number"></td></tr>
+              <tr><th>Hide weeks from N days</th><td colspan="2"><input class="form-control" id="weekLimitInput" type="number"></td></tr>
+            </table>
+          </div>
+        </div>
       </div>
-      <table id="config-table" class="table table-striped table-bordered">
-        <tr><th>End date</th><td><input id="datepicker-end" size="16" type="text" readonly><span class="add-on"><i class="icon-th"></i></span>&nbsp;<input id="datepicker-end-ongoing" type="checkbox">&nbsp;Ongoing</td></tr>
-        <tr><th>Zoom (%)</th><td><input id="zoomInput" type="number"></td></tr>
-        <tr><th>Hide days from N days</th><td><input id="dayLimitInput" type="number"></td></tr>
-        <tr><th>Hide weeks from N days</th><td><input id="weekLimitInput" type="number"></td></tr>
-      </table>
-      <div>
-        <p class="h4">Theme</p>
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"><a data-toggle="collapse" class="collapsed" href="#collapse-theme">Theme</a></h4>
+          </div>
+          <div id="collapse-theme" class="panel-collapse collapse">
+            <table id="theme-table" class="table table-striped">
+              <tr><th>Bar color convention</th><td><select class="form-control" id="theme-strategy-select"><option>Gradient</option><option>Duration</option></select></td></tr>
+              <tr><th>Bar border color #1</th><td><div id="color-picker-border-1" class="input-group colorpicker-component"><input type="text" value="#00ff00" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
+              <tr><th>Bar fill color #1</th><td><div id="color-picker-fill-1" class="input-group colorpicker-component"><input type="text" value="#00ff00" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
+              <tr><th>Bar border color #2</th><td><div id="color-picker-border-2" class="input-group colorpicker-component"><input type="text" value="#ff0000" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
+              <tr><th>Bar fill color #2</th><td><div id="color-picker-fill-2" class="input-group colorpicker-component"><input type="text" value="#ff0000" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
+            </table>
+          </div>
+        </div>
       </div>
-      <table id="theme-table" class="table table-striped table-bordered">
-        <tr><th>Border color #1</th><td><div id="color-picker-border-1" class="input-group colorpicker-component"><input type="text" value="#00ff00" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
-        <tr><th>Fill color #1</th><td><div id="color-picker-fill-1" class="input-group colorpicker-component"><input type="text" value="#00ff00" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
-        <tr><th>Border color #2</th><td><div id="color-picker-border-2" class="input-group colorpicker-component"><input type="text" value="#ff0000" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
-        <tr><th>Fill color #2</th><td><div id="color-picker-fill-2" class="input-group colorpicker-component"><input type="text" value="#ff0000" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
-      </table>
-      <div id="buttons-2">
+      <div isd="buttons-2">
         <button id="show-timeline-button" class="btn btn-default">Show timeline</button>
       </div>
       <br/>
       <div id="result"></div>
-      <div>
-        <pre id="source"></pre>
+      <div id="source-div">
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title"><a data-toggle="collapse" class="collapsed" href="#collapse-source">Source</a></h4>
+            </div>
+            <div id="collapse-source" class="panel-collapse collapse">
+              <textarea class="form-control" id="source" rows="5"></textarea>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script src="/static/js/jquery.min.js"></script>
