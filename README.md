@@ -13,12 +13,13 @@ It supports three main use cases:
 * Command line tool
 
 <img src="screenshots/compose.png" width="512" alt="Screenshot of the Timeline GUI"/>
+
 **Fig. 2** Experimental GUI
 
 The timeline is generated from a simple JSON file, which can be composed in the GUI, sent via POST request or specified on the command line..
 
 For example, the timeline in **Fig. 1** above was generated from the following input:
-```
+```json
 {
   "title": "Sample timeline",
   "zoom": "200",
@@ -91,7 +92,7 @@ Many timelines end with the present day. The shorthand for such a timeline is to
 You may also encounter tasks that are still ongoing: perhaps you are maintaining a list of ghostly apparitions that have been recorded but not yet explained. It would be annoying to have to move the end date of each such task along with each day that passes (there is after all the possibility that the apparition is inexplicable). To signify 'to the end of the timeline', set the task's `end` property to the placeholder '-'.
 
 Here is a minimal example:
-```
+```json
 {
   "end": "-",
   "tasks": [
@@ -122,12 +123,25 @@ If there is a \*.zip for your operating system under `timeline/dist`, you can do
 ```
 $ ./timeline path/to/some/datafile.json
 ```
-In this case, `timeline` will parse `path/to/some/datafile.json` and generate a PNG image `path/to/some/datafile.png` from it. Calling `timeline` without parameters will print the usage info:
+In this case, `timeline` will parse `path/to/some/datafile.json` and generate a PNG image `path/to/some/datafile.png` from it. You can also drag and drop one or more JSON timeline definitions on the application binary if you prefer.
+
+Calling `timeline` without parameters will launch the server:
+
 ```
-Usage: ./timeline <JSON file> [<JSON file>]
+$ ./timeline
+Listening on port 8000
+POST JSON sources to http://localhost:8000/timeline
+Compose timelines at http://localhost:8000/timeline/compose
 ```
 
-You can also drag and drop one or more JSON timeline definitions on the application binary if you prefer.
+If you would rather not open port 8000, you can specify a different one using the `-p` switch:
+
+```
+$ ./timeline -p 8421
+Listening on port 8421
+POST JSON sources to http://localhost:8421/timeline
+Compose timelines at http://localhost:8421/timeline/compose
+```
 
 Build
 -----
