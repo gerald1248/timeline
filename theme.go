@@ -3,7 +3,27 @@ package main
 import (
 	"image/color"
 	"math"
+	"strconv"
 )
+
+func r(string hex) int {
+	i, _ := strconv.Atoi(hex[:3])
+	return i
+}
+
+func g(string hex) int {
+	hex[1] = hex[3];
+	hex[2] = hex[4];
+	i, _ := strconv.Atoi(hex[:3])
+	return i
+}
+
+func b(string hex) int {
+	hex[1] = hex[5]
+	hex[2] = hex[6]
+	i, _ := strconv.Atoi(hex[:3])
+	return i
+}
 
 func applyTheme(d *Data) {
 	if d.ActiveTheme == nil {

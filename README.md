@@ -1,5 +1,5 @@
-timeline: generator for timelines and Gantt charts
-==================================================
+Timeline
+========
 
 ![Sample timeline](data/sample.png?raw=true "Sample timeline")
 **Fig. 1** Sample timeline
@@ -8,9 +8,9 @@ This is a tool for all makers of timelines fed up with dragging boxes, arrows an
 
 It supports three main use cases:
 
-* GUI application (experimental)
 * Server
 * Command line tool
+* GUI application (experimental)
 
 <img src="screenshots/compose.png" width="512" alt="Screenshot of the Timeline GUI"/>
 
