@@ -1,5 +1,19 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "date" {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "date-or-placeholder": {
+      "type": "string",
+      "pattern": "^\\([0-9]{4}-[0-9]{2}-[0-9]{2}|\\-\\)$"
+    },
+    "hex-color": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]$"
+    }
+  },
 	"title": "Timeline schema",
 	"description": "Defines the timeline input format and thus API",
 	"type": "object",
@@ -12,34 +26,36 @@
 					"minimum": 50,
 					"maximum": 300
 				},
-        "end": {
-          "type": "string",
-          "pattern": "^\\([0-9]{4}-[0-9]{2}-[0-9]{2}|\\-\\)$"
-        }
+        "end": { "$ref": "#/definitions/date-or-placeholder" }
 			}
 		},
 		"theme": {
 			"type": "object",
-			"properties": {
-				"colorScheme": {
-					"type": "string",
-          "pattern": "^\\(gradient|duration\\)$"
-				}
-			}
-		},
+      "allOf": [
+  			"properties": {
+  			  "colorScheme": {
+  			  	"type": "string",
+            "pattern": "^\\(gradient|duration\\)$"
+    			},
+          "borderColor1": { "$ref": "#/definitions/color" },
+          "fillColor1": { "$ref": "#/definitions/color" },
+          "borderColor2": { "$ref": "#/definitions/color" },
+          "fillColor2": { "$ref": "#/definitions/color" },
+          "frameBorderColor": { "$ref": "#/definitions/color" },
+          "frameFillColor" : { "$ref": "#/definitions/color" },
+          "stripeColorDark": { "$ref": "#/definitions/color" },
+          "stripeColorLight": { "$ref": "#/definitions/color" },
+          "gridColor": { "$ref": "#/definitions/color" }
+    		}
+      ]
+    },
 		"tasks": {
 			"type": "array",
 			"items": {
 				"type": "object",
 				"properties": {
-          "start": {
-            "type": "string",
-            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
-          },
-          "end": {
-            "type": "string",
-            "pattern": "^\\([0-9]{4}-[0-9]{2}-[0-9]{2}|\\-\\)$"
-          },
+          "start": { "$ref": "#/definitions/date" },
+          "end": { "$ref": "#/definitions/date-or-placeholder" },
           "recur": {
             "type": "number",
             "minimum": 1,
@@ -67,19 +83,13 @@
           },
           "milestones": {
             "type": "array",
-            "items": {
-              "type": "string",
-              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
-            },
+            "items": { "$ref": "#/definitions/date" },
             "minItems": 1,
             "uniqueItems": true
           },
           "stamps": {
             "type": "array",
-            "items": {
-              "type": "string",
-              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
-            },
+            "items": { "$ref": "#/definitions/date" },
             "minItems": 1,
             "uniqueItems": true
           }
