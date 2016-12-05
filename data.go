@@ -29,12 +29,11 @@ func enrichData(d *Data) {
 	}
 
 	//zoom property defaults to 100%
-	if len(d.Zoom) == 0 {
-		d.Zoom = "100"
+	if d.Zoom == 0 {
+		d.Zoom = 100
 	}
 
-	zoomInt, _ := strconv.Atoi(d.Zoom)
-	d.Scale = float64(zoomInt) / 100
+	d.Scale = float64(d.Zoom) / 100
 	d.W, d.H, d.RowH, d.FontSize = 1024.0*d.Scale, 768.0*d.Scale, 20.0*d.Scale, 10.0*d.Scale
 }
 
@@ -86,9 +85,9 @@ func validateData(d *Data) (int, string) {
 func setDefaults(d *Data) {
 	d.FrameBorderColor = color.RGBA{0x99, 0x99, 0x99, 0xff}
 	d.FrameFillColor = color.RGBA{0xff, 0xff, 0xff, 0xff}
-	d.CanvasColor1 = color.RGBA{0xdd, 0xdd, 0xdd, 0xff}
-	d.CanvasColor2 = color.RGBA{0xee, 0xee, 0xee, 0xff}
-	d.CanvasGridColor = color.RGBA{0x99, 0x99, 0x99, 0xff}
+	d.StripeColorDark = color.RGBA{0xdd, 0xdd, 0xdd, 0xff}
+	d.StripeColorLight = color.RGBA{0xee, 0xee, 0xee, 0xff}
+	d.GridColor = color.RGBA{0x99, 0x99, 0x99, 0xff}
 }
 
 func processTask(d *Data, t *Task) {
