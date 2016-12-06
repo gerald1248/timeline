@@ -32,7 +32,6 @@ func processFile(input string) Result {
     }
 
     if !result.Valid() {
-    	//TODO: combine
         fmt.Printf("Invalid JSON:\n")
         for _, desc := range result.Errors() {
             fmt.Printf("- %s\n", desc)

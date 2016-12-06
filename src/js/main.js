@@ -57,23 +57,20 @@ var App = function() {
 
 	this.serialize = function() {
 		var obj = {
-			"zoom": "100",
-			"layoutSteps": [180, 365],
+			"settings": {
+
+			},
 			"tasks": [],
 			"theme": {
-				"name": "duration",
-				"borderColor1": [0, 255, 0],
-				"fillColor1": [0, 255, 0],
-				"borderColor2": [255, 0, 0],
-				"fillColor2": [255, 0, 0],
-			    "frameBorderColor": [255, 255, 255],
-			    "frameFillColor": [150, 150, 150],
-			    "canvasColor1": [200, 200, 200],
-			    "canvasColor2": [240, 240, 240],
-			    "canvasGridColor": [100, 100, 100]
+			    "frameBorderColor": "#ffffff",
+			    "frameFillColor": "#888888",
+			    "stripeColorDark": "#dddddd",
+			    "stripeColorLight": "#eeeeee",
+			    "gridColor": "#999999"
 			}
 		};
 
+		//tasks
 		var tasks = $('.task');
 		for (var i = 0; i < tasks.length; i++) {
 			var task = tasks[i];
@@ -95,6 +92,23 @@ var App = function() {
 
 			obj.tasks.push(taskObj);
 		}
+
+		//settings
+		obj.settings.end = $('#datepicker-end').datepicker("getFormattedDate");
+		var settingEndDateOngoing = $('#datepicker-end-ongoing').prop('checked');
+		if (settingEndDateOngoing) {
+			obj.settings.end = "-";
+		}
+		obj.settings.zoom = parseInt($('#zoom-input').val());
+		obj.settings.hideDaysFrom = parseInt($('#hide-days-from-input').val());
+		obj.settings.hideWeeksFrom = parseInt($('#hide-weeks-from-input').val());
+		
+		//theme
+		obj.theme.colorScheme = $('#color-scheme-select').val();
+		obj.theme.borderColor1 = $('#color-picker-border-1').colorpicker('getValue', '-');
+		obj.theme.fillColor1 = $('#color-picker-fill-1').colorpicker('getValue', '-');
+		obj.theme.borderColor2 = $('#color-picker-border-2').colorpicker('getValue', '-');
+		obj.theme.fillColor2 = $('#color-picker-fill-2').colorpicker('getValue', '-');
 
 	    return JSON.stringify(obj);
 	}
