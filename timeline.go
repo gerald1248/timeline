@@ -9,21 +9,18 @@ import (
 )
 
 type Data struct {
-	Title                            string  `json:"title"`
-	Zoom                             string  `json:"zoom"`
-	End                              string  `json:"end"`
-	LayoutSteps                      [2]int  `json:"layoutSteps"`
-	Tasks                            []*Task `json:"tasks"`
-	ActiveTheme                      *Theme  `json:"theme"`
+	Tasks                            []*Task   `json:"tasks"`
+	MySettings                       *Settings `json:"settings"`
+	MyTheme                          *Theme    `json:"theme"`
 	First, Last                      time.Time
 	Days                             int
 	FontSize, Scale                  float64
 	W, H, LabelW, ChartW, DayW, RowH float64
 	FrameBorderColor                 color.Color
 	FrameFillColor                   color.Color
-	CanvasColor1                     color.Color
-	CanvasColor2                     color.Color
-	CanvasGridColor                  color.Color
+	StripeColorDark                  color.Color
+	StripeColorLight                 color.Color
+	GridColor                        color.Color
 }
 
 type Task struct {
@@ -41,17 +38,23 @@ type Task struct {
 }
 
 type Theme struct {
-	Name             string   `json:"name"`
-	BorderColor1     [3]uint8 `json:"borderColor1"`
-	FillColor1       [3]uint8 `json:"fillColor1"`
-	BorderColor2     [3]uint8 `json:"borderColor2"`
-	FillColor2       [3]uint8 `json:"fillColor2"`
-	ConstrastColor   [3]uint8 `json:"contrastColor"`
-	FrameBorderColor [3]uint8 `json:"frameBorderColor"`
-	FrameFillColor   [3]uint8 `json:"frameFillColor"`
-	CanvasColor1     [3]uint8 `json:"canvasColor1"`
-	CanvasColor2     [3]uint8 `json:"canvasColor2"`
-	CanvasGridColor  [3]uint8 `json:"canvasGridColor"`
+	ColorScheme      string `json:"colorScheme"`
+	BorderColor1     string `json:"borderColor1"`
+	FillColor1       string `json:"fillColor1"`
+	BorderColor2     string `json:"borderColor2"`
+	FillColor2       string `json:"fillColor2"`
+	FrameBorderColor string `json:"frameBorderColor"`
+	FrameFillColor   string `json:"frameFillColor"`
+	StripeColorDark  string `json:"stripeColorDark"`
+	StripeColorLight string `json:"stripeColorLight"`
+	GridColor        string `json:"gridColor"`
+}
+
+type Settings struct {
+	End           string `json:"end"`
+	Zoom          int    `json:"zoom"`
+	HideDaysFrom  int    `json:"hideDaysFrom"`
+	HideWeeksFrom int    `json:"hideWeeksFrom"`
 }
 
 type Result struct {

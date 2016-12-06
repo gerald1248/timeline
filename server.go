@@ -71,10 +71,14 @@ func handlePost(w *http.ResponseWriter, r *http.Request) {
 
 	result := processFile(tmpfile.Name())
 
+	if result.Code > 0 {
+		fmt.Fprintf(*w, "<p>%s</p>", result.Message)
+		return
+	}
+
 	fmt.Println(result.Message)
 
 	//now display using base64 data
-
 	arr, err := ioutil.ReadFile(tmpfile.Name() + ".png")
 	if err != nil {
 		return
