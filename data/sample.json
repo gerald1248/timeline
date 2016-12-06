@@ -1,19 +1,20 @@
 {
-  "title": "Sample timeline",
-  "zoom": "200",
-  "layoutSteps": [180, 365],
+  "settings": {
+    "zoom": 200,
+    "hideDaysFrom": 180,
+    "hideWeeksFrom": 365
+  },
   "theme": {
-    "name": "gradient",
-    "borderColor1": [60, 60, 255],
-    "fillColor1": [100, 100, 255],
-    "borderColor2": [160, 160, 255],
-    "fillColor2": [200, 200, 255],
-    "contrastColor": [0, 0, 150],
-    "frameBorderColor": [255, 255, 255],
-    "frameFillColor": [150, 150, 150],
-    "canvasColor1": [220, 220, 255],
-    "canvasColor2": [240, 240, 255],
-    "canvasGridColor": [100, 100, 100]
+    "colorScheme": "gradient",
+    "borderColor1": "#77ff77",
+    "fillColor1": "#88ff88",
+    "borderColor2": "#ccffcc",
+    "fillColor2": "#ddffdd",
+    "frameBorderColor": "#ffffff",
+    "frameFillColor": "#aaaaaa",
+    "stripeColorDark": "#dddddd",
+    "stripeColorLight": "#eeeeee",
+    "gridColor": "#888888"
   },
   "tasks": [
     {

@@ -188,7 +188,7 @@ func drawCalendarGuides(d *Data, gc *draw2dimg.GraphicContext, y1, y2 float64, f
 	var period string
 
 	gc.Save()
-	gc.SetStrokeColor(d.CanvasGridColor)
+	gc.SetStrokeColor(d.GridColor)
 
 	for i := 0; i <= d.Days; i++ {
 		t := time.Date(d.First.Year(), d.First.Month(), d.First.Day()+i, 0, 0, 0, 0, time.UTC)
@@ -249,9 +249,9 @@ func drawCalendarRow(d *Data, gc *draw2dimg.GraphicContext, y float64, strokeCol
 }
 
 func drawStripe(d *Data, gc *draw2dimg.GraphicContext, index int, y1, y2 float64) {
-	color := d.CanvasColor1
+	color := d.StripeColorDark
 	if index%2 != 0 {
-		color = d.CanvasColor2
+		color = d.StripeColorLight
 	}
 
 	y1 -= d.RowH / 2
@@ -312,9 +312,9 @@ func drawScene(d *Data, path string) {
 
 	// guides
 	var fnGuide func(t time.Time) string
-	if d.Days < d.LayoutSteps[0] {
+	if d.Days < d.MySettings.HideDaysFrom {
 		fnGuide = fnWeek
-	} else if d.Days < d.LayoutSteps[1] {
+	} else if d.Days < d.MySettings.HideWeeksFrom {
 		fnGuide = fnMonth
 	} else {
 		fnGuide = fnYear
@@ -332,27 +332,27 @@ func drawScene(d *Data, path string) {
 	drawCalendarRow(d, gc, y, d.FrameBorderColor, d.FrameFillColor, fnMonth)
 
 	// weeks
-	if d.Days < d.LayoutSteps[1] {
+	if d.Days < d.MySettings.HideWeeksFrom {
 		y += rowH
 		drawCalendarRow(d, gc, y, d.FrameBorderColor, d.FrameFillColor, fnWeek)
 	}
 
 	// days
-	if d.Days < d.LayoutSteps[0] {
+	if d.Days < d.MySettings.HideDaysFrom {
 		y += rowH
 		var weekend bool
 		for i := 0; i <= d.Days; i++ {
 			//determine if weekend
 			t := time.Date(d.First.Year(), d.First.Month(), d.First.Day()+i, 0, 0, 0, 0, time.UTC)
 			weekend = t.Weekday() == 0 || t.Weekday() == 6
-			shade := d.CanvasColor2
+			shade := d.StripeColorLight
 			if weekend {
-				shade = d.CanvasColor1
+				shade = d.StripeColorDark
 			}
 
 			x = float64(i) * d.DayW
 
-			drawBlock(d, gc, x, y, x+d.DayW, y+rowH, d.CanvasGridColor, shade, "", true)
+			drawBlock(d, gc, x, y, x+d.DayW, y+rowH, d.GridColor, shade, "", true)
 		}
 	}
 

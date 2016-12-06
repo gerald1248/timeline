@@ -47,11 +47,9 @@ gulp.task('build', function(callback) {
 });
 
 gulp.task('build-api', function() {
-  return gulp.src(['./api/timeline-schema.js'])
-    .pipe(sourcemaps.init())
+  return gulp.src(['./api/timeline-schema.json'])
     .pipe(minify().on('error', util.log))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./static/api/timeline-schema.js'))
+    .pipe(gulp.dest('./static'))
 });
 
 gulp.task('build-js', function() {

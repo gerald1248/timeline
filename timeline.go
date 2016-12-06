@@ -9,13 +9,9 @@ import (
 )
 
 type Data struct {
-	Title                            string  `json:"title"`
-	End                              string  `json:"end"`
-	Zoom                             int     `json:"zoom"`
-	HideDaysFrom                     int     `json:"hideDaysFrom"`
-	HIdeWeeksFrom                    int     `json:"hideWeeksFrom"`
-	Tasks                            []*Task `json:"tasks"`
-	ActiveTheme                      *Theme  `json:"theme"`
+	Tasks                            []*Task   `json:"tasks"`
+	MySettings                       *Settings `json:"settings"`
+	MyTheme                          *Theme    `json:"theme"`
 	First, Last                      time.Time
 	Days                             int
 	FontSize, Scale                  float64
@@ -49,9 +45,16 @@ type Theme struct {
 	FillColor2       string `json:"fillColor2"`
 	FrameBorderColor string `json:"frameBorderColor"`
 	FrameFillColor   string `json:"frameFillColor"`
-	StripeColorDark  string `json:"canvasColor1"`
-	StripeColorLight string `json:"canvasColor2"`
-	GridColor        string `json:"canvasGridColor"`
+	StripeColorDark  string `json:"stripeColorDark"`
+	StripeColorLight string `json:"stripeColorLight"`
+	GridColor        string `json:"gridColor"`
+}
+
+type Settings struct {
+	End           string `json:"end"`
+	Zoom          int    `json:"zoom"`
+	HideDaysFrom  int    `json:"hideDaysFrom"`
+	HideWeeksFrom int    `json:"hideWeeksFrom"`
 }
 
 type Result struct {
