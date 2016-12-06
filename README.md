@@ -198,16 +198,28 @@ src
 ```
 
 Next, install Node.js with npm using your package manager, cd into the working directory `timeline` and enter:
+
 ```
 $ npm install gulp
+$ npm install go-bindata
 $ npm install
 ```
+
+Before running `gulp`, install the Go vendor modules:
+
+```
+$ go get -u github.com/draw2d
+$ go get -u github.com/elazarl/go-bindata-assetfs
+$ go get -u github.com/xeipuuv/gojsonschema
+```
+
 The build process checks that the binary can be run from `$GOPATH/bin`, so add the directory to your path (for example in `~/.bashrc`):
+
 ```
 export PATH:$GOPATH/bin:$PATH
 ```
  
-With that, the workspace is ready. The default task (triggered by `gulp`) compiles `timeline` from source, runs the tests (very sketchy for now, sorry!), checks the source format, generates a sample timeline and writes out a distributable zip for your operating system. (Only tested on MacOS, Windows and Ubuntu Linux 16.04 as it's early days.)
+With that, the workspace is ready. The default task (triggered by `gulp`) compiles `timeline` from source, runs the tests (very sketchy for now, sorry!), checks the source format, generates sample timelines and writes out a distributable zip for your operating system. (Only tested on MacOS, Windows and Ubuntu Linux 16.04 as it's early days.)
 
 You can also run `gulp build`, `gulp test`, etc. individually if you wish.
 
