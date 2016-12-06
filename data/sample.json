@@ -6,9 +6,9 @@
   },
   "theme": {
     "colorScheme": "gradient",
-    "borderColor1": "#77ff77",
-    "fillColor1": "#88ff88",
-    "borderColor2": "#ccffcc",
+    "borderColor1": "#11ff11",
+    "fillColor1": "#33ff33",
+    "borderColor2": "#bbffbb",
     "fillColor2": "#ddffdd",
     "frameBorderColor": "#ffffff",
     "frameFillColor": "#aaaaaa",
