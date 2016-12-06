@@ -1,7 +1,9 @@
 {
-  "title": "Sample timeline",
-  "zoom": "200",
-  "layoutSteps": [180, 365],
+  "settings": {
+    "zoom": 200,
+    "hideDaysFrom": 180,
+    "hideWeeksFrom": 365
+  },
   "tasks": [
     {
       "start": "2012-01-01",

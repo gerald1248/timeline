@@ -1,5 +1,5 @@
-timeline: generator for timelines and Gantt charts
-==================================================
+Timeline
+========
 
 ![Sample timeline](data/sample.png?raw=true "Sample timeline")
 **Fig. 1** Sample timeline
@@ -8,9 +8,9 @@ This is a tool for all makers of timelines fed up with dragging boxes, arrows an
 
 It supports three main use cases:
 
-* GUI application (experimental)
 * Server
 * Command line tool
+* GUI (experimental)
 
 <img src="screenshots/compose.png" width="512" alt="Screenshot of the Timeline GUI"/>
 
@@ -21,9 +21,23 @@ The timeline is generated from a simple JSON file, which can be composed in the 
 For example, the timeline in **Fig. 1** above was generated from the following input:
 ```json
 {
-  "title": "Sample timeline",
-  "zoom": "200",
-  "layoutSteps": [180, 365],
+  "settings": {
+    "zoom": 200,
+    "hideDaysFrom": 180,
+    "hideWeeksFrom": 365
+  },
+  "theme": {
+    "colorScheme": "gradient",
+    "borderColor1": "#aaffaa",
+    "fillColor1": "#bbffbb",
+    "borderColor2": "#ccffcc",
+    "fillColor2": "#ddffdd",
+    "frameBorderColor": "#ffffff",
+    "frameFillColor": "#aaaaaa",
+    "stripeColorDark": "#dddddd",
+    "stripeColorLight": "#eeeeee",
+    "gridColor": "#888888"
+  },
   "tasks": [
     {
       "start": "2016-01-01",
@@ -60,13 +74,9 @@ Where do I start?
 ![Another sample timeline](data/sample_duration.png?raw=true "Another sample timeline")
 **Fig. 3** Another sample timeline (colors indicate task duration)
 
-The best place to start is to create a timeline of your own.
+The best place to start is to create a timeline of your own. All JSON input is validated agains the [JSON Schema](api/timeline_schema.json) that defines the API.
 
-The input JSON begins with some preliminary housekeeping info. `zoom` could be set to 100% or 200%, for example.
-
-The `theme` currently takes one of two forms: 'gradient' (the option used in Fig. 1) paints tasks starting with one color and gradually reaching a second; 'duration' (see Fig. 3) uses the first color for the shortest duration and the second for the longest. The field `layoutSteps` specifies two durations measured in days: first, the timeline duration from which weekdays should be hidden and then the duration from which weeks should be hidden as well.
-
-The JSON then defines each task to be visualized. Each task has to have a `start` and `end`. The `label` is optional and shown to the left if present. Each date string is formatted `yyyy-mm-dd`.
+The top-level property `tasks` lists all tasks to be visualized. Each task has to have a `start` and `end`. The `label` is optional and shown to the left if present. Each date string is formatted `yyyy-mm-dd`.
 
 Milestones and date stamps can be specified as an array formatted the same way. Milestones are shown as diamond shapes; date stamps are vertical lines with day and month printed below. For milestones with date stamps the two can be combined.
 
@@ -81,16 +91,27 @@ The `recur` property sets up a recurring task: a fortnightly visit to a haunted 
 ![Unthemed sample timeline](data/sample_unthemed.png?raw=true "Unthemed sample timeline")
 **Fig. 4** Unthemed timeline
 
+The other two top-level properties of the JSON are optional.
+
+The first, `settings`, stores housekeeping info. `zoom` could be set to 100% or 200%, for example; the end date can be set to a date other than the last day of the last task; days and weeks can be hidden to prevent visual noise (by default, they are hidden when the duration of the timeline exceeds 90 and 180 days, respectively)..
+
+The `theme` property currently adopts one of two color schemes: 'gradient' (the option used in Fig. 1) paints tasks starting with one color and gradually reaching a second; 'duration' (see Fig. 3) uses the first color for the shortest duration and the second for the longest. The field `layoutSteps` specifies two durations measured in days: first, the timeline duration from which weekdays should be hidden and then the duration from which weeks should be hidden as well.
+
 Placeholders
 ------------
-Many timelines end with the present day. The shorthand for such a timeline is to set the top-level property `end` to the placeholder "-". You can also use the `end` property to add padding at the end of a timeline, by specifying a date in the usual `yyyy-mm-dd` format.
+Many timelines end with the present day. The shorthand for such a timeline is to set the top-level property `end` under `settings` to the placeholder "-". You can also use the `end` property to add padding at the end of a timeline, by specifying a date in the usual `yyyy-mm-dd` format.
 
 You may also encounter tasks that are still ongoing: perhaps you are maintaining a list of ghostly apparitions that have been recorded but not yet explained. It would be annoying to have to move the end date of each such task along with each day that passes (there is after all the possibility that the apparition is inexplicable). To signify 'to the end of the timeline', set the task's `end` property to the placeholder '-'.
 
 Here is a minimal example:
 ```json
 {
-  "end": "-",
+  "settings": {
+    "end": "-",
+    "zoom": 150,
+    "hideDaysFrom": 90,
+    "hideWeeksFrom": 180
+  },
   "tasks": [
     {
       "start": "2016-01-01",

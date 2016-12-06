@@ -30,6 +30,7 @@ gulp.task('build', function(callback) {
   runSequence(
     'clean-bin',
     'check-fmt',
+    'build-api',
     'build-js',
     'build-css',
     'build-html',
@@ -43,6 +44,12 @@ gulp.task('build', function(callback) {
     'build-sample',
     'test',
     callback);
+});
+
+gulp.task('build-api', function() {
+  return gulp.src(['./api/timeline-schema.json'])
+    .pipe(minify().on('error', util.log))
+    .pipe(gulp.dest('./static'))
 });
 
 gulp.task('build-js', function() {

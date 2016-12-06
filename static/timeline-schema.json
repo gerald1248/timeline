@@ -1,15 +1,13 @@
 {
-  "settings": {
-    "zoom": 200,
-    "hideDaysFrom": 180,
-    "hideWeeksFrom": 365
-  },
+  "zoom": 200,
+  "hideDaysFrom": 180,
+  "hideWeeksFrom": 365,
   "theme": {
     "colorScheme": "gradient",
-    "borderColor1": "#11ff11",
-    "fillColor1": "#33ff33",
-    "borderColor2": "#bbffbb",
-    "fillColor2": "#ddffdd",
+    "borderColor1": "#ee0000",
+    "fillColor1": "#ff0000",
+    "borderColor2": "#ffaaaa",
+    "fillColor2": "#ffbbbb",
     "frameBorderColor": "#ffffff",
     "frameFillColor": "#aaaaaa",
     "stripeColorDark": "#dddddd",

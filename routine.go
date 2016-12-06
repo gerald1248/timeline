@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/llgcode/draw2d"
+	"github.com/xeipuuv/gojsonschema"
 	"io/ioutil"
 	"strings"
 	"time"
@@ -17,9 +18,30 @@ func processFile(input string) Result {
 		return Result{fmt.Sprintf("can't read input file: %v\n", err), 1}
 	}
 
+	bytes, err := staticTimelineSchemaJsonBytes()
+	if err != nil {
+		return Result{fmt.Sprintf("can't retrieve schema file: %v\n", err), 1}
+	}
+
+	schemaLoader := gojsonschema.NewStringLoader(string(bytes))
+	documentLoader := gojsonschema.NewStringLoader(string(buffer))
+
+	result, err := gojsonschema.Validate(schemaLoader, documentLoader)
+    if err != nil {
+        return Result{fmt.Sprintf("Error: %s\n", err.Error()), 1}
+    }
+
+    if !result.Valid() {
+        fmt.Printf("Invalid JSON:\n")
+        for _, desc := range result.Errors() {
+            fmt.Printf("- %s\n", desc)
+        }
+        return Result{fmt.Sprintf("Invalid JSON: %s\n", result.Errors()[0]), 1}
+    }
+
 	var data Data
 	if err := json.Unmarshal(buffer, &data); err != nil {
-		return Result{fmt.Sprintf("JSON unmarshaling failed: %s\n%s", err, buffer), 1}
+		return Result{fmt.Sprintf("JSON unmarshaling failed: %s\n", err), 1}
 	}
 
 	enrichData(&data)
