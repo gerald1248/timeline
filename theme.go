@@ -6,38 +6,43 @@ import (
 	"strconv"
 )
 
-func r(string hex) int {
-	i, _ := strconv.Atoi(hex[:3])
-	return i
+func r(hex string) uint8 {
+	i, _ := strconv.ParseInt("0x" + hex[1:4], 0, 64);
+	return uint8(i)
 }
 
-func g(string hex) int {
-	hex[1] = hex[3];
-	hex[2] = hex[4];
-	i, _ := strconv.Atoi(hex[:3])
-	return i
+func g(hex string) uint8 {
+	i, _ := strconv.ParseInt("0x" + hex[3:6], 0, 64);
+	return uint8(i)
 }
 
-func b(string hex) int {
-	hex[1] = hex[5]
-	hex[2] = hex[6]
-	i, _ := strconv.Atoi(hex[:3])
-	return i
+func b(hex string) uint8 {
+	i, _ := strconv.ParseInt("0x" + hex[5:], 0, 64);
+	return uint8(i)
 }
+
+func hexToColor(hex string) color.Color {
+	//schema tests against regex
+	if len(hex) < 7 {
+		return color.RGBA{255, 255, 255, 255}
+	}
+
+	return color.RGBA{r(hex), g(hex), b(hex), 255}
+} 
 
 func applyTheme(d *Data) {
-	if d.ActiveTheme == nil {
+	if d.MyTheme == nil {
 		return
 	}
 
-	theme := d.ActiveTheme
-	name := theme.Name
-	borderColor1 := color.RGBA{theme.BorderColor1[0], theme.BorderColor1[1], theme.BorderColor1[2], 255}
-	fillColor1 := color.RGBA{theme.FillColor1[0], theme.FillColor1[1], theme.FillColor1[2], 255}
-	borderColor2 := color.RGBA{theme.BorderColor2[0], theme.BorderColor2[1], theme.BorderColor2[2], 255}
-	fillColor2 := color.RGBA{theme.FillColor2[0], theme.FillColor2[1], theme.FillColor2[2], 255}
+	theme := d.MyTheme
+	colorScheme := theme.ColorScheme
+	borderColor1 := hexToColor(theme.BorderColor1)
+	fillColor1 := hexToColor(theme.FillColor1)
+	borderColor2 := hexToColor(theme.BorderColor2)
+	fillColor2 := hexToColor(theme.FillColor2)
 
-	switch name {
+	switch colorScheme {
 	case "gradient":
 		applyGradient(d, borderColor1, fillColor1, borderColor2, fillColor2)
 		break
@@ -49,11 +54,11 @@ func applyTheme(d *Data) {
 	}
 
 	//overwrite ActiveTheme settings
-	d.FrameBorderColor = color.RGBA{theme.FrameBorderColor[0], theme.FrameBorderColor[1], theme.FrameBorderColor[2], 0xff}
-	d.FrameFillColor = color.RGBA{theme.FrameFillColor[0], theme.FrameFillColor[1], theme.FrameFillColor[2], 0xff}
-	d.CanvasColor1 = color.RGBA{theme.CanvasColor1[0], theme.CanvasColor1[1], theme.CanvasColor1[2], 0xff}
-	d.CanvasColor2 = color.RGBA{theme.CanvasColor2[0], theme.CanvasColor2[1], theme.CanvasColor2[2], 0xff}
-	d.CanvasGridColor = color.RGBA{theme.CanvasGridColor[0], theme.CanvasGridColor[1], theme.CanvasGridColor[2], 0xff}
+	d.FrameBorderColor = hexToColor(theme.FrameBorderColor)
+	d.FrameFillColor = hexToColor(theme.FrameFillColor)
+	d.StripeColorDark = hexToColor(theme.StripeColorDark)
+	d.StripeColorLight = hexToColor(theme.StripeColorLight)
+	d.GridColor = hexToColor(theme.GridColor)
 }
 
 func applyDuration(d *Data, borderColor1, fillColor1, borderColor2, fillColor2 color.Color) {

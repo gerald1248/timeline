@@ -3,13 +3,16 @@ package main
 import (
 	"fmt"
 	"image/color"
-	"strconv"
 )
 
 func enrichData(d *Data) {
+	if d.MySettings == nil {
+		d.MySettings = &Settings{"", 100, 90, 180} //end, zoom, hideDaysFrom, hideWeeksFrom
+	}
+
 	//custom end date
-	if d.End != "" {
-		d.Last = calcLast(d.End)
+	if d.MySettings.End != "" {
+		d.Last = calcLast(d.MySettings.End)
 	}
 
 	//convert datestamps first
@@ -24,16 +27,17 @@ func enrichData(d *Data) {
 
 	// safe layout defaults
 	// show days if < 90 days; show months if < 180 days
-	if d.LayoutSteps[0] == 0 || d.LayoutSteps[1] == 0 {
-		d.LayoutSteps = [2]int{90, 180}
+	if d.MySettings.HideDaysFrom == 0 || d.MySettings.HideWeeksFrom == 0 {
+		d.MySettings.HideDaysFrom = 90
+		d.MySettings.HideWeeksFrom = 180
 	}
 
 	//zoom property defaults to 100%
-	if d.Zoom == 0 {
-		d.Zoom = 100
+	if d.MySettings.Zoom == 0 {
+		d.MySettings.Zoom = 100
 	}
 
-	d.Scale = float64(d.Zoom) / 100
+	d.Scale = float64(d.MySettings.Zoom) / 100
 	d.W, d.H, d.RowH, d.FontSize = 1024.0*d.Scale, 768.0*d.Scale, 20.0*d.Scale, 10.0*d.Scale
 }
 
@@ -83,8 +87,8 @@ func validateData(d *Data) (int, string) {
 }
 
 func setDefaults(d *Data) {
-	d.FrameBorderColor = color.RGBA{0x99, 0x99, 0x99, 0xff}
-	d.FrameFillColor = color.RGBA{0xff, 0xff, 0xff, 0xff}
+	d.FrameBorderColor = color.RGBA{0xff, 0xff, 0xff, 0xff}
+	d.FrameFillColor = color.RGBA{0x88, 0x88, 0x88, 0xff}
 	d.StripeColorDark = color.RGBA{0xdd, 0xdd, 0xdd, 0xff}
 	d.StripeColorLight = color.RGBA{0xee, 0xee, 0xee, 0xff}
 	d.GridColor = color.RGBA{0x99, 0x99, 0x99, 0xff}

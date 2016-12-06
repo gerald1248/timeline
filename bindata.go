@@ -22,6 +22,7 @@
 // static/js/bundle-min.js
 // static/js/bundle.js
 // static/js/jquery.min.js
+// static/timeline-schema.json
 // DO NOT EDIT!
 
 package main
@@ -104,7 +105,7 @@ func staticCssBootstrapColorpickerMinCss() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/css/bootstrap-colorpicker.min.css", size: 3997, mode: os.FileMode(420), modTime: time.Unix(1480441921, 0)}
+	info := bindataFileInfo{name: "static/css/bootstrap-colorpicker.min.css", size: 3997, mode: os.FileMode(420), modTime: time.Unix(1480638594, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -124,7 +125,7 @@ func staticCssBootstrapDatepicker3MinCss() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/css/bootstrap-datepicker3.min.css", size: 21154, mode: os.FileMode(420), modTime: time.Unix(1480356366, 0)}
+	info := bindataFileInfo{name: "static/css/bootstrap-datepicker3.min.css", size: 21154, mode: os.FileMode(420), modTime: time.Unix(1480638594, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -184,7 +185,7 @@ func staticCssMainCss() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/css/main.css", size: 51, mode: os.FileMode(420), modTime: time.Unix(1480634013, 0)}
+	info := bindataFileInfo{name: "static/css/main.css", size: 51, mode: os.FileMode(420), modTime: time.Unix(1480991507, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -304,7 +305,7 @@ func staticImgBootstrapColorpickerAlphaHorizontalPng() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/img/bootstrap-colorpicker/alpha-horizontal.png", size: 557, mode: os.FileMode(420), modTime: time.Unix(1480441960, 0)}
+	info := bindataFileInfo{name: "static/img/bootstrap-colorpicker/alpha-horizontal.png", size: 557, mode: os.FileMode(420), modTime: time.Unix(1480638594, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -324,7 +325,7 @@ func staticImgBootstrapColorpickerAlphaPng() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/img/bootstrap-colorpicker/alpha.png", size: 488, mode: os.FileMode(420), modTime: time.Unix(1480441960, 0)}
+	info := bindataFileInfo{name: "static/img/bootstrap-colorpicker/alpha.png", size: 488, mode: os.FileMode(420), modTime: time.Unix(1480638594, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -344,7 +345,7 @@ func staticImgBootstrapColorpickerHueHorizontalPng() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/img/bootstrap-colorpicker/hue-horizontal.png", size: 478, mode: os.FileMode(420), modTime: time.Unix(1480441960, 0)}
+	info := bindataFileInfo{name: "static/img/bootstrap-colorpicker/hue-horizontal.png", size: 478, mode: os.FileMode(420), modTime: time.Unix(1480638594, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -364,7 +365,7 @@ func staticImgBootstrapColorpickerHuePng() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/img/bootstrap-colorpicker/hue.png", size: 504, mode: os.FileMode(420), modTime: time.Unix(1480441960, 0)}
+	info := bindataFileInfo{name: "static/img/bootstrap-colorpicker/hue.png", size: 504, mode: os.FileMode(420), modTime: time.Unix(1480638594, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -384,7 +385,7 @@ func staticImgBootstrapColorpickerSaturationPng() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/img/bootstrap-colorpicker/saturation.png", size: 4143, mode: os.FileMode(420), modTime: time.Unix(1480441960, 0)}
+	info := bindataFileInfo{name: "static/img/bootstrap-colorpicker/saturation.png", size: 4143, mode: os.FileMode(420), modTime: time.Unix(1480638594, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -404,7 +405,7 @@ func staticIndexHtml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/index.html", size: 4292, mode: os.FileMode(420), modTime: time.Unix(1480634013, 0)}
+	info := bindataFileInfo{name: "static/index.html", size: 4292, mode: os.FileMode(420), modTime: time.Unix(1480991507, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -424,7 +425,7 @@ func staticJsBootstrapColorpickerMinJs() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/js/bootstrap-colorpicker.min.js", size: 18708, mode: os.FileMode(420), modTime: time.Unix(1480441941, 0)}
+	info := bindataFileInfo{name: "static/js/bootstrap-colorpicker.min.js", size: 18708, mode: os.FileMode(420), modTime: time.Unix(1480638594, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -444,7 +445,7 @@ func staticJsBootstrapDatepickerMinJs() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/js/bootstrap-datepicker.min.js", size: 34172, mode: os.FileMode(420), modTime: time.Unix(1480356384, 0)}
+	info := bindataFileInfo{name: "static/js/bootstrap-datepicker.min.js", size: 34172, mode: os.FileMode(420), modTime: time.Unix(1480638594, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -484,7 +485,7 @@ func staticJsBundleMinJs() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/js/bundle-min.js", size: 3345, mode: os.FileMode(420), modTime: time.Unix(1480634013, 0)}
+	info := bindataFileInfo{name: "static/js/bundle-min.js", size: 3345, mode: os.FileMode(420), modTime: time.Unix(1480991507, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -504,7 +505,7 @@ func staticJsBundleJs() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/js/bundle.js", size: 15127, mode: os.FileMode(420), modTime: time.Unix(1480634013, 0)}
+	info := bindataFileInfo{name: "static/js/bundle.js", size: 15127, mode: os.FileMode(420), modTime: time.Unix(1480991507, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -525,6 +526,26 @@ func staticJsJqueryMinJs() (*asset, error) {
 	}
 
 	info := bindataFileInfo{name: "static/js/jquery.min.js", size: 86709, mode: os.FileMode(420), modTime: time.Unix(1480260278, 0)}
+	a := &asset{bytes: bytes, info: info}
+	return a, nil
+}
+
+var _staticTimelineSchemaJson = []byte("\x1f\x8b\x08\x00\x00\x09\x6e\x88\x00\xff\x8c\x50\xc1\x6a\xe3\x30\x10\xbd\xfb\x2b\x06\xed\xd5\x06\x49\x89\x43\xc8\x65\x61\x37\x04\x16\xf6\x96\x40\x0f\x25\x87\x71\x3c\x89\x45\x6c\x2b\xc8\x4a\xa1\x2d\xf9\xf7\x22\xd9\xae\x65\x1a\xb7\x99\x9b\xde\x7b\xf3\xde\xe8\xbd\x47\x00\xec\x4d\xeb\x8a\xad\x40\x72\x1e\xbb\x67\xa1\x72\x5a\xe3\x6b\xb3\x31\x1e\x16\xcb\x01\x7e\x22\x3a\xf7\xf8\x6c\x91\x7a\xdc\x16\x54\x11\x5b\x81\xb3\x02\x60\x07\x5d\x6a\xb3\x3d\x74\x20\x3b\x19\xcc\x15\xd5\x96\xc5\x2d\x9d\x69\x93\x93\xf9\xeb\x44\xc2\xf1\xbf\x88\x38\xe7\xbc\xa7\x8f\xaa\x2c\x03\xf2\x78\x0c\xc9\x60\x57\x76\x34\x22\xe2\x97\xdd\x9e\xcc\xb2\x2c\xfb\x24\x0d\x56\xf4\x67\x30\xe8\x24\x6e\x46\x92\x4d\x6f\xe2\x05\x88\x61\x40\x63\x8d\xba\x90\x67\xd7\x68\xce\x5e\x91\xfb\xb9\xa3\xf8\xaf\x4e\x85\xed\x7e\xe8\xa6\x97\x9c\x8c\xca\x87\x80\xa5\x1f\x16\x01\xdc\xda\x32\xb1\x39\x37\x6c\x05\xcf\x5e\xdc\x56\xea\x7d\xd1\x78\x33\xc9\xc5\x22\xe1\x22\xe1\xa2\xf3\x03\x60\x54\xe7\x21\x25\xf8\x40\x95\x98\x51\xe9\xc8\xb5\x86\x7f\xa3\x8d\x9d\x76\x29\x72\xef\xa1\x5b\xfc\x6d\x9c\x4c\x84\x9c\x88\x93\x89\x98\xdd\x8b\x43\x43\x03\x6c\xe8\x70\xf5\xdf\x15\x73\xf6\x58\x9e\x4c\x27\xf2\xe6\x13\xdf\x53\x8d\xbd\x9a\x6c\x60\x2a\x55\x52\x63\x75\x4d\xbe\xcc\xd0\x77\x1f\x8f\x52\xdb\x1e\xc4\x43\x3d\xcc\xa7\x6b\x4f\x13\x7e\xaf\x87\x5d\x41\x70\xad\xd5\x0b\x99\x86\x7e\xff\x70\x5d\xea\xdc\x87\xeb\x72\xb4\xb4\xb5\x58\x5d\x42\x4d\x7b\x01\x8c\x36\xda\xcb\x23\x80\x7d\x74\x8b\x3e\x02\x00\x00\xff\xff\xaf\x89\x8a\x78\xd0\x03\x00\x00")
+
+func staticTimelineSchemaJsonBytes() ([]byte, error) {
+	return bindataRead(
+		_staticTimelineSchemaJson,
+		"static/timeline-schema.json",
+	)
+}
+
+func staticTimelineSchemaJson() (*asset, error) {
+	bytes, err := staticTimelineSchemaJsonBytes()
+	if err != nil {
+		return nil, err
+	}
+
+	info := bindataFileInfo{name: "static/timeline-schema.json", size: 976, mode: os.FileMode(420), modTime: time.Unix(1480991507, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -603,6 +624,7 @@ var _bindata = map[string]func() (*asset, error){
 	"static/js/bundle-min.js": staticJsBundleMinJs,
 	"static/js/bundle.js": staticJsBundleJs,
 	"static/js/jquery.min.js": staticJsJqueryMinJs,
+	"static/timeline-schema.json": staticTimelineSchemaJson,
 }
 
 // AssetDir returns the file names below a certain
@@ -678,6 +700,7 @@ var _bintree = &bintree{nil, map[string]*bintree{
 			"bundle.js": &bintree{staticJsBundleJs, map[string]*bintree{}},
 			"jquery.min.js": &bintree{staticJsJqueryMinJs, map[string]*bintree{}},
 		}},
+		"timeline-schema.json": &bintree{staticTimelineSchemaJson, map[string]*bintree{}},
 	}},
 }}
 

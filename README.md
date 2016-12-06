@@ -21,9 +21,23 @@ The timeline is generated from a simple JSON file, which can be composed in the 
 For example, the timeline in **Fig. 1** above was generated from the following input:
 ```json
 {
-  "title": "Sample timeline",
-  "zoom": "200",
-  "layoutSteps": [180, 365],
+  "settings": {
+    "zoom": 200,
+    "hideDaysFrom": 180,
+    "hideWeeksFrom": 365
+  },
+  "theme": {
+    "colorScheme": "gradient",
+    "borderColor1": "#aaffaa",
+    "fillColor1": "#bbffbb",
+    "borderColor2": "#ccffcc",
+    "fillColor2": "#ddffdd",
+    "frameBorderColor": "#ffffff",
+    "frameFillColor": "#aaaaaa",
+    "stripeColorDark": "#dddddd",
+    "stripeColorLight": "#eeeeee",
+    "gridColor": "#888888"
+  },
   "tasks": [
     {
       "start": "2016-01-01",
@@ -60,11 +74,11 @@ Where do I start?
 ![Another sample timeline](data/sample_duration.png?raw=true "Another sample timeline")
 **Fig. 3** Another sample timeline (colors indicate task duration)
 
-The best place to start is to create a timeline of your own.
+The best place to start is to create a timeline of your own. All JSON input is validated agains the JSON Schema that serves as the tool's API.
 
-The input JSON begins with some preliminary housekeeping info. `zoom` could be set to 100% or 200%, for example.
+The input JSON begins with some preliminary housekeeping info stored in a property `settings`. `zoom` could be set to 100% or 200%, for example.
 
-The `theme` currently takes one of two forms: 'gradient' (the option used in Fig. 1) paints tasks starting with one color and gradually reaching a second; 'duration' (see Fig. 3) uses the first color for the shortest duration and the second for the longest. The field `layoutSteps` specifies two durations measured in days: first, the timeline duration from which weekdays should be hidden and then the duration from which weeks should be hidden as well.
+The `theme` currently adopts one of two color schemes: 'gradient' (the option used in Fig. 1) paints tasks starting with one color and gradually reaching a second; 'duration' (see Fig. 3) uses the first color for the shortest duration and the second for the longest. The field `layoutSteps` specifies two durations measured in days: first, the timeline duration from which weekdays should be hidden and then the duration from which weeks should be hidden as well.
 
 The JSON then defines each task to be visualized. Each task has to have a `start` and `end`. The `label` is optional and shown to the left if present. Each date string is formatted `yyyy-mm-dd`.
 
@@ -90,7 +104,12 @@ You may also encounter tasks that are still ongoing: perhaps you are maintaining
 Here is a minimal example:
 ```json
 {
-  "end": "-",
+  "settings": {
+    "end": "-",
+    "zoom": 150,
+    "hideDaysFrom": 90,
+    "hideWeeksFrom": 180
+  },
   "tasks": [
     {
       "start": "2016-01-01",
