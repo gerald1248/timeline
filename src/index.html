@@ -38,7 +38,7 @@
         <button id="add-task-button" class="btn btn-default">Add task</button>
       </div>
       <br/>
-      <div class="panel-group"><!-- TODO remove display toggle -->
+      <div class="panel-group">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title"><a data-toggle="collapse" class="collapsed" href="#collapse-settings">Settings</a></h4>
@@ -70,7 +70,23 @@
         </div>
       </div>
       <div isd="buttons-2">
-        <button id="show-timeline-button" class="btn btn-default">Show timeline</button>
+        <button id="import-timeline-button" class="btn btn-default" data-toggle="modal" data-target="#import-modal">Import timeline</button>&nbsp;<button id="show-timeline-button" class="btn btn-default">Create timeline</button>
+        <div id="import-modal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Import timeline</h4>
+              </div>
+              <div class="modal-body">
+                <textarea class="form-control" id="modal-source" rows="5"></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&nbsp;<button type="button" class="btn btn-default" id="modal-action-button" data-dismiss="modal">Import</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <br/>
       <div id="result"></div>
