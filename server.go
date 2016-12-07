@@ -43,7 +43,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleGet(w *http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(*w, "GET request\nRequest struct = %s\n", r)
+	fmt.Fprintf(*w, "GET request\nRequest struct = %v\n", r)
 }
 
 func handlePost(w *http.ResponseWriter, r *http.Request) {

@@ -29,7 +29,8 @@ gulp.task('default', ['build', 'watch']);
 gulp.task('build', function(callback) {
   runSequence(
     'clean-bin',
-    'check-fmt',
+    'fmt',
+    'vet',
     'build-api',
     'build-js',
     'build-css',
@@ -119,8 +120,17 @@ gulp.task('test', function(callback) {
   });
 });
 
-gulp.task('check-fmt', function(callback) {
-  exec('gofmt -d timeline.go', function(err, stdout, stderr) {
+gulp.task('fmt', function(callback) {
+  //listing files so bindata.go is ignored
+  exec('gofmt -d calendar.go routine.go server.go data.go theme.go draw.go timeline.go', function(err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    callback(err);
+  });
+});
+
+gulp.task('vet', function(callback) {
+  exec('go vet', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     callback(err);

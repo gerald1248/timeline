@@ -60,13 +60,13 @@ func validateData(d *Data) (int, string) {
 
 	for index, task := range d.Tasks {
 		if task.StartTime.Unix() > task.EndTime.Unix() {
-			s := fmt.Sprintf("Task #%d ends before it begins: %s\n", index+1, task)
+			s := fmt.Sprintf("Task #%d ends before it begins: %v\n", index+1, task)
 			return 1, s
 		}
 
 		//blank labels are allowed
 		if task.StartTime.IsZero() || task.EndTime.IsZero() {
-			s := fmt.Sprintf("Task #%d is incomplete: %s", index+1, task)
+			s := fmt.Sprintf("Task #%d is incomplete: %v\n", index+1, task)
 			return 1, s
 		}
 
@@ -76,7 +76,7 @@ func validateData(d *Data) (int, string) {
 			a = append(a, task.EndTo...)
 			for _, value := range a {
 				if index+value >= length {
-					s := fmt.Sprintf("Task #%d refers to a non-existent task: %s", index+1, task)
+					s := fmt.Sprintf("Task #%d refers to a non-existent task: %v\n", index+1, task)
 					return 1, s
 				}
 			}

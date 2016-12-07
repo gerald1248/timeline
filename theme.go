@@ -7,17 +7,17 @@ import (
 )
 
 func r(hex string) uint8 {
-	i, _ := strconv.ParseInt("0x" + hex[1:3], 0, 64);
+	i, _ := strconv.ParseInt("0x"+hex[1:3], 0, 64)
 	return uint8(i)
 }
 
 func g(hex string) uint8 {
-	i, _ := strconv.ParseInt("0x" + hex[3:5], 0, 64);
+	i, _ := strconv.ParseInt("0x"+hex[3:5], 0, 64)
 	return uint8(i)
 }
 
 func b(hex string) uint8 {
-	i, _ := strconv.ParseInt("0x" + hex[5:], 0, 64);
+	i, _ := strconv.ParseInt("0x"+hex[5:], 0, 64)
 	return uint8(i)
 }
 
@@ -28,7 +28,7 @@ func hexToColor(hex string) color.Color {
 	}
 
 	return color.RGBA{r(hex), g(hex), b(hex), 255}
-} 
+}
 
 func applyTheme(d *Data) {
 	if d.MyTheme == nil {
@@ -88,17 +88,17 @@ func applyDuration(d *Data, borderColor1, fillColor1, borderColor2, fillColor2 c
 
 	for index, task := range d.Tasks {
 		duration := durations[index]
-		
-		if (maxDuration == 0) {
+
+		if maxDuration == 0 {
 			continue
 		}
 
 		colorIndex := int64(255) * duration / maxDuration
-		
+
 		if colorIndex < 0 {
 			continue
 		}
-		
+
 		task.BorderColor = borderColors[colorIndex]
 		task.FillColor = fillColors[colorIndex]
 	}

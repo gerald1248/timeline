@@ -1,6 +1,6 @@
 {
   "name": "timeline",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "timeline generator",
   "main": "timeline.go",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "author": "gerald1248",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/gerald1248/timeline",
+  "homepage": "https://github.com/gerald1248/timeline",
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-core": "^6.7.4",
