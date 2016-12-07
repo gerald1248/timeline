@@ -37,7 +37,6 @@ gulp.task('build', function(callback) {
     'build-html',
     'build-bindata',
     'build-go',
-    'copy-binary',
     'package-binary',
     'package-fonts',
     'dist',
@@ -105,7 +104,7 @@ gulp.task('dist', function() {
 });
 
 gulp.task('build-sample', function(callback) {
-  exec('timeline data/*.json', function(err, stdout, stderr) {
+  exec('./package/timeline data/*.json', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     callback(err);
