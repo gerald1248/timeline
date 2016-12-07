@@ -164,12 +164,6 @@ Build
 -----
 Install Go using one of the installers available from `https://golang.org/dl/` and set up your `$GOPATH` as you see fit (`~/golang` will do).
 
-That done, install `draw2d`:
-
-```
-$ go get -u github.com/llgcode/draw2d
-```
-
 Now it's time to clone `github.com/gerald1248/timeline`. The folder structure below `$GOPATH` should look as follows:
 ```
 src
@@ -197,7 +191,7 @@ src
             └── timeline.go
 ```
 
-Next, install Node.js with npm using your package manager, cd into the working directory `timeline` and enter:
+Next, install Node.js with npm using your package manager. `cd` into the working directory `timeline` and enter:
 
 ```
 $ npm install gulp
@@ -205,20 +199,12 @@ $ npm install go-bindata
 $ npm install
 ```
 
-Before running `gulp`, fetch and install the dependencies:
+Before running `gulp` (which builds and tests the program), fetch and install the dependencies:
 
 ```
-$ go get -u github.com/draw2d
-$ go get -u github.com/elazarl/go-bindata-assetfs
-$ go get -u github.com/xeipuuv/gojsonschema
+$ go get -u
 ```
 
-The build process checks that the binary can be run from `$GOPATH/bin`, so add the directory to your path (for example in `~/.bashrc`):
-
-```
-export PATH:$GOPATH/bin:$PATH
-```
- 
 With that, the workspace is ready. The default task (triggered by `gulp`) compiles `timeline` from source, runs the tests (very sketchy for now, sorry!), checks the source format, generates sample timelines and writes out a distributable zip for your operating system. (Only tested on MacOS, Windows and Ubuntu Linux 16.04 as it's early days.)
 
 You can also run `gulp build`, `gulp test`, `gulp watch`, etc. individually if you wish.
