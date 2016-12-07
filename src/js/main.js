@@ -13,6 +13,9 @@ var App = function() {
 		$('#color-picker-border-2,#color-picker-fill-2').colorpicker({"format": "hex"});
 		$('#datepicker-end').datepicker({format: "yyyy-mm-dd"});
 		$('#source-div').css({"display": "none"});
+		$('#modal-action-button').on('click', function() {
+			self.import();
+		});
 		this.addTableButtonHandlers();
 	};
 
@@ -53,6 +56,8 @@ var App = function() {
 		}
 
 		this.addTableButtonHandlers();
+
+		return this.counter;
 	};
 
 	this.serialize = function() {
@@ -147,7 +152,31 @@ var App = function() {
 		var rowId = id.replace(/^delete-button/, '#task');
 		$(rowId).remove();
 		this.addTableButtonHandlers();
-	}
+	};
+
+	this.import = function() {
+		var s = $('#modal-source')[0].value;
+		var obj = JSON.parse(s);
+		if (obj === {} || obj === null || typeof(obj) == 'undefined') {
+			$('#result')[0].innerHTML = "Can't import timeline";
+		}
+
+		this.clearTasks();
+		if (obj.tasks) {
+			for (var i = 0; i < obj.tasks.length; i++) {
+				var task = obj.tasks[i]
+				var counter = this.addRow(false);
+
+				$('#datepicker-start-' + counter).datepicker('update', task.start);
+				$('#datepicker-end-' + counter).datepicker('update', (task.end === "-") ? "" : task.end);
+				$('#label-' + counter).val(task.label);
+			}
+		}
+	};
+
+	this.clearTasks = function() {
+		$('#task-table-body')[0].innerHTML = ''
+	};
 };
 
 function mainFunc() {
