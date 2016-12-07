@@ -205,7 +205,7 @@ $ npm install go-bindata
 $ npm install
 ```
 
-Before running `gulp`, install the Go vendor modules:
+Before running `gulp`, fetch and install the dependencies:
 
 ```
 $ go get -u github.com/draw2d
@@ -221,5 +221,5 @@ export PATH:$GOPATH/bin:$PATH
  
 With that, the workspace is ready. The default task (triggered by `gulp`) compiles `timeline` from source, runs the tests (very sketchy for now, sorry!), checks the source format, generates sample timelines and writes out a distributable zip for your operating system. (Only tested on MacOS, Windows and Ubuntu Linux 16.04 as it's early days.)
 
-You can also run `gulp build`, `gulp test`, etc. individually if you wish.
+You can also run `gulp build`, `gulp test`, `gulp watch`, etc. individually if you wish.
 
