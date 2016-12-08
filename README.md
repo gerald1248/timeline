@@ -74,7 +74,7 @@ Where do I start?
 ![Another sample timeline](data/sample_duration.png?raw=true "Another sample timeline")
 **Fig. 3** Another sample timeline (colors indicate task duration)
 
-The best place to start is to create a timeline of your own. All JSON input is validated agains the [JSON Schema](api/timeline_schema.json) that defines the API.
+The best place to start is to create a timeline of your own. All JSON input is validated against the JSON Schema in folder [api](api) that defines the API.
 
 The top-level property `tasks` lists all tasks to be visualized. Each task has to have a `start` and `end`. The `label` is optional and shown to the left if present. Each date string is formatted `yyyy-mm-dd`.
 
