@@ -91,9 +91,9 @@ The `recur` property sets up a recurring task: a fortnightly visit to a haunted 
 ![Unthemed sample timeline](data/sample_unthemed.png?raw=true "Unthemed sample timeline")
 **Fig. 4** Unthemed timeline
 
-The other two top-level properties of the JSON are optional.
+The other two top-level properties of the JSON (`settings` and `theme`) are optional.
 
-The first, `settings`, stores housekeeping info. `zoom` could be set to 100% or 200%, for example; the end date can be set to a date other than the last day of the last task; days and weeks can be hidden to prevent visual noise (by default, they are hidden when the duration of the timeline exceeds 90 and 180 days, respectively)..
+The first, `settings`, stores housekeeping info. `zoom` could be set to 100% or 200%, for example; the end date can be set to a date other than the last day of the last task; days and weeks can be hidden to prevent visual noise (by default, they are hidden when the duration of the timeline exceeds 90 and 180 days, respectively).
 
 The `theme` property currently adopts one of two color schemes: 'gradient' (the option used in Fig. 1) paints tasks starting with one color and gradually reaching a second; 'duration' (see Fig. 3) uses the first color for the shortest duration and the second for the longest. The field `layoutSteps` specifies two durations measured in days: first, the timeline duration from which weekdays should be hidden and then the duration from which weeks should be hidden as well.
 
