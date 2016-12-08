@@ -115,16 +115,16 @@ var App = function() {
 		if (settingEndDateOngoing) {
 			obj.settings.end = "-";
 		}
-		obj.settings.zoom = parseInt($('#zoom-input').val());
-		obj.settings.hideDaysFrom = parseInt($('#hide-days-from-input').val());
-		obj.settings.hideWeeksFrom = parseInt($('#hide-weeks-from-input').val());
+		obj.settings.zoom = Number($('#zoom-input').val());
+		obj.settings.hideDaysFrom = Number($('#hide-days-from-input').val());
+		obj.settings.hideWeeksFrom = Number($('#hide-weeks-from-input').val());
 		
 		//theme
 		obj.theme.colorScheme = $('#color-scheme-select').val();
-		obj.theme.borderColor1 = $('#color-picker-border-1').colorpicker('getValue', '-');
-		obj.theme.fillColor1 = $('#color-picker-fill-1').colorpicker('getValue', '-');
-		obj.theme.borderColor2 = $('#color-picker-border-2').colorpicker('getValue', '-');
-		obj.theme.fillColor2 = $('#color-picker-fill-2').colorpicker('getValue', '-');
+		obj.theme.borderColor1 = $('#color-picker-border-1').colorpicker('getValue', '#ffffff');
+		obj.theme.fillColor1 = $('#color-picker-fill-1').colorpicker('getValue', '#ffffff');
+		obj.theme.borderColor2 = $('#color-picker-border-2').colorpicker('getValue', '#ffffff');
+		obj.theme.fillColor2 = $('#color-picker-fill-2').colorpicker('getValue', '#ffffff');
 
 	    return JSON.stringify(obj);
 	}
@@ -193,15 +193,26 @@ var App = function() {
 			}
 		}
 		if (obj.settings) {
-
+			var settings = obj.settings
+			var ongoing = (settings.end === "-");
+			$('#datepicker-end').datepicker('update', (ongoing) ? "" : settings.end);
+			$('#datepicker-end-ongoing').prop('checked', ongoing);
+			$('#zoom-input').val(settings.zoom);
+			$('#hide-days-from-input').val(settings.hideDaysFrom);
+			$('#hide-weeks-from-input').val(settings.hideWeeksFrom);
 		}
 		if (obj.theme) {
-
+			var theme = obj.theme;
+			$('#color-scheme-select').val(theme.colorScheme);
+			$('#color-picker-border-1').colorpicker('setValue', theme.borderColor1);
+			$('#color-picker-fill-1').colorpicker('setValue', theme.fillColor1);
+			$('#color-picker-border-2').colorpicker('setValue', theme.borderColor2);
+			$('#color-picker-fill-2').colorpicker('setValue', theme.fillColor2);
 		}
 	};
 
 	this.clearTasks = function() {
-		$('#task-table-body')[0].innerHTML = ''
+		$('#task-table-body')[0].innerHTML = '';
 	};
 };
 
