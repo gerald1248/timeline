@@ -97,17 +97,19 @@
               <h4 class="panel-title"><a data-toggle="collapse" class="collapsed" href="#collapse-source">Source</a></h4>
             </div>
             <div id="collapse-source" class="panel-collapse collapse">
-              <textarea class="form-control" id="source" rows="5"></textarea>
+              <div>
+                <input type="text" class="form-control" id="source"></input>
+                <button id="copy-button" type="button" class="btn btn-default" data-clipboard-action="copy" data-clipboard-target="#source">Copy to clipboard</button>            
+              </div>
             </div>
           </div>
         </div>
-      </div>
     </div>
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/bootstrap-datepicker.min.js"></script>
     <script src="/static/js/bootstrap-colorpicker.min.js"></script>
+    <script src="/static/js/clipboard.min.js"></script>
     <script src="/static/js/bundle-min.js"></script>
-    </script>
   </body>
 </html>
