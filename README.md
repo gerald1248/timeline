@@ -202,6 +202,7 @@ $ npm install
 Before running `gulp` (which builds and tests the program), fetch and install the dependencies:
 
 ```
+$ go get -u github.com/jteeuwen/go-bindata/...
 $ go get -u
 ```
 
