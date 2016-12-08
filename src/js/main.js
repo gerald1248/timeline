@@ -17,6 +17,17 @@ var App = function() {
 			self.import();
 		});
 		this.addTableButtonHandlers();
+
+		this.clipboard = new Clipboard('#copy-button');
+		this.clipboard.on('error', function(e) {
+			//TODO: Ctrl+C message fallback
+		});
+
+		//keyboard focus on textarea for quick paste action
+		//not allowed to read from clipboard
+		$('#import-modal').on('shown.bs.modal', function() {
+			$('#modal-source').focus();
+		});
 	};
 
 	this.addTableButtonHandlers = function() {
@@ -156,9 +167,15 @@ var App = function() {
 
 	this.import = function() {
 		var s = $('#modal-source')[0].value;
-		var obj = JSON.parse(s);
-		if (obj === {} || obj === null || typeof(obj) == 'undefined') {
-			$('#result')[0].innerHTML = "Can't import timeline";
+		try {
+			var obj = JSON.parse(s);
+		} catch(e) {
+			$('#result')[0].innerHTML = e.message;
+			return;
+		}
+
+		if (obj === {} || obj === null || typeof(obj) === 'undefined') {
+			$('#result')[0].innerHTML = "No timeline data found";
 		}
 
 		this.clearTasks();
@@ -168,9 +185,18 @@ var App = function() {
 				var counter = this.addRow(false);
 
 				$('#datepicker-start-' + counter).datepicker('update', task.start);
-				$('#datepicker-end-' + counter).datepicker('update', (task.end === "-") ? "" : task.end);
+				
+				var ongoing = (task.end === "-");
+				$('#datepicker-end-' + counter).datepicker('update', (ongoing) ? "" : task.end);
+				$('#datepicker-end-' + counter + '-ongoing').prop('checked', ongoing);
 				$('#label-' + counter).val(task.label);
 			}
+		}
+		if (obj.settings) {
+
+		}
+		if (obj.theme) {
+
 		}
 	};
 
