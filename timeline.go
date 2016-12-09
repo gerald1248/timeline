@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"image"
 	"image/color"
 	"os"
 	"time"
@@ -58,6 +59,12 @@ type Settings struct {
 }
 
 type Result struct {
+	Message string
+	Code    int
+	Image   image.Image
+}
+
+type ShortResult struct {
 	Message string
 	Code    int
 }
