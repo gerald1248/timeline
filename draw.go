@@ -270,7 +270,7 @@ func drawStripe(d *Data, gc *draw2dimg.GraphicContext, index int, y1, y2 float64
 	gc.Restore()
 }
 
-func drawScene(d *Data, path string) {
+func drawScene(d *Data) image.Image {
 	w, h, rowH := d.W, d.H, d.RowH
 
 	dest := image.NewRGBA(image.Rect(0, 0, int(w), int(h)))
@@ -545,6 +545,6 @@ func drawScene(d *Data, path string) {
 	y += rowH
 	rect := image.Rect(0.0, 0.0, int(w), int(y+rowH))
 	cropped := dest.SubImage(rect)
-	// Save to file
-	draw2dimg.SaveToPngFile(path, cropped)
+
+	return cropped
 }
