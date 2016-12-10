@@ -3,9 +3,14 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/golang/freetype/truetype"
 	"github.com/llgcode/draw2d"
 	"github.com/llgcode/draw2d/draw2dimg"
 	"github.com/xeipuuv/gojsonschema"
+	"golang.org/x/image/font/gofont/gobold"
+	"golang.org/x/image/font/gofont/gobolditalic"
+	"golang.org/x/image/font/gofont/goitalic"
+	"golang.org/x/image/font/gofont/goregular"
 	"io/ioutil"
 	"strings"
 	"time"
@@ -70,7 +75,42 @@ func processBytes(bytes []byte) Result {
 		return Result{fmt.Sprintf(errString), 1, nil}
 	}
 
-	draw2d.SetFontFolder("./resource/font")
+	//draw2d.SetFontFolder("./resource/font")
+	var cache = &MyFontCache{
+		fonts: make(map[string]*truetype.Font),
+	}
+
+	regular, _ := truetype.Parse(goregular.TTF)
+	italic, _ := truetype.Parse(goitalic.TTF)
+	bold, _ := truetype.Parse(gobold.TTF)
+	bolditalic, _ := truetype.Parse(gobolditalic.TTF)
+
+	cache.Store(draw2d.FontData{
+		Name:   "goregular",
+		Family: draw2d.FontFamilySans,
+		Style:  draw2d.FontStyleNormal,
+	}, regular)
+
+	cache.Store(draw2d.FontData{
+		Name:   "gobold",
+		Family: draw2d.FontFamilySans,
+		Style:  draw2d.FontStyleBold,
+	}, bold)
+
+	cache.Store(draw2d.FontData{
+		Name:   "goitalic",
+		Family: draw2d.FontFamilySans,
+		Style:  draw2d.FontStyleItalic,
+	}, italic)
+
+	cache.Store(draw2d.FontData{
+		Name:   "gobolditalic",
+		Family: draw2d.FontFamilySans,
+		Style:  draw2d.FontStyleBold | draw2d.FontStyleItalic,
+	}, bolditalic)
+
+	draw2d.SetFontCache(cache)
+
 	img := drawScene(&data)
 
 	b := img.Bounds()

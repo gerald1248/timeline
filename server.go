@@ -1,8 +1,8 @@
 package main
 
 import (
-	b64 "encoding/base64"
 	"bytes"
+	b64 "encoding/base64"
 	"fmt"
 	"github.com/elazarl/go-bindata-assetfs"
 	"image/png"
