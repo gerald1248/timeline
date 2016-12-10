@@ -38,7 +38,6 @@ gulp.task('build', function(callback) {
     'build-bindata',
     'build-go',
     'package-binary',
-    'package-fonts',
     'dist',
     'clean-home',
     'build-sample',
@@ -90,11 +89,6 @@ gulp.task('copy-binary', function() {
 gulp.task('package-binary', function() {
   return gulp.src(['./timeline', './timeline.exe'], { base: '.' })
     .pipe(gulp.dest('package'))
-});
-
-gulp.task('package-fonts', function() {
-  return gulp.src('./resource/font/*', { base: './resource/font' })
-    .pipe(gulp.dest('package/resource/font'))
 });
 
 gulp.task('dist', function() {
