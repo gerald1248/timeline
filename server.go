@@ -1,13 +1,14 @@
 package main
 
 import (
+	"bytes"
 	b64 "encoding/base64"
 	"fmt"
 	"github.com/elazarl/go-bindata-assetfs"
+	"image/png"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 )
 
 type PostStruct struct {
@@ -53,37 +54,22 @@ func handlePost(w *http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//write to tmpfile
-	tmpfile, err := ioutil.TempFile("", "timeline") //use const filePrefix?
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer os.Remove(tmpfile.Name())
-
-	if _, err := tmpfile.Write(body); err != nil {
-		log.Fatal(err)
-	}
-
-	if err := tmpfile.Close(); err != nil {
-		log.Fatal(err)
-	}
-
-	result := processFile(tmpfile.Name())
+	result := processBytes(body)
 
 	if result.Code > 0 {
 		fmt.Fprintf(*w, "<p>%s</p>", result.Message)
 		return
 	}
 
-	fmt.Println(result.Message)
-
 	//now display using base64 data
-	arr, err := ioutil.ReadFile(tmpfile.Name() + ".png")
+	buf := new(bytes.Buffer)
+	err = png.Encode(buf, result.Image)
 	if err != nil {
+		fmt.Fprintf(*w, "<p>Can't encode resulting image: %v</p>", err)
 		return
 	}
 
-	s := b64.StdEncoding.EncodeToString([]byte(arr))
+	//TBD: option to return bytestream
+	s := b64.StdEncoding.EncodeToString(buf.Bytes())
 	fmt.Fprintf(*w, "<img class=\"img-responsive\" alt=\"Timeline\" src=\"data:image/png;base64,%s\"/>", s)
 }
