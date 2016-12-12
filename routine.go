@@ -16,12 +16,14 @@ import (
 	"time"
 )
 
-func processFile(inputPath string) ShortResult {
+func processFile(inputPath string, ch chan<- ShortResult) {
 	start := time.Now()
 
 	buffer, err := ioutil.ReadFile(inputPath)
 	if err != nil {
-		return ShortResult{fmt.Sprintf("can't read input file: %v\n", err), 1}
+		//return ShortResult{fmt.Sprintf("can't read input file: %v\n", err), 1}
+		ch <- ShortResult{fmt.Sprintf("can't read input file: %v\n", err), 1}
+		return
 	}
 
 	result := processBytes(buffer)
@@ -31,11 +33,19 @@ func processFile(inputPath string) ShortResult {
 	ext := ".png"
 	outputPath := strings.Join([]string{bare, ext}, "")
 
+	if result.Code > 0 {
+		fmt.Printf("%s\n", result.Message)
+		ch <- ShortResult{fmt.Sprintf("%s: %s\n", outputPath, result.Message), 1}
+		return
+	}
+
 	//save to file
 	draw2dimg.SaveToPngFile(outputPath, result.Image)
 
 	secs := time.Since(start).Seconds()
-	return ShortResult{fmt.Sprintf("%s: %.2fs", outputPath, secs), result.Code}
+
+	ch <- ShortResult{fmt.Sprintf("%s: %.2fs", outputPath, secs), 0}
+	return
 }
 
 func processBytes(bytes []byte) Result {
@@ -75,7 +85,7 @@ func processBytes(bytes []byte) Result {
 		return Result{fmt.Sprintf(errString), 1, nil}
 	}
 
-	//draw2d.SetFontFolder("./resource/font")
+	draw2d.SetFontFolder(".")
 	var cache = &MyFontCache{
 		fonts: make(map[string]*truetype.Font),
 	}
@@ -109,6 +119,7 @@ func processBytes(bytes []byte) Result {
 		Style:  draw2d.FontStyleBold | draw2d.FontStyleItalic,
 	}, bolditalic)
 
+	draw2d.SetFontFolder(".")
 	draw2d.SetFontCache(cache)
 
 	img := drawScene(&data)

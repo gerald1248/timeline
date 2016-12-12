@@ -1,13 +1,11 @@
 {
-  "settings": {
-    "zoom": 200,
-    "hideDaysFrom": 180,
-    "hideWeeksFrom": 365
-  },
+  "zoom": 150,
+  "hideDaysFrom": 180,
+  "hideWeeksFrom": 365,
   "theme": {
     "colorScheme": "gradient",
-    "borderColor1": "#11ff11",
-    "fillColor1": "#33ff33",
+    "borderColor1": "#00aa00",
+    "fillColor1": "#00cc00",
     "borderColor2": "#bbffbb",
     "fillColor2": "#ddffdd",
     "frameBorderColor": "#ffffff",
@@ -27,7 +25,7 @@
       "start": "2016-02-12",
       "end": "2016-02-13",
       "label": "Dare",
-      "recur": "14"
+      "recur": 14
     },
     {
       "start": "2016-02-25",

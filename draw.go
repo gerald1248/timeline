@@ -397,7 +397,7 @@ func drawScene(d *Data) image.Image {
 		gc.Translate(d.LabelW, 0)
 		drawDropShadow(gc, x1, y1, x2, y2)
 		drawBlock(d, gc, x1, y1, x2, y2, task.BorderColor, task.FillColor, task.Label, false)
-		recur, _ := strconv.Atoi(task.Recur)
+		recur := task.Recur
 		if recur > 0 {
 			increment := float64(recur) * d.DayW
 			recurW := x2 - x1
