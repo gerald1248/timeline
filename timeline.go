@@ -6,6 +6,7 @@ import (
 	"image"
 	"image/color"
 	"os"
+	"sync"
 	"time"
 )
 
@@ -28,7 +29,7 @@ type Task struct {
 	Start              string   `json:"start"`
 	End                string   `json:"end"`
 	Label              string   `json:"label"`
-	Recur              string   `json:"recur"`
+	Recur              int      `json:"recur"`
 	Milestones         []string `json:"milestones"`
 	DateStamps         []string `json:"dateStamps"`
 	StartTo            []int    `json:"startTo"`
@@ -81,13 +82,21 @@ func main() {
 		return
 	}
 
-	var code int
+	ch := make(chan ShortResult)
+
 	for _, input := range args {
-		result := processFile(input)
-		code += result.Code
-		fmt.Println(result.Message)
+		go processFile(input, ch)
 	}
 
+	var mu sync.Mutex
+	var code int
+	for range args {
+		result := <-ch
+		mu.Lock()
+		code += result.Code
+		mu.Unlock()
+		fmt.Println(result.Message)
+	}
 	os.Exit(code)
 }
 
