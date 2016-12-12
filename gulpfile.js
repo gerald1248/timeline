@@ -23,6 +23,8 @@ if (platform === "linux") {
     }
   });
 }
+var race = false;
+var raceSwitch = (race) ? " -race" : "";
 
 gulp.task('default', ['build', 'watch']);
 
@@ -74,8 +76,7 @@ gulp.task('build-html', function() {
 });
 
 gulp.task('build-go', function(callback) {
-  exec('go build', function(err, stdout, stderr) {
-  //exec('go build -race', function(err, stdout, stderr) {
+  exec('go build' + raceSwitch, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     callback(err);
