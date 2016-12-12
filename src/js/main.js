@@ -103,30 +103,40 @@ var App = function() {
 
 			var taskObj = {};
 			taskObj.start = startDate;
-			taskObj.end = endDate;
 			taskObj.label = label;
+
+      //end is optional - not supplying end is perfectly valid
+      //- signifies 'today' so treating 'blank' as significant is helpful here
+      if (endDate.length > 0) {
+			  taskObj.end = endDate;
+      }
 
 			obj.tasks.push(taskObj);
 		}
 
-		//settings
+		//settings - enforce sane values
+    //TODO: use schema limits
 		obj.settings.end = $('#datepicker-end').datepicker("getFormattedDate");
 		var settingEndDateOngoing = $('#datepicker-end-ongoing').prop('checked');
 		if (settingEndDateOngoing) {
 			obj.settings.end = "-";
 		}
-		obj.settings.zoom = Number($('#zoom-input').val());
-		obj.settings.hideDaysFrom = Number($('#hide-days-from-input').val());
-		obj.settings.hideWeeksFrom = Number($('#hide-weeks-from-input').val());
+    var zoomVal = Number($('#zoom-input').val());
+    obj.settings.zoom = (zoomVal >= 50 && zoomVal <= 300) ? zoomVal : 150;
+    var hideDaysFromVal = Number($('#hide-days-from-input').val());
+    obj.settings.hideDaysFrom = (hideDaysFromVal >= 1 && hideDaysFromVal <= 365) ? hideDaysFroVal : 90;
+		var hideWeeksFromVal = Number($('#hide-weeks-from-input').val());
+		obj.settings.hideWeeksFrom = (hideWeeksFromVal >= 1 && hideWeeksFromVal <= 1460) ? hideWeeksFromVal : 180;
 		
 		//theme
-		obj.theme.colorScheme = $('#color-scheme-select').val();
+		var colorSchemeVal = $('#color-scheme-select').val();
+    obj.theme.colorScheme = (colorSchemeVal.length > 0) ? colorSchemeVal : "gradient";
 		obj.theme.borderColor1 = $('#color-picker-border-1').colorpicker('getValue', '#ffffff');
 		obj.theme.fillColor1 = $('#color-picker-fill-1').colorpicker('getValue', '#ffffff');
 		obj.theme.borderColor2 = $('#color-picker-border-2').colorpicker('getValue', '#ffffff');
 		obj.theme.fillColor2 = $('#color-picker-fill-2').colorpicker('getValue', '#ffffff');
 
-	    return JSON.stringify(obj);
+	  return JSON.stringify(obj);
 	}
 
 	this.post = function() {
