@@ -1,45 +1,133 @@
 {
-  "zoom": 200,
-  "hideDaysFrom": 180,
-  "hideWeeksFrom": 365,
-  "theme": {
-    "colorScheme": "gradient",
-    "borderColor1": "#ee0000",
-    "fillColor1": "#ff0000",
-    "borderColor2": "#ffaaaa",
-    "fillColor2": "#ffbbbb",
-    "frameBorderColor": "#ffffff",
-    "frameFillColor": "#aaaaaa",
-    "stripeColorDark": "#dddddd",
-    "stripeColorLight": "#eeeeee",
-    "gridColor": "#888888"
-  },
-  "tasks": [
-    {
-      "start": "2016-01-01",
-      "end": "2016-01-10",
-      "label": "Do I",
-      "endTo": [2]
+  "$schema": "http:\/\/json-schema.org\/draft-04\/schema#",
+  "definitions": {
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
     },
-    {
-      "start": "2016-02-12",
-      "end": "2016-02-13",
-      "label": "Dare",
-      "recur": "14"
+    "date-or-placeholder": {
+      "type": "string",
+      "pattern": "^([0-9]{4}-[0-9]{2}-[0-9]{2}|\\-)$"
     },
-    {
-      "start": "2016-02-25",
-      "end": "2016-04-10",
-      "label": "Disturb",
-      "milestones": ["2016-02-25"],
-      "startTo": [1]
-    },
-    {
-      "start": "2016-04-01",
-      "end": "2016-05-03",
-      "label": "The universe?",
-      "milestones": ["2016-05-01"],
-      "dateStamps": ["2016-04-01", "2016-05-01"]
+    "hex-color": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
     }
-  ]
+  },
+  "title": "Timeline schema",
+  "description": "Defines the timeline input format and thus API",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "object",
+      "properties": {
+        "zoom": {
+          "type": "number",
+          "minimum": 50,
+          "maximum": 300
+        },
+        "end": {
+          "$ref": "#\/definitions\/date-or-placeholder"
+        }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "colorScheme": {
+          "type": "string",
+          "pattern": "^(gradient|duration)$"
+        },
+        "borderColor1": {
+          "$ref": "#\/definitions\/hex-color"
+        },
+        "fillColor1": {
+          "$ref": "#\/definitions\/hex-color"
+        },
+        "borderColor2": {
+          "$ref": "#\/definitions\/hex-color"
+        },
+        "fillColor2": {
+          "$ref": "#\/definitions\/hex-color"
+        },
+        "frameBorderColor": {
+          "$ref": "#\/definitions\/hex-color"
+        },
+        "frameFillColor": {
+          "$ref": "#\/definitions\/hex-color"
+        },
+        "stripeColorDark": {
+          "$ref": "#\/definitions\/hex-color"
+        },
+        "stripeColorLight": {
+          "$ref": "#\/definitions\/hex-color"
+        },
+        "gridColor": {
+          "$ref": "#\/definitions\/hex-color"
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "$ref": "#\/definitions\/date"
+          },
+          "end": {
+            "$ref": "#\/definitions\/date-or-placeholder"
+          },
+          "recur": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 365
+          },
+          "startTo": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 256
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "endTo": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 256
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "milestones": {
+            "type": "array",
+            "items": {
+              "$ref": "#\/definitions\/date"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "stamps": {
+            "type": "array",
+            "items": {
+              "$ref": "#\/definitions\/date"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [ "tasks" ]
 }
