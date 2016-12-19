@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/golang/freetype/truetype"
 	"github.com/llgcode/draw2d"
+	"sync"
 )
 
 type MyFontCache struct {
@@ -10,32 +11,34 @@ type MyFontCache struct {
 }
 
 func (cache *MyFontCache) Load(fontData draw2d.FontData) (font *truetype.Font, err error) {
+	var mu sync.Mutex
+	mu.Lock()
+	style := "regular"
 	switch fontData.Style {
 	case draw2d.FontStyleNormal:
-		return cache.fonts["regular"], nil
 	case draw2d.FontStyleItalic:
-		return cache.fonts["italic"], nil
+		style = "italic"
 	case draw2d.FontStyleBold:
-		return cache.fonts["bold"], nil
+		style = "bold"
 	case draw2d.FontStyleBold | draw2d.FontStyleItalic:
-		return cache.fonts["bolditalic"], nil
+		style = "bolditalic"
 	}
-	return
+	mu.Unlock()
+	return cache.fonts[style], nil
 }
 
 func (cache *MyFontCache) Store(fontData draw2d.FontData, font *truetype.Font) {
+	var mu sync.Mutex
+	mu.Lock()
 	switch fontData.Style {
 	case draw2d.FontStyleNormal:
 		cache.fonts["regular"] = font
-		break
 	case draw2d.FontStyleItalic:
 		cache.fonts["italic"] = font
-		break
 	case draw2d.FontStyleBold:
 		cache.fonts["bold"] = font
-		break
 	case draw2d.FontStyleBold | draw2d.FontStyleItalic:
 		cache.fonts["bolditalic"] = font
-		break
 	}
+	mu.Unlock()
 }
