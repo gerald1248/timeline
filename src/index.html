@@ -25,7 +25,7 @@
             <table id="task-table" class="table table-striped">
               <thead class="thead-default">
                 <tr>
-                  <th>Start date</th><th colspan="2">End date</th><th>Label</th><th colspan="3">&nbsp;</th>
+                  <th>Start date</th><th colspan="2">End date</th><th>Label</th><th>Milestones</th><th>Date stamps</th><th>Start-to-start</th><th>End-to-start</th><th>Recur</th><th colspan="3">&nbsp;</th>
                 </tr>
               </thead>
               <tbody id="task-table-body">
@@ -46,9 +46,9 @@
           <div id="collapse-settings" class="panel-collapse collapse">
             <table id="config-table" class="table table-striped">
               <tr><th><label>End date</label></th><td><input id="datepicker-end" class="form-control" size="16" type="text"><span class="add-on"><i class="icon-th"></i></span></td><td><div class="checkbox"><label><input id="datepicker-end-ongoing" type="checkbox">&nbsp;Ongoing</label></div></td></tr>
-              <tr><th><label>Zoom (%)</label></th><td colspan="2"><input id="zoom-input" class="form-control" type="number"></td></tsr>
-              <tr><th>Hide days from N days</th><td colspan="2"><input class="form-control" id="hide-days-from-input" type="number"></td></tr>
-              <tr><th>Hide weeks from N days</th><td colspan="2"><input class="form-control" id="hide-weeks-from-input" type="number"></td></tr>
+              <tr><th><label>Zoom (%)</label></th><td colspan="2"><input id="zoom-input" class="form-control" type="number" placeholder="150"></td></tsr>
+              <tr><th>Hide days from N days</th><td colspan="2"><input class="form-control" id="hide-days-from-input" type="number" placeholder="90"></td></tr>
+              <tr><th>Hide weeks from N days</th><td colspan="2"><input class="form-control" id="hide-weeks-from-input" type="number" placeholder="180"></td></tr>
             </table>
           </div>
         </div>
@@ -65,6 +65,11 @@
               <tr><th>Bar fill color #1</th><td><div id="color-picker-fill-1" class="input-group colorpicker-component"><input type="text" value="#00cc00" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
               <tr><th>Bar border color #2</th><td><div id="color-picker-border-2" class="input-group colorpicker-component"><input type="text" value="#bbffbb" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
               <tr><th>Bar fill color #2</th><td><div id="color-picker-fill-2" class="input-group colorpicker-component"><input type="text" value="#ddffdd" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
+              <tr><th>Frame border color</th><td><div id="color-picker-frame-border" class="input-group colorpicker-component"><input type="text" value="#ffffff" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
+              <tr><th>Frame fill color</th><td><div id="color-picker-frame-fill" class="input-group colorpicker-component"><input type="text" value="#888888" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
+              <tr><th>Dark stripe color</th><td><div id="color-picker-stripe-dark" class="input-group colorpicker-component"><input type="text" value="#dddddd" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
+              <tr><th>Light stripe color</th><td><div id="color-picker-stripe-light" class="input-group colorpicker-component"><input type="text" value="#eeeeee" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
+              <tr><th>Grid color</th><td><div id="color-picker-grid" class="input-group colorpicker-component"><input type="text" value="#888888" class="form-control" /><span class="input-group-addon"><i></i></span></div></td></tr>
             </table>
           </div>
         </div>
