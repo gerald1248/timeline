@@ -194,10 +194,17 @@ src
 Next, install Node.js with npm using your package manager. `cd` into the working directory `timeline` and enter:
 
 ```
-$ npm install gulp
-$ npm install go-bindata
+$ npm install -g gulp-cli
 $ npm install
 ```
+
+Note for Ubuntu users: as `gulp-cli` currently expects `node`, but Ubuntu installs `nodejs`, `gulp` currently has to be triggered as follows:
+
+```
+$ nodejs node_modules/gulp/bin/gulp.js
+```
+
+The silver lining: that's just the invocation to use when flying without superuser privileges.
 
 Before running `gulp` (which builds and tests the program), fetch and install the dependencies:
 
@@ -209,4 +216,3 @@ $ go get -u
 With that, the workspace is ready. The default task (triggered by `gulp`) compiles `timeline` from source, runs the tests (very sketchy for now, sorry!), checks the source format, generates sample timelines and writes out a distributable zip for your operating system. (Only tested on MacOS, Windows and Ubuntu Linux 16.04 as it's early days.)
 
 You can also run `gulp build`, `gulp test`, `gulp watch`, etc. individually if you wish.
-
