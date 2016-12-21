@@ -10,6 +10,7 @@
 // static/fonts/glyphicons-halflings-regular.ttf
 // static/fonts/glyphicons-halflings-regular.woff
 // static/fonts/glyphicons-halflings-regular.woff2
+// static/i18n.json
 // static/img/bootstrap-colorpicker/alpha-horizontal.png
 // static/img/bootstrap-colorpicker/alpha.png
 // static/img/bootstrap-colorpicker/hue-horizontal.png
@@ -186,7 +187,7 @@ func staticCssMainCss() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/css/main.css", size: 51, mode: os.FileMode(420), modTime: time.Unix(1482171914, 0)}
+	info := bindataFileInfo{name: "static/css/main.css", size: 51, mode: os.FileMode(420), modTime: time.Unix(1482347734, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -287,6 +288,26 @@ func staticFontsGlyphiconsHalflingsRegularWoff2() (*asset, error) {
 	}
 
 	info := bindataFileInfo{name: "static/fonts/glyphicons-halflings-regular.woff2", size: 18028, mode: os.FileMode(420), modTime: time.Unix(1481129382, 0)}
+	a := &asset{bytes: bytes, info: info}
+	return a, nil
+}
+
+var _staticI18nJson = []byte("\x1f\x8b\x08\x00\x00\x09\x6e\x88\x00\xff\xd4\xce\xbf\x6a\x85\x30\x14\xc7\xf1\x3d\x4f\x71\x38\xb3\x5e\xa2\xa3\x9b\x50\x3a\x08\x6d\x87\x8e\xe2\x10\xed\x41\xc5\x98\x48\x4c\x0a\x5a\xfa\x36\x7d\x93\xbe\x58\x89\x7f\x8a\x14\xed\x7e\xa7\xfc\xce\x37\xcb\x27\x67\x00\x1f\x0c\x00\x00\xa5\x50\x35\x26\x80\xa4\x42\x37\x62\xb0\xc7\x49\x3b\xeb\x33\x8f\x42\x1e\xef\xb9\xd7\xca\x36\x23\x26\x90\x03\x66\x42\x39\x61\x26\x0c\x00\x1f\xa9\x34\xfb\x7e\x12\xa6\x6a\xfc\x48\x07\xd3\xca\xb5\x2c\x1f\x99\x53\xb4\xbe\x72\xb9\x53\x57\xbb\xd1\xfa\xf5\x4a\x83\xa5\xbe\x24\xe3\x8f\x97\xca\xea\x6d\x3e\xeb\xf7\xdf\xfc\x40\xd5\xba\xa1\x60\x00\x9f\xc1\xb9\xbf\x3b\xf1\xc7\x21\x8f\xee\xc1\xff\x46\x67\xf8\x1b\x8f\x6e\xd7\xfa\x03\x7e\x91\x7e\x7f\x99\xf9\x8f\xbd\xdd\xec\xdb\x2b\xdb\xff\xec\xdd\x85\x7d\x3e\xda\x59\xc1\x7e\x02\x00\x00\xff\xff\x85\x57\x01\x35\x3f\x02\x00\x00")
+
+func staticI18nJsonBytes() ([]byte, error) {
+	return bindataRead(
+		_staticI18nJson,
+		"static/i18n.json",
+	)
+}
+
+func staticI18nJson() (*asset, error) {
+	bytes, err := staticI18nJsonBytes()
+	if err != nil {
+		return nil, err
+	}
+
+	info := bindataFileInfo{name: "static/i18n.json", size: 575, mode: os.FileMode(420), modTime: time.Unix(1482261097, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -406,7 +427,7 @@ func staticIndexHtml() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/index.html", size: 6640, mode: os.FileMode(420), modTime: time.Unix(1482171914, 0)}
+	info := bindataFileInfo{name: "static/index.html", size: 6640, mode: os.FileMode(420), modTime: time.Unix(1482347734, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -486,7 +507,7 @@ func staticJsBundleMinJs() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/js/bundle-min.js", size: 6983, mode: os.FileMode(420), modTime: time.Unix(1482171914, 0)}
+	info := bindataFileInfo{name: "static/js/bundle-min.js", size: 6983, mode: os.FileMode(420), modTime: time.Unix(1482347734, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -506,7 +527,7 @@ func staticJsBundleJs() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/js/bundle.js", size: 31275, mode: os.FileMode(420), modTime: time.Unix(1482171914, 0)}
+	info := bindataFileInfo{name: "static/js/bundle.js", size: 31275, mode: os.FileMode(420), modTime: time.Unix(1482347734, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -566,7 +587,7 @@ func staticTimelineSchemaJson() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/timeline-schema.json", size: 3161, mode: os.FileMode(420), modTime: time.Unix(1482171914, 0)}
+	info := bindataFileInfo{name: "static/timeline-schema.json", size: 3161, mode: os.FileMode(420), modTime: time.Unix(1482347734, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -633,6 +654,7 @@ var _bindata = map[string]func() (*asset, error){
 	"static/fonts/glyphicons-halflings-regular.ttf": staticFontsGlyphiconsHalflingsRegularTtf,
 	"static/fonts/glyphicons-halflings-regular.woff": staticFontsGlyphiconsHalflingsRegularWoff,
 	"static/fonts/glyphicons-halflings-regular.woff2": staticFontsGlyphiconsHalflingsRegularWoff2,
+	"static/i18n.json": staticI18nJson,
 	"static/img/bootstrap-colorpicker/alpha-horizontal.png": staticImgBootstrapColorpickerAlphaHorizontalPng,
 	"static/img/bootstrap-colorpicker/alpha.png": staticImgBootstrapColorpickerAlphaPng,
 	"static/img/bootstrap-colorpicker/hue-horizontal.png": staticImgBootstrapColorpickerHueHorizontalPng,
@@ -704,6 +726,7 @@ var _bintree = &bintree{nil, map[string]*bintree{
 			"glyphicons-halflings-regular.woff": &bintree{staticFontsGlyphiconsHalflingsRegularWoff, map[string]*bintree{}},
 			"glyphicons-halflings-regular.woff2": &bintree{staticFontsGlyphiconsHalflingsRegularWoff2, map[string]*bintree{}},
 		}},
+		"i18n.json": &bintree{staticI18nJson, map[string]*bintree{}},
 		"img": &bintree{nil, map[string]*bintree{
 			"bootstrap-colorpicker": &bintree{nil, map[string]*bintree{
 				"alpha-horizontal.png": &bintree{staticImgBootstrapColorpickerAlphaHorizontalPng, map[string]*bintree{}},
