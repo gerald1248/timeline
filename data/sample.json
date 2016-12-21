@@ -1,7 +1,10 @@
 {
-  "zoom": 150,
-  "hideDaysFrom": 180,
-  "hideWeeksFrom": 365,
+  "settings": {
+    "lang": "en-uk",
+    "zoom": 150,
+    "hideDaysFrom": 180,
+    "hideWeeksFrom": 365    
+  },
   "theme": {
     "colorScheme": "gradient",
     "borderColor1": "#00aa00",

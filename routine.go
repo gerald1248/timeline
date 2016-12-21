@@ -7,9 +7,6 @@ import (
 	"github.com/llgcode/draw2d"
 	"github.com/llgcode/draw2d/draw2dimg"
 	"github.com/xeipuuv/gojsonschema"
-	"golang.org/x/image/font/gofont/gobold"
-	"golang.org/x/image/font/gofont/gobolditalic"
-	"golang.org/x/image/font/gofont/goitalic"
 	"golang.org/x/image/font/gofont/goregular"
 	"io/ioutil"
 	"strings"
@@ -21,7 +18,6 @@ func processFile(inputPath string, ch chan<- ShortResult) {
 
 	buffer, err := ioutil.ReadFile(inputPath)
 	if err != nil {
-		//return ShortResult{fmt.Sprintf("can't read input file: %v\n", err), 1}
 		ch <- ShortResult{fmt.Sprintf("can't read input file: %v\n", err), 1}
 		return
 	}
@@ -50,6 +46,11 @@ func processFile(inputPath string, ch chan<- ShortResult) {
 
 func processBytes(bytes []byte) Result {
 	start := time.Now()
+
+	i18n, msg := getI18n()
+	if msg != "" {
+		return Result{fmt.Sprintf("can't retrieve i18n table: %s\n", msg), 1, nil}
+	}
 
 	//staticTimelineSchemaJsonBytes func taken from bindata.go; if function name doesn't match, go get -u helps
 	schemaBytes, err := staticTimelineSchemaJsonBytes()
@@ -85,15 +86,11 @@ func processBytes(bytes []byte) Result {
 		return Result{fmt.Sprintf(errString), 1, nil}
 	}
 
-	draw2d.SetFontFolder(".")
 	var cache = &MyFontCache{
 		fonts: make(map[string]*truetype.Font),
 	}
 
 	regular, _ := truetype.Parse(goregular.TTF)
-	italic, _ := truetype.Parse(goitalic.TTF)
-	bold, _ := truetype.Parse(gobold.TTF)
-	bolditalic, _ := truetype.Parse(gobolditalic.TTF)
 
 	cache.Store(draw2d.FontData{
 		Name:   "goregular",
@@ -101,28 +98,10 @@ func processBytes(bytes []byte) Result {
 		Style:  draw2d.FontStyleNormal,
 	}, regular)
 
-	cache.Store(draw2d.FontData{
-		Name:   "gobold",
-		Family: draw2d.FontFamilySans,
-		Style:  draw2d.FontStyleBold,
-	}, bold)
-
-	cache.Store(draw2d.FontData{
-		Name:   "goitalic",
-		Family: draw2d.FontFamilySans,
-		Style:  draw2d.FontStyleItalic,
-	}, italic)
-
-	cache.Store(draw2d.FontData{
-		Name:   "gobolditalic",
-		Family: draw2d.FontFamilySans,
-		Style:  draw2d.FontStyleBold | draw2d.FontStyleItalic,
-	}, bolditalic)
-
 	draw2d.SetFontFolder(".")
 	draw2d.SetFontCache(cache)
 
-	img := drawScene(&data)
+	img := drawScene(&data, i18n)
 
 	b := img.Bounds()
 	w := b.Max.X

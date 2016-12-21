@@ -117,7 +117,7 @@ gulp.task('test', function(callback) {
 
 gulp.task('fmt', function(callback) {
   //listing files so bindata.go is ignored
-  exec('gofmt -d calendar.go routine.go server.go data.go theme.go draw.go timeline.go', function(err, stdout, stderr) {
+  exec('gofmt -d calendar.go routine.go server.go data.go theme.go draw.go locale.go timeline.go', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     callback(err);

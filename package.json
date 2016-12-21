@@ -1,6 +1,6 @@
 {
   "name": "timeline",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "timeline generator",
   "main": "timeline.go",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/gerald1248/timeline.git"
+    "url": "https://github.com/gerald1248/timeline.git"
   },
   "author": "gerald1248",
   "license": "MIT",
