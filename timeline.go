@@ -53,6 +53,7 @@ type Theme struct {
 }
 
 type Settings struct {
+	Lang          string `json:"lang"`
 	End           string `json:"end"`
 	Zoom          int    `json:"zoom"`
 	HideDaysFrom  int    `json:"hideDaysFrom"`
@@ -70,11 +71,18 @@ type ShortResult struct {
 	Code    int
 }
 
+type Locale struct {
+	Lang   string     `json:"lang"`
+	Layout string     `json:"layout"`
+	Months [12]string `json:"months"`
+}
+
+//type I18n []*Locale
+
 func main() {
 	port := flag.Int("p", 8000, "listen on port")
 	flag.Parse()
 
-	//TODO: --help switch for usage
 	args := flag.Args()
 
 	if len(args) == 0 {

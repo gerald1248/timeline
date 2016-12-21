@@ -7,7 +7,7 @@ import (
 
 func enrichData(d *Data) {
 	if d.MySettings == nil {
-		d.MySettings = &Settings{"", 100, 90, 180} //end, zoom, hideDaysFrom, hideWeeksFrom
+		d.MySettings = &Settings{"en-us", "", 150, 90, 180} //lang, end, zoom, hideDaysFrom, hideWeeksFrom
 	}
 
 	//custom end date
