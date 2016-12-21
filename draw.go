@@ -160,7 +160,6 @@ func drawDateStamp(d *Data, gc *draw2dimg.GraphicContext, x, y float64, label st
 	//label
 	gc.Save()
 	gc.SetFillColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
-	label = label[5:]
 
 	x1, y1, x2, y2 := bounds(gc, label)
 
@@ -270,8 +269,11 @@ func drawStripe(d *Data, gc *draw2dimg.GraphicContext, index int, y1, y2 float64
 	gc.Restore()
 }
 
-func drawScene(d *Data) image.Image {
+func drawScene(d *Data, i18n []*Locale) image.Image {
 	w, h, rowH := d.W, d.H, d.RowH
+
+	// i18n selection
+	localeIndex := getLocaleIndex(d.MySettings.Lang, i18n)
 
 	dest := image.NewRGBA(image.Rect(0, 0, int(w), int(h)))
 	gc := draw2dimg.NewGraphicContext(dest)
@@ -283,7 +285,8 @@ func drawScene(d *Data) image.Image {
 		return strconv.Itoa(t.Year())
 	}
 	fnMonth := func(t time.Time) string {
-		return t.Month().String()
+		// month index starts at 1
+		return i18n[localeIndex].Months[t.Month() - 1]
 	}
 	fnWeek := func(t time.Time) string {
 		_, week := t.ISOWeek()
@@ -445,7 +448,9 @@ func drawScene(d *Data) image.Image {
 			if i == -1 {
 				continue
 			}
-			drawDateStamp(d, gc, float64(i)*d.DayW, y1+rowH/2, dateStamp)
+
+			var label = dateStampTime.Format(i18n[localeIndex].Layout)
+			drawDateStamp(d, gc, float64(i)*d.DayW, y1+rowH/2, label)
 		}
 		gc.Restore()
 
