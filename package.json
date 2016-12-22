@@ -1,6 +1,6 @@
 {
   "name": "timeline",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "timeline generator",
   "main": "timeline.go",
   "scripts": {
@@ -22,6 +22,8 @@
     "gulp-clean-css": "^2.0.13",
     "gulp-concat": "^2.6.0",
     "gulp-htmlmin": "^3.0.0",
+    "gulp-jsonminify": "^1.0.0",
+    "gulp-md5": "^0.1.2",
     "gulp-minify": "0.0.14",
     "gulp-sourcemaps": "^1.9.1",
     "gulp-util": "^3.0.7",

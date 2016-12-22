@@ -286,7 +286,7 @@ func drawScene(d *Data, i18n []*Locale) image.Image {
 	}
 	fnMonth := func(t time.Time) string {
 		// month index starts at 1
-		return i18n[localeIndex].Months[t.Month() - 1]
+		return i18n[localeIndex].Months[t.Month()-1]
 	}
 	fnWeek := func(t time.Time) string {
 		_, week := t.ISOWeek()

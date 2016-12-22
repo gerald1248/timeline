@@ -10,8 +10,10 @@ var gulp  = require('gulp'),
   cleancss = require('gulp-clean-css'),
   htmlmin = require('gulp-htmlmin'),
   minify = require('gulp-minify'),
+  jsonminify = require('gulp-jsonminify'),
   os = require('os'),
-  getos = require('getos');
+  getos = require('getos'),
+  md5 = require('gulp-md5');
 
 var pkg = require('./package.json');
 var platform = os.platform()
@@ -30,13 +32,14 @@ gulp.task('default', ['build', 'watch']);
 
 gulp.task('build', function(callback) {
   runSequence(
-    'clean-bin',
+    'clean-build',
     'fmt',
     'vet',
     'build-api',
     'build-js',
     'build-css',
     'build-html',
+    'build-i18n',
     'build-bindata',
     'build-go',
     'package-binary',
@@ -49,8 +52,14 @@ gulp.task('build', function(callback) {
 
 gulp.task('build-api', function() {
   return gulp.src(['./api/timeline-schema.json'])
-    .pipe(minify().on('error', util.log))
+    .pipe(jsonminify().on('error', util.log))
     .pipe(gulp.dest('./static'))
+});
+
+gulp.task('build-i18n', function() {
+  return gulp.src(['./i18n/i18n.json'])
+    .pipe(jsonminify().on('error', util.log))
+    .pipe(gulp.dest('./static'));
 });
 
 gulp.task('build-js', function() {
@@ -96,6 +105,7 @@ gulp.task('package-binary', function() {
 gulp.task('dist', function() {
   return gulp.src('./package/**/*', { base: './package' })
     .pipe(zip(pkg.name + '-' + pkg.version + '-' + platform + '.zip'))
+    .pipe(md5())
     .pipe(gulp.dest('./dist'));
 });
 
@@ -136,8 +146,8 @@ gulp.task('clean-home', function() {
   return del.sync(['./timeline', './timeline.exe'], { force: true });
 });
 
-gulp.task('clean-bin', function() {
-  return del.sync(['../../../../bin/timeline', './dist/' + pkg.name + '-*-' + platform + '.zip', './package/**/*'], { force: true });
+gulp.task('clean-build', function() {
+  return del.sync(['./dist/' + pkg.name + '-*-' + platform + '_*.zip', './package/**/*', './static/*.json'], { force: true });
 });
 
 gulp.task('build-bindata', function(callback) {
