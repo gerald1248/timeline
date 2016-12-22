@@ -49,13 +49,13 @@ func processBytes(bytes []byte) Result {
 
 	i18n, msg := getI18n()
 	if msg != "" {
-		return Result{fmt.Sprintf("can't retrieve i18n table: %s\n", msg), 1, nil}
+		return Result{fmt.Sprintf("Can't read i18n table: %s\n", msg), 1, nil}
 	}
 
 	//staticTimelineSchemaJsonBytes func taken from bindata.go; if function name doesn't match, go get -u helps
 	schemaBytes, err := staticTimelineSchemaJsonBytes()
 	if err != nil {
-		return Result{fmt.Sprintf("can't retrieve schema file: %v\n", err), 1, nil}
+		return Result{fmt.Sprintf("Can't read schema file: %v\n", err), 1, nil}
 	}
 
 	schemaLoader := gojsonschema.NewStringLoader(string(schemaBytes))
@@ -63,7 +63,7 @@ func processBytes(bytes []byte) Result {
 
 	result, err := gojsonschema.Validate(schemaLoader, documentLoader)
 	if err != nil {
-		return Result{fmt.Sprintf("Error: %s\n", err.Error()), 1, nil}
+		return Result{fmt.Sprintf("Can't validate JSON: %s\n", err.Error()), 1, nil}
 	}
 
 	if !result.Valid() {

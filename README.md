@@ -22,7 +22,7 @@ For example, the timeline in **Fig. 1** above was generated from the following i
 ```json
 {
   "settings": {
-    "zoom": 200,
+    "lang": "en-gb",
     "hideDaysFrom": 180,
     "hideWeeksFrom": 365
   },
@@ -93,9 +93,9 @@ The `recur` property sets up a recurring task: a fortnightly visit to a haunted 
 
 The other two top-level properties of the JSON (`settings` and `theme`) are optional.
 
-The first, `settings`, stores housekeeping info. `zoom` could be set to 100% or 200%, for example; the end date can be set to a date other than the last day of the last task; days and weeks can be hidden to prevent visual noise (by default, they are hidden when the duration of the timeline exceeds 90 and 180 days, respectively).
+The first, `settings`, stores housekeeping info. Property `lang` specifies the language conventions used for the generated timeline. If you're British (`en-gb`) you may prefer DD-MM dates to the default MM-DD ones. For German (`de`) the form DD.MM. is more conventional, and the first month of the year is Januar, not January. `zoom` could be set to 100% or 200%, for example; the end date can be set to a date other than the last day of the last task; days and weeks can be hidden to prevent visual noise (by default, they are hidden when the duration of the timeline exceeds 90 and 180 days, respectively). All `settings` properties are optional.
 
-The `theme` property currently adopts one of two color schemes: 'gradient' (the option used in Fig. 1) paints tasks starting with one color and gradually reaching a second; 'duration' (see Fig. 3) uses the first color for the shortest duration and the second for the longest. The field `layoutSteps` specifies two durations measured in days: first, the timeline duration from which weekdays should be hidden and then the duration from which weeks should be hidden as well.
+The `theme` property currently specifies one of two color schemes: 'gradient' (the option used in Fig. 1) paints tasks starting with one color and gradually reaching a second; 'duration' (see Fig. 3) uses the first color for the shortest duration and the second for the longest. The field `layoutSteps` specifies two durations measured in days: first, the timeline duration from which weekdays should be hidden and then the duration from which weeks should be hidden as well.
 
 Placeholders
 ------------
@@ -103,14 +103,11 @@ Many timelines end with the present day. The shorthand for such a timeline is to
 
 You may also encounter tasks that are still ongoing: perhaps you are maintaining a list of ghostly apparitions that have been recorded but not yet explained. It would be annoying to have to move the end date of each such task along with each day that passes (there is after all the possibility that the apparition is inexplicable). To signify 'to the end of the timeline', set the task's `end` property to the placeholder '-'.
 
-Here is a minimal example:
+Here is a minimal example using both types of placeholder:
 ```json
 {
   "settings": {
     "end": "-",
-    "zoom": 150,
-    "hideDaysFrom": 90,
-    "hideWeeksFrom": 180
   },
   "tasks": [
     {
@@ -216,3 +213,7 @@ $ go get -u
 With that, the workspace is ready. The default task (triggered by `gulp`) compiles `timeline` from source, runs the tests (very sketchy for now, sorry!), checks the source format, generates sample timelines and writes out a distributable zip for your operating system. (Only tested on MacOS, Windows and Ubuntu Linux 16.04 as it's early days.)
 
 You can also run `gulp build`, `gulp test`, `gulp watch`, etc. individually if you wish.
+
+My language isn't supported yet
+-------------------------------
+Adding a language is as simple as adding a brief entry to (i18n/i18n.json)[i18n/i18n.json]. The `lang` property holds the ISO language code (e.g. `en-gb`); the `months` property gives the names of the months; the `layout` property is explained in the Go documentation: see (golang.org)[https://golang.org/pkg/time/#Parse].
