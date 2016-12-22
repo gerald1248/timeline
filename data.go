@@ -6,13 +6,36 @@ import (
 )
 
 func enrichData(d *Data) {
+	defaultLang := "en-us"
+	defaultZoom := 150 //req'd for screens with high pixel density
+	defaultHideDaysFrom := 90
+	defaultHideWeeksFrom := 180
+
 	if d.MySettings == nil {
-		d.MySettings = &Settings{"en-us", "", 150, 90, 180} //lang, end, zoom, hideDaysFrom, hideWeeksFrom
+		//sensible default settings: lang, end, zoom, hideDaysFrom, hideWeeksFrom
+		d.MySettings = &Settings{defaultLang, "", defaultZoom, defaultHideDaysFrom, defaultHideWeeksFrom}
 	}
 
-	//custom end date
+	//partial settings are allowed, so supply defaults for each individually
 	if d.MySettings.End != "" {
+		//custom end date or placeholder found
 		d.Last = calcLast(d.MySettings.End)
+	}
+
+	if d.MySettings.Lang == "" {
+		d.MySettings.Lang = defaultLang
+	}
+
+	if d.MySettings.Zoom == 0 {
+		d.MySettings.Zoom = defaultZoom
+	}
+
+	if d.MySettings.HideDaysFrom == 0 {
+		d.MySettings.HideDaysFrom = defaultHideDaysFrom
+	}
+
+	if d.MySettings.HideWeeksFrom == 0 {
+		d.MySettings.HideWeeksFrom = defaultHideWeeksFrom
 	}
 
 	//convert datestamps first

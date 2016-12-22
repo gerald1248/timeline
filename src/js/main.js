@@ -47,6 +47,9 @@ var App = function() {
     $('.delete-button').on('click', function() {
       self.delete(this.id);
     });
+    $('.ongoing-checkbox').on('click', function() {
+      self.toggleOngoing(this.id);
+    })
   };
 
   this.addRow = function(setFocus) {
@@ -55,7 +58,7 @@ var App = function() {
         '<tr class="task" id="task-' + this.counter + '">' +
         '<td><div class="input-append date"><input class="form-control" id="datepicker-start-' + this.counter + '" size="16" type="text" readonly><span class="add-on"><i class="icon-th"></i></span></div></td>' +
         '<td><div class="input-append date"><input class="form-control" id="datepicker-end-' + this.counter + '" size="16" type="text" readonly><span class="add-on"><i class="icon-th"></i></span></td>' +
-        '<td><div class="checkbox"><label><input id="datepicker-end-' + this.counter + '-ongoing" type="checkbox">&nbsp;Ongoing</label></div></td>' +
+        '<td><div class="checkbox"><label><input class="ongoing-checkbox" id="datepicker-end-' + this.counter + '-ongoing" type="checkbox">&nbsp;Ongoing</label></div></td>' +
         '<td><input class="form-control" id="label-' + this.counter + '" type="text"></td>' +
         '<td><input class="form-control" id="milestones-' + this.counter + '" type="text" placeholder="2001-01-01, ..."></td>' +
         '<td><input class="form-control" id="dateStamps-' + this.counter + '" type="text" placeholder="2001-01-01, ..."></td>' +
@@ -186,6 +189,16 @@ var App = function() {
     $(rowId).remove();
     this.addTableButtonHandlers();
   };
+
+  this.toggleOngoing = function(id) {
+    var datepickerId = id.replace(/-ongoing$/, '');
+    
+    //reset field if ongoing is deselected
+    //otherwise there would be no way to clear the field
+    if ($('#' + id).prop('checked') === false) {
+      $('#' + datepickerId).datepicker('update', '');
+    }
+  }
 
   this.import = function() {
     var s = $('#modal-source')[0].value;

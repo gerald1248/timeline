@@ -1,17 +1,1 @@
-[
-  {
-    "lang": "en-us",
-    "layout": "01-02",
-    "months": [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
-  },
-  {
-    "lang": "en-uk",
-    "layout": "02-01",
-    "months": [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
-  },
-  {
-    "lang": "de",
-    "layout": "02.01.",
-    "months": [ "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember" ]
-  }
-]
+[{"lang":"en-us","layout":"01-02","months":["January","February","March","April","May","June","July","August","September","October","November","December"]},{"lang":"en-uk","layout":"02-01","months":["January","February","March","April","May","June","July","August","September","October","November","December"]},{"lang":"de","layout":"02.01.","months":["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"]}]

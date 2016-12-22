@@ -1,9 +1,6 @@
 {
   "settings": {
-    "end": "-",
-    "zoom": 150,
-    "hideDaysFrom": 90,
-    "hideWeeksFrom": 180
+    "end": "-"
   },
   "tasks": [
     {

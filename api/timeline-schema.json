@@ -12,6 +12,10 @@
     "hex-color": {
       "type": "string",
       "pattern": "^#[0-9a-f]{6}$"
+    },
+    "lang": {
+      "type": "string",
+      "pattern": "^[a-z]{2}(-[a-z]{2})?$"
     }
   },
   "title": "Timeline schema",
@@ -21,6 +25,9 @@
     "settings": {
       "type": "object",
       "properties": {
+        "lang": {
+          "$ref": "#/definitions/lang"
+        },
         "zoom": {
           "type": "number",
           "minimum": 50,
@@ -28,6 +35,12 @@
         },
         "end": {
           "$ref": "#/definitions/date-or-placeholder"
+        },
+        "hideDaysFrom": {
+          "type": "number"
+        },
+        "hideMonthsFrom": {
+          "type": "number"
         }
       }
     },
