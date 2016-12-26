@@ -110,7 +110,7 @@ gulp.task('dist', function() {
 });
 
 gulp.task('build-sample', function(callback) {
-  exec('./package/timeline data/*.json', function(err, stdout, stderr) {
+  exec('package/timeline data/*.json', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     callback(err);
