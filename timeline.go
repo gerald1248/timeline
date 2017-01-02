@@ -6,6 +6,7 @@ import (
 	"image"
 	"image/color"
 	"os"
+	"path/filepath"
 	"sync"
 	"time"
 )
@@ -77,16 +78,20 @@ type Locale struct {
 	Months [12]string `json:"months"`
 }
 
-//type I18n []*Locale
-
 func main() {
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage: ./%s [<JSON file> [<JSON file>]]\n", filepath.Base(os.Args[0]))
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
 	port := flag.Int("p", 8000, "listen on port")
+	hostname := flag.String("n", "localhost", "Hostname")
 	flag.Parse()
 
 	args := flag.Args()
 
 	if len(args) == 0 {
-		serve(*port)
+		serve(*hostname, *port)
 		return
 	}
 
@@ -106,9 +111,4 @@ func main() {
 		fmt.Println(result.Message)
 	}
 	os.Exit(code)
-}
-
-func usage() {
-	fmt.Printf("Usage: ./timeline [<JSON file> [<JSON file>]]\n")
-	os.Exit(0)
 }
