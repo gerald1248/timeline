@@ -15,7 +15,7 @@ type PostStruct struct {
 	Buffer string
 }
 
-func serve(port int) {
+func serve(hostname string, port int) {
 	virtual_fs := &assetfs.AssetFS{
 		Asset:     Asset,
 		AssetDir:  AssetDir,
@@ -26,7 +26,7 @@ func serve(port int) {
 	fmt.Printf("Listening on port %d\n"+
 		"POST JSON sources to http://localhost:%d/timeline\n"+
 		"Compose timelines at http://localhost:%d/timeline/compose\n", port, port, port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%d", hostname, port), nil))
 }
 
 func guiHandler(w http.ResponseWriter, r *http.Request) {
