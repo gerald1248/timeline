@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"image"
+	"github.com/fogleman/gg"
 	"image/color"
 	"os"
 	"path/filepath"
@@ -64,7 +64,7 @@ type Settings struct {
 type Result struct {
 	Message string
 	Code    int
-	Image   image.Image
+	Context *gg.Context
 }
 
 type ShortResult struct {

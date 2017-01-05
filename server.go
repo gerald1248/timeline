@@ -5,7 +5,6 @@ import (
 	b64 "encoding/base64"
 	"fmt"
 	"github.com/elazarl/go-bindata-assetfs"
-	"image/png"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -63,7 +62,7 @@ func handlePost(w *http.ResponseWriter, r *http.Request) {
 
 	//now display using base64 data
 	buf := new(bytes.Buffer)
-	err = png.Encode(buf, result.Image)
+	err = result.Context.EncodePNG(buf)
 	if err != nil {
 		fmt.Fprintf(*w, "<p>Can't encode resulting image: %v</p>", err)
 		return
