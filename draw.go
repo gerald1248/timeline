@@ -1,51 +1,55 @@
 package main
 
 import (
-	"github.com/llgcode/draw2d/draw2dimg"
-	"image"
+	"github.com/fogleman/gg"
+	"github.com/golang/freetype/truetype"
+	"golang.org/x/image/font/gofont/goregular"
 	"image/color"
 	"strconv"
 	"time"
 )
 
-func drawDropShadow(gc *draw2dimg.GraphicContext, x1, y1, x2, y2 float64) {
+func drawDropShadow(gc *gg.Context, x1, y1, x2, y2 float64) {
 	var opacity uint8
 	opacity = 0x44
 	offset := 4.0
 
-	gc.Save()
-	gc.SetFillColor(color.RGBA{0x00, 0x00, 0x00, opacity})
+	gc.Push()
+	gc.SetFillStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, opacity}))
 	gc.MoveTo(x1+offset, y1+offset)
 	gc.LineTo(x2+offset, y1+offset)
 	gc.LineTo(x2+offset, y2+offset)
 	gc.LineTo(x1+offset, y2+offset)
-	gc.Close()
+	gc.LineTo(x1+offset, y1+offset)
 	gc.Fill()
-	gc.Restore()
+	gc.Pop()
 }
 
-func drawBlock(d *Data, gc *draw2dimg.GraphicContext, x1, y1, x2, y2 float64, strokeColor, fillColor color.Color, label string, showLabel bool) {
-	gc.Save()
-	gc.BeginPath()
-	gc.SetFillColor(fillColor)
-	gc.SetStrokeColor(strokeColor)
+func drawBlock(d *Data, gc *gg.Context, x1, y1, x2, y2 float64, strokeColor, fillColor color.Color, label string, showLabel bool) {
+	gc.Push()
+	gc.SetFillStyle(gg.NewSolidPattern(fillColor))
+	gc.SetStrokeStyle(gg.NewSolidPattern(strokeColor))
 	gc.SetLineWidth(1)
 	gc.MoveTo(x1, y1)
 	gc.LineTo(x2, y1)
 	gc.LineTo(x2, y2)
 	gc.LineTo(x1, y2)
-	gc.Close()
-	gc.FillStroke()
+	gc.LineTo(x1, y1)
+	gc.Stroke()
+	gc.LineTo(x2, y1)
+	gc.LineTo(x2, y2)
+	gc.LineTo(x1, y2)
+	gc.LineTo(x1, y1)
 	gc.Fill()
-	gc.Restore()
+	gc.Pop()
 
 	if showLabel == false {
 		return
 	}
 
 	//label
-	gc.Save()
-	gc.SetFillColor(d.FrameBorderColor)
+	gc.Push()
+	gc.SetFillStyle(gg.NewSolidPattern(d.FrameBorderColor))
 
 	tx1, ty1, tx2, ty2 := bounds(gc, label)
 
@@ -71,95 +75,88 @@ func drawBlock(d *Data, gc *draw2dimg.GraphicContext, x1, y1, x2, y2 float64, st
 		}
 	}
 
-	gc.FillStringAt(label, adjustedTextX, adjustedTextY)
-	gc.Restore()
+	gc.DrawString(label, adjustedTextX, adjustedTextY)
+	gc.Pop()
 }
-func bounds(gc *draw2dimg.GraphicContext, s string) (float64, float64, float64, float64) {
-	a, b, c, d := gc.GetStringBounds(s)
-	return a, b, c, d
+func bounds(gc *gg.Context, s string) (float64, float64, float64, float64) {
+	//a, b, c, d := gc.GetStringBounds(s)
+	//return a, b, c, d
+	w, h := gc.MeasureString(s)
+	return 0.0, 0.0, w, h
 }
-func drawArrowHeadN(d *Data, gc *draw2dimg.GraphicContext, x, y float64) {
-	gc.Save()
-	gc.BeginPath()
-	gc.SetStrokeColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
-	gc.SetFillColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
+func drawArrowHeadN(d *Data, gc *gg.Context, x, y float64) {
+	gc.Push()
+	gc.SetStrokeStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
+	gc.SetFillStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
 	var r float64
 	r = 3.0 * d.Scale
 	gc.MoveTo(x-r, y+r)
 	gc.LineTo(x, y+r-r/2)
 	gc.LineTo(x+r, y+r)
 	gc.LineTo(x, y-r)
-	gc.Close()
-	gc.FillStroke()
+	gc.LineTo(x-r, y+r)
 	gc.Fill()
-	gc.Restore()
+	gc.Pop()
 }
-func drawArrowHeadE(d *Data, gc *draw2dimg.GraphicContext, x, y float64) {
-	gc.Save()
-	gc.BeginPath()
-	gc.SetStrokeColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
-	gc.SetFillColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
+func drawArrowHeadE(d *Data, gc *gg.Context, x, y float64) {
+	gc.Push()
+	gc.SetStrokeStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
+	gc.SetFillStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
 	var r float64
 	r = 3.0 * d.Scale
 	gc.MoveTo(x, y)
 	gc.LineTo(x-2*r, y-r)
 	gc.LineTo(x-r, y)
 	gc.LineTo(x-2*r, y+r)
-	gc.Close()
-	gc.FillStroke()
+	gc.LineTo(x, y)
 	gc.Fill()
-	gc.Restore()
+	gc.Pop()
 }
-func drawArrowHeadS(d *Data, gc *draw2dimg.GraphicContext, x, y float64) {
-	gc.Save()
-	gc.BeginPath()
-	gc.SetStrokeColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
-	gc.SetFillColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
+func drawArrowHeadS(d *Data, gc *gg.Context, x, y float64) {
+	gc.Push()
+	gc.SetStrokeStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
+	gc.SetFillStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
 	var r float64
 	r = 3.0 * d.Scale
 	gc.MoveTo(x, y)
 	gc.LineTo(x-r, y-2*r)
 	gc.LineTo(x, y-r)
 	gc.LineTo(x+r, y-2*r)
-	gc.Close()
-	gc.FillStroke()
+	gc.LineTo(x, y)
 	gc.Fill()
-	gc.Restore()
+	gc.Pop()
 }
 
-func drawMilestone(d *Data, gc *draw2dimg.GraphicContext, x, y float64) {
-	gc.Save()
-	gc.BeginPath()
-	gc.SetStrokeColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
-	gc.SetFillColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
+func drawMilestone(d *Data, gc *gg.Context, x, y float64) {
+	gc.Push()
+	gc.SetStrokeStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
+	gc.SetFillStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
 	var r float64
 	r = 4 * d.Scale
 	gc.MoveTo(x-r, y)
 	gc.LineTo(x, y-2*r)
 	gc.LineTo(x+r, y)
 	gc.LineTo(x, y+2*r)
-	gc.Close()
-	gc.FillStroke()
+	gc.LineTo(x-r, y)
 	gc.Fill()
-	gc.Restore()
+	gc.Pop()
 }
 
-func drawDateStamp(d *Data, gc *draw2dimg.GraphicContext, x, y float64, label string) {
+func drawDateStamp(d *Data, gc *gg.Context, x, y float64, label string) {
 	//vertical line
-	gc.Save()
-	gc.BeginPath()
-	gc.SetStrokeColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
-	gc.SetFillColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
+	gc.Push()
+	gc.SetStrokeStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
+	gc.SetFillStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
 	var r float64
 	r = 6 * d.Scale
 	gc.MoveTo(x, y-2*r)
 	gc.LineTo(x, y+2*r)
-	gc.FillStroke()
-	gc.Restore()
+	gc.Stroke()
+	gc.Pop()
 
 	//label
-	gc.Save()
-	gc.SetFillColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
+	gc.Push()
+	gc.SetFillStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
 
 	x1, y1, x2, y2 := bounds(gc, label)
 
@@ -179,15 +176,15 @@ func drawDateStamp(d *Data, gc *draw2dimg.GraphicContext, x, y float64, label st
 	}
 
 	//strip out year as it's shown at the top
-	gc.FillStringAt(label, adjustedTextX, adjustedTextY)
-	gc.Restore()
+	gc.DrawString(label, adjustedTextX, adjustedTextY)
+	gc.Pop()
 }
 
-func drawCalendarGuides(d *Data, gc *draw2dimg.GraphicContext, y1, y2 float64, fn func(time.Time) string) {
+func drawCalendarGuides(d *Data, gc *gg.Context, y1, y2 float64, fn func(time.Time) string) {
 	var period string
 
-	gc.Save()
-	gc.SetStrokeColor(d.GridColor)
+	gc.Push()
+	gc.SetStrokeStyle(gg.NewSolidPattern(d.GridColor))
 
 	for i := 0; i <= d.Days; i++ {
 		t := time.Date(d.First.Year(), d.First.Month(), d.First.Day()+i, 0, 0, 0, 0, time.UTC)
@@ -199,22 +196,20 @@ func drawCalendarGuides(d *Data, gc *draw2dimg.GraphicContext, y1, y2 float64, f
 		}
 		if currentPeriod != period {
 			x := float64(i) * d.DayW
-			gc.Save()
-			gc.BeginPath()
-			a := []float64{2.0, 2.0}
-			gc.SetLineDash(a, 0.0)
+			gc.Push()
+			gc.SetDash(2.0, 2.0)
 			gc.MoveTo(x, y1)
 			gc.LineTo(x, float64(y2))
 			gc.Stroke()
-			gc.Restore()
+			gc.Pop()
 			period = currentPeriod
 		}
 	}
 
-	gc.Restore()
+	gc.Pop()
 }
 
-func drawCalendarRow(d *Data, gc *draw2dimg.GraphicContext, y float64, strokeColor, fillColor color.Color, fn func(time.Time) string) {
+func drawCalendarRow(d *Data, gc *gg.Context, y float64, strokeColor, fillColor color.Color, fn func(time.Time) string) {
 	var period string
 	var from int
 	for i := 0; i <= d.Days; i++ {
@@ -237,7 +232,6 @@ func drawCalendarRow(d *Data, gc *draw2dimg.GraphicContext, y float64, strokeCol
 			}
 			y2 := y + d.RowH
 
-			//TODO: debug points here
 			drawBlock(d, gc, x1, y, x2, y2, strokeColor, fillColor, period, true)
 
 			// now update from for next section
@@ -247,7 +241,7 @@ func drawCalendarRow(d *Data, gc *draw2dimg.GraphicContext, y float64, strokeCol
 	}
 }
 
-func drawStripe(d *Data, gc *draw2dimg.GraphicContext, index int, y1, y2 float64) {
+func drawStripe(d *Data, gc *gg.Context, index int, y1, y2 float64) {
 	color := d.StripeColorDark
 	if index%2 != 0 {
 		color = d.StripeColorLight
@@ -256,29 +250,38 @@ func drawStripe(d *Data, gc *draw2dimg.GraphicContext, index int, y1, y2 float64
 	y1 -= d.RowH / 2
 	y2 += d.RowH / 2
 
-	gc.Save()
-	gc.SetStrokeColor(color)
-	gc.SetFillColor(color)
-	gc.BeginPath()
+	gc.Push()
+	gc.SetStrokeStyle(gg.NewSolidPattern(color))
+	gc.SetFillStyle(gg.NewSolidPattern(color))
 	gc.MoveTo(0, y1)
 	gc.LineTo(d.ChartW, y1)
 	gc.LineTo(d.ChartW, y2)
 	gc.LineTo(0, y2)
-	gc.Close()
-	gc.FillStroke()
-	gc.Restore()
+	gc.LineTo(0, y1)
+	gc.Stroke()
+	gc.LineTo(d.ChartW, y1)
+	gc.LineTo(d.ChartW, y2)
+	gc.LineTo(0, y2)
+	gc.LineTo(0, y1)
+	gc.Fill()
+	gc.Pop()
 }
 
-func drawScene(d *Data, i18n []*Locale) image.Image {
-	w, h, rowH := d.W, d.H, d.RowH
+func drawScene(d *Data, i18n []*Locale) *gg.Context {
+	w, rowH := d.W, d.RowH
 
 	// i18n selection
 	localeIndex := getLocaleIndex(d.MySettings.Lang, i18n)
 
-	dest := image.NewRGBA(image.Rect(0, 0, int(w), int(h)))
-	gc := draw2dimg.NewGraphicContext(dest)
+	//TODO: calculate expected height - requires method
+	h := d.RowH * (4.0 + float64(len(d.Tasks)*2) + 0.5)
+	gc := gg.NewContext(int(w), int(h))
 
-	gc.SetFontSize(d.FontSize) //preserve scale
+	font, _ := truetype.Parse(goregular.TTF)
+	face := truetype.NewFace(font, &truetype.Options{
+		Size: 14,
+	})
+	gc.SetFontFace(face)
 
 	// calendar functions
 	fnYear := func(t time.Time) string {
@@ -326,7 +329,7 @@ func drawScene(d *Data, i18n []*Locale) image.Image {
 	// increment y as needed
 	y = 0
 
-	gc.Save()
+	gc.Push()
 	gc.Translate(d.LabelW, 0)
 	// year
 	drawCalendarRow(d, gc, y, d.FrameBorderColor, d.FrameFillColor, fnYear)
@@ -370,7 +373,7 @@ func drawScene(d *Data, i18n []*Locale) image.Image {
 	y += rowH
 	drawCalendarGuides(d, gc, y, y+float64(len(d.Tasks))*2.0*rowH+2*rowH, fnGuide)
 
-	gc.Restore()
+	gc.Pop()
 
 	y += d.RowH / 2
 
@@ -396,7 +399,7 @@ func drawScene(d *Data, i18n []*Locale) image.Image {
 		y1 := y
 		y2 := y + rowH
 
-		gc.Save()
+		gc.Push()
 		gc.Translate(d.LabelW, 0)
 		drawDropShadow(gc, x1, y1, x2, y2)
 		drawBlock(d, gc, x1, y1, x2, y2, task.BorderColor, task.FillColor, task.Label, false)
@@ -409,23 +412,23 @@ func drawScene(d *Data, i18n []*Locale) image.Image {
 				drawBlock(d, gc, recurX, y1, recurX+recurW, y2, task.BorderColor, task.FillColor, "", false)
 			}
 		}
-		gc.Restore()
+		gc.Pop()
 
 		//write out label
 		label := task.Label
-		gc.Save()
-		gc.SetFillColor(color.RGBA{0x00, 0x00, 0x00, 0xff})
+		gc.Push()
+		gc.SetFillStyle(gg.NewSolidPattern(color.RGBA{0x00, 0x00, 0x00, 0xff}))
 
 		_, ty1, _, ty2 := bounds(gc, label)
 
 		th := ty2 - ty1
 		adjustedTextY := y2 - th*0.5
 
-		gc.FillStringAt(label, 0, adjustedTextY)
-		gc.Restore()
+		gc.DrawString(label, 0, adjustedTextY)
+		gc.Pop()
 
 		//draw milestones
-		gc.Save()
+		gc.Push()
 		gc.Translate(d.LabelW, 0)
 		for _, milestone := range task.Milestones {
 			milestoneTime := parseDateStamp(milestone)
@@ -437,10 +440,10 @@ func drawScene(d *Data, i18n []*Locale) image.Image {
 				}
 			}
 		}
-		gc.Restore()
+		gc.Pop()
 
 		//draw datestamps
-		gc.Save()
+		gc.Push()
 		gc.Translate(d.LabelW, 0)
 		for _, dateStamp := range task.DateStamps {
 			dateStampTime := parseDateStamp(dateStamp)
@@ -452,10 +455,10 @@ func drawScene(d *Data, i18n []*Locale) image.Image {
 			var label = dateStampTime.Format(i18n[localeIndex].Layout)
 			drawDateStamp(d, gc, float64(i)*d.DayW, y1+rowH/2, label)
 		}
-		gc.Restore()
+		gc.Pop()
 
 		//draw arrows (end)
-		gc.Save()
+		gc.Push()
 		gc.Translate(d.LabelW, 0)
 		for _, endTo := range task.EndTo {
 			arrowStartTime := task.EndTime
@@ -479,12 +482,12 @@ func drawScene(d *Data, i18n []*Locale) image.Image {
 				y1 := y + d.RowH/2
 				y2 := y + float64(endTo)*2*d.RowH
 
-				gc.BeginPath()
 				gc.MoveTo(x1, y1)
 				gc.LineTo(x2, y1)
 				gc.LineTo(x2, y2)
+				gc.Stroke()
 				drawArrowHeadS(d, gc, x2, y2)
-				gc.FillStroke()
+				gc.Stroke()
 			} else {
 				//special case: arrow moves in direct line down
 				x1 := float64(dayIndex(arrowEndTime, d.First, d.Last)) * d.DayW
@@ -492,17 +495,16 @@ func drawScene(d *Data, i18n []*Locale) image.Image {
 				y1 := y + d.RowH
 				y2 := y + float64(endTo)*2*d.RowH
 
-				gc.BeginPath()
 				gc.MoveTo(x1, y1)
 				gc.LineTo(x2, y2)
+				gc.Stroke()
 				drawArrowHeadS(d, gc, x2, y2)
-				gc.FillStroke()
 			}
 		}
-		gc.Restore()
+		gc.Pop()
 
 		//draw arrows (start)
-		gc.Save()
+		gc.Push()
 		gc.Translate(d.LabelW, 0)
 		for _, startTo := range task.StartTo {
 			arrowStartTime := task.StartTime
@@ -526,30 +528,29 @@ func drawScene(d *Data, i18n []*Locale) image.Image {
 			y2 := y + float64(startTo)*2*d.RowH
 
 			if x1 == x2 {
-				gc.BeginPath()
 				gc.MoveTo(x1, y1)
 				gc.LineTo(x2, y2)
+				gc.Stroke()
 				drawArrowHeadS(d, gc, x2, y2)
-				gc.FillStroke()
+				gc.Stroke()
 			} else if x1 < x2 {
 				y2 += d.RowH / 2
 
-				gc.BeginPath()
 				gc.MoveTo(x1, y1)
 				gc.LineTo(x1, y2)
 				gc.LineTo(x2, y2)
+				gc.Stroke()
 				drawArrowHeadE(d, gc, x2, y2)
-				gc.FillStroke()
 			}
 		}
-		gc.Restore()
+		gc.Pop()
 		y += d.RowH * 2
 	}
 
 	//crop dest
 	y += rowH
-	rect := image.Rect(0.0, 0.0, int(w), int(y+rowH))
-	cropped := dest.SubImage(rect)
+	//rect := image.Rect(0.0, 0.0, int(w), int(y+rowH))
+	//cropped := dest.SubImage(rect)
 
-	return cropped
+	return gc //cropped
 }
