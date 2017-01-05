@@ -3,11 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/golang/freetype/truetype"
-	"github.com/llgcode/draw2d"
-	"github.com/llgcode/draw2d/draw2dimg"
+	//"github.com/fogleman/gg"
 	"github.com/xeipuuv/gojsonschema"
-	"golang.org/x/image/font/gofont/goregular"
 	"io/ioutil"
 	"strings"
 	"time"
@@ -36,7 +33,7 @@ func processFile(inputPath string, ch chan<- ShortResult) {
 	}
 
 	//save to file
-	draw2dimg.SaveToPngFile(outputPath, result.Image)
+	result.Context.SavePNG(outputPath)
 
 	secs := time.Since(start).Seconds()
 
@@ -86,27 +83,11 @@ func processBytes(bytes []byte) Result {
 		return Result{fmt.Sprintf(errString), 1, nil}
 	}
 
-	var cache = &MyFontCache{
-		fonts: make(map[string]*truetype.Font),
-	}
+	ctx := drawScene(&data, i18n)
 
-	regular, _ := truetype.Parse(goregular.TTF)
-
-	cache.Store(draw2d.FontData{
-		Name:   "goregular",
-		Family: draw2d.FontFamilySans,
-		Style:  draw2d.FontStyleNormal,
-	}, regular)
-
-	draw2d.SetFontFolder(".")
-	draw2d.SetFontCache(cache)
-
-	img := drawScene(&data, i18n)
-
-	b := img.Bounds()
-	w := b.Max.X
-	h := b.Max.Y
+	w := ctx.Width()
+	h := ctx.Height()
 
 	secs := time.Since(start).Seconds()
-	return Result{fmt.Sprintf("Image dimensions %d✕%d: %.2fs", w, h, secs), 0, img}
+	return Result{fmt.Sprintf("Image dimensions %d✕%d: %.2fs", w, h, secs), 0, ctx}
 }
