@@ -23,8 +23,8 @@ func serve(hostname string, port int) {
 	http.HandleFunc("/timeline/compose", guiHandler)
 	http.HandleFunc("/timeline", handler)
 	fmt.Printf("Listening on port %d\n"+
-		"POST JSON sources to http://localhost:%d/timeline\n"+
-		"Compose timelines at http://localhost:%d/timeline/compose\n", port, port, port)
+		"POST JSON sources to http://%s:%d/timeline\n"+
+		"Compose timelines at http://%s:%d/timeline/compose\n", port, hostname, port, hostname, port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%d", hostname, port), nil))
 }
 
