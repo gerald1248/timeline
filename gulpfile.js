@@ -17,6 +17,7 @@ var gulp  = require('gulp'),
 
 var pkg = require('./package.json');
 var platform = os.platform()
+var arch = os.arch()
 if (platform === "linux") {
   var obj = getos(function(e, os) {
     if (!e) {
@@ -105,7 +106,7 @@ gulp.task('package-binary', function() {
 
 gulp.task('dist', function() {
   return gulp.src('./package/**/*', { base: './package' })
-    .pipe(zip(pkg.name + '-' + pkg.version + '-' + platform + '.zip'))
+    .pipe(zip(pkg.name + '-' + pkg.version + '-' + platform + '-' + arch + '.zip'))
     .pipe(md5())
     .pipe(gulp.dest('./dist'));
 });
@@ -156,7 +157,12 @@ gulp.task('clean-home', function() {
 });
 
 gulp.task('clean-build', function() {
-  return del.sync(['./dist/' + pkg.name + '-*-' + platform + '_*.zip', './package/**/*', './static/*.json'], { force: true });
+  return del.sync([
+    './dist/' + pkg.name + '-*-' + platform + '_*.zip',
+    './dist/' + pkg.name + '-*-' + platform + '-' + arch + '_*.zip',
+    './package/**/*',
+    './static/*.json'
+  ], { force: true });
 });
 
 gulp.task('build-bindata', function(callback) {
