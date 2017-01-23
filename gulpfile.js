@@ -173,6 +173,46 @@ gulp.task('build-bindata', function(callback) {
   });
 });
 
+//call this task to cross-compile
+gulp.task('build-win32', function(callback) {
+  runSequence(
+    'get',
+    'fmt',
+    'vet',
+    'build-api',
+    'build-js',
+    'build-css',
+    'build-html',
+    'build-i18n',
+    'build-bindata',
+		'install-go-win32',
+    'build-go-win32',
+    'package-binary',
+    'dist',
+    'clean-home',
+    callback);
+});
+
+//install amd64 standard packages
+gulp.task('install-go-win32', function(callback) {
+  exec('GOOS=windows GOARCH=amd64 go install', function(err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    callback(err);
+  });
+});
+
+//now build with hardcoded win32 target
+gulp.task('build-go-win32', function(callback) {
+  platform = "win32"
+  arch = "386"
+  exec('GOOS=windows GOARCH=386 go build', function(err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    callback(err);
+  });
+});
+
 gulp.task('watch', function() {
   gulp.watch(['./*.go', './data/*.json', './src/**/*'], [
     'build'
