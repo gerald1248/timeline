@@ -216,7 +216,7 @@ You can also run `gulp build`, `gulp test`, `gulp watch`, etc. individually if y
 
 Cross-compiling for Windows
 ---------------------------
-To build Windows executables, enter:
+To build Windows executables *on Mac or Linux*, enter:
 ```
 $ gulp build-win32
 ```
@@ -224,4 +224,4 @@ This will install the standard amd64 packages and create a Windows binary in `pa
 
 Adding languages
 ----------------
-Adding a language is as simple as adding a brief entry to (i18n/i18n.json)[i18n/i18n.json]. The `lang` property holds the ISO language code (e.g. `en-gb`); the `months` property gives the names of the months; the `layout` property is explained in the Go documentation: see (golang.org)[https://golang.org/pkg/time/#Parse].
+Adding a language is as simple as adding a brief entry to [i18n/i18n.json](i18n/i18n.json). The `lang` property holds the ISO language code (e.g. `en-gb`); the `months` property gives the names of the months; the `layout` property is explained in the Go documentation: see [golang.org](https://golang.org/pkg/time/#Parse).
