@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "lang": "en-gb"
+  },
+  "tasks": [
+    {
+      "start": "2016-12-01",
+      "end": "2016-12-31",
+      "label": "Thursday 1/12 to Saturday 31/12",
+      "dateStamps": ["2016-12-01", "2016-12-31"]
+    }
+  ]
+}
