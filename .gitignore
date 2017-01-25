@@ -10,3 +10,4 @@ node_modules
 package
 target
 timeline
+dist/
