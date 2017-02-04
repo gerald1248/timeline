@@ -49,7 +49,7 @@ For example, the timeline in **Fig. 1** above was generated from the following i
       "start": "2016-02-12",
       "end": "2016-02-13",
       "label": "Dare",
-      "recur": "14"
+      "recur": 14
     },
     {
       "start": "2016-02-25",
@@ -86,7 +86,7 @@ The `startTo` and `endTo` properties describe arrow dependencies. Take the follo
 ```
 This configuration draws two arrows starting at the end of the current task, one pointing to the next task and another to the task after that.
 
-The `recur` property sets up a recurring task: a fortnightly visit to a haunted house, for example, can be shown by setting `recur` to the string "14".
+The `recur` property sets up a recurring task: a fortnightly visit to a haunted house, for example, can be shown by setting `recur` to the number `14`.
 
 ![Unthemed sample timeline](data/sample_unthemed.png?raw=true "Unthemed sample timeline")
 **Fig. 4** Unthemed timeline
