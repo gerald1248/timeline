@@ -7,6 +7,7 @@ bower_components
 docker
 exclude
 node_modules
-package
+package/
+dist/
 target
 timeline

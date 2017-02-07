@@ -133,7 +133,7 @@ In this sample, the initial placeholder "-" signifies 'timeline ends today', whe
 Running `timeline`
 ------------------
 
-If there is a \*.zip for your operating system under `timeline/dist`, you can download the zip and enter:
+If there is a \*.zip for your operating system under releases, you can download the zip and enter:
 ```
 $ ./timeline path/to/some/datafile.json
 ```
@@ -143,18 +143,31 @@ Calling `timeline` without parameters will launch the server:
 
 ```
 $ ./timeline
-Listening on port 8000
-POST JSON sources to http://localhost:8000/timeline
-Compose timelines at http://localhost:8000/timeline/compose
+Listening on port 8443
+POST JSON sources to http://localhost:8443/timeline
+Compose timelines at http://localhost:8443/timeline/compose
 ```
 
-If you would rather not open port 8000, you can specify a different one using the `-p` switch:
+If you would rather not open port 8443, you can specify a different one using the `-p` switch:
 
 ```
-$ ./timeline -p 8421
-Listening on port 8421
-POST JSON sources to http://localhost:8421/timeline
-Compose timelines at http://localhost:8421/timeline/compose
+$ ./timeline -p 10443
+Listening on port 10443
+POST JSON sources to http://localhost:10443/timeline
+Compose timelines at http://localhost:10443/timeline/compose
+```
+
+`--help` or `-h` prints all available options:
+```
+Usage: ./timeline [<JSON file> [<JSON file>]]
+  -c string
+    	TLS server certificate (default "cert.pem")
+  -k string
+    	TLS server key (default "key.pem")
+  -n string
+    	Hostname (default "localhost")
+  -p int
+    	listen on port (default 8443)
 ```
 
 Build
@@ -183,9 +196,13 @@ src
             ├── draw.go
             ├── gulpfile.js
             ├── package.json
+            ├── preflight.go
+            ├── preflight_test.go
+            ├── package.json
             ├── theme.go
             ├── theme_test.go
-            └── timeline.go
+            ├── timeline.go
+            └── types.go
 ```
 
 Next, install Node.js with npm using your package manager. `cd` into the working directory `timeline` and enter:
