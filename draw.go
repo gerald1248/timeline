@@ -379,8 +379,6 @@ func drawScene(d *Data, i18n []*Locale) *gg.Context {
 
 	//iterate over tasks
 	for index, task := range d.Tasks {
-		//y = 4.5*rowH + float64(index)*rowH*2 + 1.0
-
 		start := dayIndex(task.StartTime, d.First, d.Last)
 		end := dayIndex(task.EndTime, d.First, d.Last)
 
@@ -547,10 +545,8 @@ func drawScene(d *Data, i18n []*Locale) *gg.Context {
 		y += d.RowH * 2
 	}
 
-	//crop dest
 	y += rowH
-	//rect := image.Rect(0.0, 0.0, int(w), int(y+rowH))
-	//cropped := dest.SubImage(rect)
+	//TODO: crop if less tall than precalculated image
 
 	return gc //cropped
 }

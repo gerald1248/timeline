@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	//"github.com/fogleman/gg"
 	"github.com/xeipuuv/gojsonschema"
 	"io/ioutil"
 	"strings"
@@ -16,6 +15,12 @@ func processFile(inputPath string, ch chan<- ShortResult) {
 	buffer, err := ioutil.ReadFile(inputPath)
 	if err != nil {
 		ch <- ShortResult{fmt.Sprintf("can't read input file: %v\n", err), 1}
+		return
+	}
+
+	err = preflightAsset(&buffer, inputPath)
+	if err != nil {
+		ch <- ShortResult{fmt.Sprintf("input failed preflight check: %v\n", err), 1}
 		return
 	}
 

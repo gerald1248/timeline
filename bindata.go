@@ -187,7 +187,7 @@ func staticCssMainCss() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "static/css/main.css", size: 51, mode: os.FileMode(420), modTime: time.Unix(1485198295, 0)}
+	info := bindataFileInfo{name: "static/css/main.css", size: 51, mode: os.FileMode(420), modTime: time.Unix(1486446619, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -307,7 +307,11 @@ func staticI18nJson() (*asset, error) {
 		return nil, err
 	}
 
+<<<<<<< HEAD
+	info := bindataFileInfo{name: "static/i18n.json", size: 462, mode: os.FileMode(420), modTime: time.Unix(1486446619, 0)}
+=======
 	info := bindataFileInfo{name: "static/i18n.json", size: 462, mode: os.FileMode(420), modTime: time.Unix(1485198295, 0)}
+>>>>>>> master
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -427,7 +431,11 @@ func staticIndexHtml() (*asset, error) {
 		return nil, err
 	}
 
+<<<<<<< HEAD
+	info := bindataFileInfo{name: "static/index.html", size: 6665, mode: os.FileMode(420), modTime: time.Unix(1486446619, 0)}
+=======
 	info := bindataFileInfo{name: "static/index.html", size: 6665, mode: os.FileMode(420), modTime: time.Unix(1485198295, 0)}
+>>>>>>> master
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -507,7 +515,11 @@ func staticJsBundleMinJs() (*asset, error) {
 		return nil, err
 	}
 
+<<<<<<< HEAD
+	info := bindataFileInfo{name: "static/js/bundle-min.js", size: 7208, mode: os.FileMode(420), modTime: time.Unix(1486446619, 0)}
+=======
 	info := bindataFileInfo{name: "static/js/bundle-min.js", size: 7208, mode: os.FileMode(420), modTime: time.Unix(1485198295, 0)}
+>>>>>>> master
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -527,7 +539,11 @@ func staticJsBundleJs() (*asset, error) {
 		return nil, err
 	}
 
+<<<<<<< HEAD
+	info := bindataFileInfo{name: "static/js/bundle.js", size: 32587, mode: os.FileMode(420), modTime: time.Unix(1486446619, 0)}
+=======
 	info := bindataFileInfo{name: "static/js/bundle.js", size: 32587, mode: os.FileMode(420), modTime: time.Unix(1485198295, 0)}
+>>>>>>> master
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -587,7 +603,11 @@ func staticTimelineSchemaJson() (*asset, error) {
 		return nil, err
 	}
 
+<<<<<<< HEAD
+	info := bindataFileInfo{name: "static/timeline-schema.json", size: 1976, mode: os.FileMode(420), modTime: time.Unix(1486446619, 0)}
+=======
 	info := bindataFileInfo{name: "static/timeline-schema.json", size: 1976, mode: os.FileMode(420), modTime: time.Unix(1485198295, 0)}
+>>>>>>> master
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
