@@ -144,8 +144,8 @@ Calling `timeline` without parameters will launch the server:
 ```
 $ ./timeline
 Listening on port 8443
-POST JSON sources to http://localhost:8443/timeline
-Compose timelines at http://localhost:8443/timeline/compose
+POST JSON sources to https://localhost:8443/timeline
+Compose timelines at https://localhost:8443/timeline/compose
 ```
 
 If you would rather not open port 8443, you can specify a different one using the `-p` switch:
@@ -153,8 +153,8 @@ If you would rather not open port 8443, you can specify a different one using th
 ```
 $ ./timeline -p 10443
 Listening on port 10443
-POST JSON sources to http://localhost:10443/timeline
-Compose timelines at http://localhost:10443/timeline/compose
+POST JSON sources to https://localhost:10443/timeline
+Compose timelines at https://localhost:10443/timeline/compose
 ```
 
 `--help` or `-h` prints all available options:
@@ -233,7 +233,7 @@ You can also run `gulp build`, `gulp test`, `gulp watch`, etc. individually if y
 
 Cross-compiling for Windows
 ---------------------------
-To build Windows executables *on Mac or Linux*, enter:
+To build Windows executables on Mac or Linux, enter:
 ```
 $ gulp build-win32
 ```
