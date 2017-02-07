@@ -25,7 +25,7 @@ func serve(certificate, key, hostname string, port int) {
 	if err != nil {
 		err = httpscerts.Generate(certificate, key, fmt.Sprintf("%s:%d", hostname, port))
 		if err != nil {
-			log.Fatal("Error: Couldn't create https certs.")
+			log.Fatal("Can't create https certs")
 		}
 		fmt.Printf("Created %s and %s\n", certificate, key)
 	}
@@ -35,8 +35,8 @@ func serve(certificate, key, hostname string, port int) {
 	http.HandleFunc("/timeline", handler)
 
 	fmt.Printf("Listening on port %d\n"+
-		"POST JSON sources to http://%s:%d/timeline\n"+
-		"Compose timelines at http://%s:%d/timeline/compose\n", port, hostname, port, hostname, port)
+		"POST JSON sources to https://%s:%d/timeline\n"+
+		"Compose timelines at https://%s:%d/timeline/compose\n", port, hostname, port, hostname, port)
 	log.Fatal(http.ListenAndServeTLS(fmt.Sprintf("%s:%d", hostname, port), certificate, key, nil))
 }
 
