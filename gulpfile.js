@@ -13,8 +13,7 @@ var gulp  = require('gulp'),
   jsonminify = require('gulp-jsonminify'),
   os = require('os'),
   getos = require('getos'),
-  md5 = require('gulp-md5'),
-	rename = require('gulp-rename');
+  md5 = require('gulp-md5');
 
 var pkg = require('./package.json');
 var platform = os.platform()
