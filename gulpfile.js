@@ -158,6 +158,10 @@ gulp.task('vet', function(callback) {
   });
 });
 
+gulp.task('clean-package', function() {
+  return del.sync(['./package/*'], { force: true });
+});
+
 gulp.task('clean-home', function() {
   return del.sync(['./timeline', './timeline.exe'], { force: true });
 });
@@ -193,6 +197,7 @@ gulp.task('build-win32', function(callback) {
     'build-bindata',
 		'install-go-win32',
     'build-go-win32',
+    'clean-package',
     'package-binary',
     'dist',
     'clean-home',
@@ -217,6 +222,35 @@ gulp.task('build-go-win32', function(callback) {
     console.log(stderr);
     callback(err);
   });
+});
+
+gulp.task('build-go-linux-x64', function(callback) {
+  platform = "linux"
+  arch = "x64"
+  exec('GOOS=linux GOARCH=amd64 go build' + raceSwitch, function(err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    callback(err);
+  });
+});
+
+gulp.task('build-linux', function(callback) {
+  runSequence(
+    //skip clean-build to retain dist
+    'fmt',
+    'vet',
+    'build-js',
+    'build-css',
+    'build-html',
+    'build-bindata',
+    'build-go-linux-x64',
+    'clean-package',
+    'package-binary',
+    'package-snakeoil',
+    'dist',
+    'clean-home',
+    //skip tests as binary won't run
+    callback);
 });
 
 gulp.task('watch', function() {
