@@ -233,11 +233,11 @@ You can also run `gulp build`, `gulp test`, `gulp watch`, etc. individually if y
 
 Cross-compilation
 -----------------
-To build Windows executables on Mac or Linux, enter:
+To cross-compile Mac, Linux and Windows binaries, enter:
 ```
-$ gulp build-win32
+$ gulp build-all
 ```
-This will install the standard amd64 packages and create a Windows binary in `package` and a distributable Windows zip archive in `dist`.
+You can also individually cross-compile using the `build-darwin`, `build-linux` and `build-windows` targets.
 
 To build the equivalent Linux target, enter:
 ```

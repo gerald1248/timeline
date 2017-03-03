@@ -112,7 +112,7 @@ gulp.task('package-snakeoil', function() {
 
 gulp.task('dist', function() {
   return gulp.src('./package/**/*', { base: './package' })
-    .pipe(zip(pkg.name + '-' + pkg.version + '-' + platform + '-' + arch + '.zip'))
+    .pipe(zip(pkg.name + '-' + pkg.version + '-' + platform + '-x64.zip'))
     .pipe(md5())
     .pipe(gulp.dest('./dist'));
 });
@@ -175,6 +175,10 @@ gulp.task('clean-build', function() {
   ], { force: true });
 });
 
+gulp.task('clean-dist', function() {
+  return del.sync(['./dist/*.zip'], { force: true });
+});
+
 gulp.task('build-bindata', function(callback) {
   exec('go-bindata static/...', function(err, stdout, stderr) {
     console.log(stdout);
@@ -183,8 +187,7 @@ gulp.task('build-bindata', function(callback) {
   });
 });
 
-//call this task to cross-compile
-gulp.task('build-win32', function(callback) {
+gulp.task('build-platform', function(callback) {
   runSequence(
     'get',
     'fmt',
@@ -195,8 +198,7 @@ gulp.task('build-win32', function(callback) {
     'build-html',
     'build-i18n',
     'build-bindata',
-		'install-go-win32',
-    'build-go-win32',
+    'build-go-platform',
     'clean-package',
     'package-binary',
     'dist',
@@ -204,52 +206,44 @@ gulp.task('build-win32', function(callback) {
     callback);
 });
 
-//install amd64 standard packages
-gulp.task('install-go-win32', function(callback) {
-  exec('GOOS=windows GOARCH=amd64 go install', function(err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    callback(err);
-  });
-});
-
-//now build with hardcoded win32 target
-gulp.task('build-go-win32', function(callback) {
-  platform = "win32"
-  arch = "386"
-  exec('GOOS=windows GOARCH=386 go build', function(err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    callback(err);
-  });
-});
-
-gulp.task('build-go-linux-x64', function(callback) {
-  platform = "linux"
-  arch = "x64"
-  exec('GOOS=linux GOARCH=amd64 go build' + raceSwitch, function(err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    callback(err);
-  });
+gulp.task('build-windows', function(callback) {
+	platform = "windows";
+  arch = "amd64"
+  runSequence(
+    'build-platform',
+    callback);
 });
 
 gulp.task('build-linux', function(callback) {
+	platform = "linux";
+  arch = "amd64"
   runSequence(
-    //skip clean-build to retain dist
-    'fmt',
-    'vet',
-    'build-js',
-    'build-css',
-    'build-html',
-    'build-bindata',
-    'build-go-linux-x64',
-    'clean-package',
-    'package-binary',
-    'package-snakeoil',
-    'dist',
-    'clean-home',
-    //skip tests as binary won't run
+		'build-platform',
+    callback);
+});
+
+gulp.task('build-darwin', function(callback) {
+	platform = "darwin";
+  arch = "amd64"
+  runSequence(
+		'build-platform',
+    callback);
+});
+
+gulp.task('build-go-platform', function(callback) {
+  exec('GOOS=' + platform + ' GOARCH=' + arch + ' go build', function(err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    callback(err);
+  });
+});
+
+gulp.task('build-all', function(callback) {
+  runSequence(
+    'clean-dist',
+    'build-windows',
+    'build-linux',
+    'build-darwin',
     callback);
 });
 

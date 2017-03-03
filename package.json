@@ -1,6 +1,6 @@
 {
   "name": "timeline",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "timeline generator",
   "main": "timeline.go",
   "scripts": {
