@@ -239,11 +239,6 @@ $ gulp build-all
 ```
 You can also individually cross-compile using the `build-darwin`, `build-linux` and `build-windows` targets.
 
-To build the equivalent Linux target, enter:
-```
-$ gulp build-linux
-```
-
 Localization
 ------------
 Adding a language is as simple as adding a brief entry to [i18n/i18n.json](i18n/i18n.json). The `lang` property holds the ISO language code (e.g. `en-gb`); the `months` property gives the names of the months; the `layout` property is explained in the Go documentation: see [golang.org](https://golang.org/pkg/time/#Parse).
