@@ -231,13 +231,13 @@ With that, the workspace is ready. The default task (triggered by `gulp`) compil
 
 You can also run `gulp build`, `gulp test`, `gulp watch`, etc. individually if you wish.
 
-Cross-compiling for Windows
----------------------------
-To build Windows executables on Mac or Linux, enter:
+Cross-compilation
+-----------------
+To cross-compile Mac, Linux and Windows binaries, enter:
 ```
-$ gulp build-win32
+$ gulp build-all
 ```
-This will install the standard amd64 packages and create a Windows binary in `package` and a distributable Windows zip archive in `dist`.
+You can also individually cross-compile using the `build-darwin`, `build-linux` and `build-windows` targets.
 
 Adding languages
 ----------------
